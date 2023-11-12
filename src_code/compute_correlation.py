@@ -7,7 +7,7 @@ import torch
 from dataclasses import dataclass, field
 from utils.correlation import read_correlation_table, compute_correlation
 from utils.masks import MaskDataset
-from eeg_mat.read_data import read_eeg_data
+from utils.read_data import read_eeg_data
 
 @dataclass
 class Config:
@@ -21,7 +21,7 @@ class Config:
     nelectrodes: int = 20
     input_channels: int = 1
     bandpass: bool = False
-    raw: bool = True
+    raw: bool = False
     channels: list = field(default_factory=lambda: ['FP1','FP2', 'F3','F4','F7','F8','T3','T4','C3','C4','T5','T6','P3','P4','O1','O2','FZ','CZ','PZ','A2'])
     
 
@@ -86,7 +86,7 @@ def save_correlation(dataset, channels, nclasses, raw, dir_path):
                 dataset1 = dataset.select_channels(ch1)
                 dataset2 = dataset.select_channels(ch2)
             else:
-                mask_path = './masks_v2/'
+                mask_path = './results_masks/'
                 # get the masks for the two channels
                 dataset1 = MaskDataset(ch=ch1, path=mask_path, nclasses=nclasses)
                 dataset2 = MaskDataset(ch=ch2, path=mask_path, nclasses=nclasses)
@@ -96,12 +96,15 @@ def save_correlation(dataset, channels, nclasses, raw, dir_path):
                 f.write(f'Dataset2 size: {len(dataset2)}\n\n')
             
             zscore, pvalue = None, None
+
             if len(dataset1) > 1 and len(dataset2) > 1:
-                zscore, pvalue, pearson = compute_correlation(dataset1, dataset2, file_path = results_path, raw=raw)
-            
-                table_zscore[i, j] = zscore.item()
-                table_pvalue[i, j] = pvalue.item()
-                table_pearson[i, j] = pearson
+                correlations = compute_correlation(dataset1, dataset2, file_path = results_path, raw=raw)
+                if correlations is not None:
+                    zscore, pvalue, pearson = correlations
+                
+                    table_zscore[i, j] = zscore.item()
+                    table_pvalue[i, j] = pvalue.item()
+                    table_pearson[i, j] = pearson
 
 
     # save tables as pkl in a file along with the channels
@@ -146,12 +149,11 @@ def get_dataset(input_channels, dir_path):
     Return the dataset of eeg data for the specified number of subjects starting from the first one.
     """
     # load data from folder
-    sample_data_folder = './eeg_mat/eeg_data/'
+    sample_data_folder = './eeg_data/'
 
     print(f"Saving results in {dir_path}", flush=True)
 
-    data_path = f'{dir_path}eeg_mat_ch_{str(input_channels)}_ns_{str(CONFIG.number_of_subjects)}_{str(CONFIG.classification)}_05sec.pkl'
-    
+    data_path = f'{dir_path}eeg_mat_ch_{str(input_channels)}_ns_{str(CONFIG.number_of_subjects)}_nc_{str(CONFIG.nclasses)}_{str(CONFIG.classification)}_05sec.pkl'
     dataset = read_eeg_data(sample_data_folder, data_path, input_channels=input_channels, number_of_subjects=CONFIG.number_of_subjects, type = CONFIG.classification, save_spec=False)
 
     return dataset
@@ -190,9 +192,9 @@ if __name__ == "__main__":
         print("Error: too many arguments provided.\n\n", flush=True)
         print_usage()
     
-    sample_data_folder = './eeg_mat/eeg_data/'
+    sample_data_folder = './eeg_data/'
 
-    dir_path = './eeg_mat/results_correlation/'
+    dir_path = './results_correlation/'
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
 
@@ -201,16 +203,12 @@ if __name__ == "__main__":
     CONFIG.datset_size = len(dataset)
     
     # compute correlation for each band
-    
-    """ if CONFIG.raw:
+    if CONFIG.raw:
         for idx in range(len(band_ranges)-1):
             print(f"Computing correlation for band {bands[idx]}", flush=True)
             lowcut = band_ranges[idx]
             highcut = band_ranges[idx+1]
-            
-            # get dataset
-            #dataset = get_dataset(CONFIG.input_channels, lowcut, highcut, bandpass=CONFIG.bandpass, raw=CONFIG.raw, idx=idx)
-            
+         
             # filter dataset in the specified band
             filtered_dataset = dataset.filter_data(lowcut, highcut)
             CONFIG.datset_size = len(filtered_dataset)
@@ -219,29 +217,32 @@ if __name__ == "__main__":
             if len(sys.argv) > 2:
                 CONFIG.channels = selected_channels(filtered_dataset, sys.argv) 
 
-            band_dir_path = dir_path + bands[idx] + '_band' 
-            band_dir_path += '_masks/' if not CONFIG.raw else '/'
-            
+            band_dir_path = dir_path + bands[idx] + '_band'             
 
             # split dataset in more datasets one for each class 
-            correlation_per_class(filtered_dataset, band_dir_path)  """
+            correlation_per_class(filtered_dataset, band_dir_path) 
    
     # compute correlation for the full spectrum
-    band_dir_path = dir_path +  '/full_spectrum/'
+    band_dir_path = dir_path +  '/full_spectrum'
+    
+
     if not os.path.exists(dir_path):
         os.makedirs(band_dir_path) 
     
-    #correlation_per_class(dataset, band_dir_path)
+    correlation_per_class = False
 
-    print(f"Computing correlation for the whole dataset", flush=True)
-    print(len(dataset), len(dataset.raw), flush=True)
-    dataset.raw = np.array(dataset.raw)
+    if correlation_per_class:
+        correlation_per_class(dataset, band_dir_path)
+    else:
+        print(f"Computing correlation for the whole dataset", flush=True)
+        dataset.raw = np.array(dataset.raw)
 
-    dir_path = dir_path + f'class_both/'
-
-    if not os.path.exists(dir_path):
-        os.makedirs(dir_path)
-    save_correlation(dataset, CONFIG.channels, CONFIG.nclasses, raw=CONFIG.raw, dir_path=dir_path)
+        dir_path += '/full_spectrum_masks' if not CONFIG.raw else '/full_spectrum'
+        dir_path  += '/class_boths/'
+        print(dir_path, flush=True)
+        if not os.path.exists(dir_path):
+            os.makedirs(dir_path)
+        save_correlation(dataset, CONFIG.channels, CONFIG.nclasses, raw=CONFIG.raw, dir_path=dir_path)
 
     
     

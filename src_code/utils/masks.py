@@ -48,64 +48,43 @@ class MaskedClf(nn.Module):
 class MaskDataset(torch.utils.data.Dataset):
 
     '''
-    Class that inherits from torch.utils.data.Dataset to store Fourier masks
+    Class that inherits from torch.utils.data.Dataset to store masks
 
     Input:
-    - lobe (str): lobe to consider for which to build the dataset
-    - label (int): label to consider for which to build the dataset
     - path (str): path to the masks
     - nclasses (int): number of classes
-    - dict_ch (dict): dictionary that associates each lobe to the channels to consider
 
     Return: a MaskDataset object with the following attributes:
-    - attribute masks (torch.tensor): tensor that contains Fourier masks
+    - attribute masks (torch.tensor): tensor that contains masks
     - attribute labels (torch.tensor): label of each mask
     - attribute id (torch.tensor): id of each mask made of the subject and the task (which is also the label) e.g. S001R03 + 0
     - attribute channel (torch.tensor): channel of each mask
 
     '''
 
-    def __init__(self, ch=None, lobe = None, label=None, path = None, nclasses=None, dict_ch=None):
+    def __init__(self, ch=None, path = None, nclasses=None, dict_ch=None):
 
         self.masks=[]
         self.labels=[]
         self.id=[]
         self.channel=[]
-        self.lobe = lobe
-        self.label = label
 
         if path is not None:
-            # file pickle for the dataset
-            file_path = path + str(lobe) + "_dataset.pkl"
 
-            """ if os.path.isfile(file_path):
-            dataset = pickle.load(open(file_path, 'rb'))
-            self.masks = dataset.masks
-            self.labels = dataset.labels
-            self.id = dataset.id
-            self.channel = dataset.channel
-            return """
-            
             for c in range(nclasses):
                 class_list=sorted(os.listdir(path+str(c)))
                 
                 for mask in class_list:
-                    channel = str(mask).split('_')[2][:-4]
-                    if self.lobe is not None and channel not in dict_ch[self.lobe]: # insert only masks of the lobe
+                    channel = str(mask).split('_')[3][:-4]
+                    if ch is not None and channel != ch: # if channel is specified, skip masks that do not belong to that channel
                         continue
-                    if self.label is not None and c != self.label:
-                        continue
-                    if ch is not None and channel != ch:
-                        continue
-
                     self.masks.append(np.load(path+str(c)+"/"+mask))
                     self.labels.append(c)
-                    self.id.append(str(mask).split('_')[0] + '_' + str(mask).split('_')[1] + '_' + str(c) ) # subject + epoch + label
+                    id = f'{str(mask)[7:].split("_")[0]}_{str(mask).split("_")[1]}_{str(mask).split("_")[2]}' # subject + label + epoch
+                    print(id)
+                    self.id.append(id) 
                     self.channel.append(channel)
 
-            # save dataset
-            with open(file_path, 'wb') as f:
-                pickle.dump(self, f)
 
     
         

@@ -24,10 +24,9 @@ class Config:
     start_idx: int = 0
     end_idx: int = 0
     nclasses: int = 2
-    nelectrodes: int = 20
     classification: str = 'ms'
     model_path: str = './results_classifier/resnet18_20231111-153301/best_model_params.pt'
-    ndim: int = 2
+    save_figures: bool = False
     input_channels: int = 20
     train_rate: float = 0.8
     valid_rate: float = 0.1
@@ -121,7 +120,7 @@ if __name__ == "__main__":
         dataset_tmp.raw[i] = (raw - torch.min(raw))/(torch.max(raw) -torch.min(raw))
 
 
-    while end_idx < 100:#len(dataset):
+    while end_idx < len(dataset):
         spectrograms, raw_signals, labels, ids, channels = dataset_tmp[start_idx:end_idx]
         spectrograms = torch.from_numpy(np.asarray(spectrograms)).float()
         raw_signals = torch.from_numpy(np.asarray(raw_signals))
@@ -130,7 +129,7 @@ if __name__ == "__main__":
         channels = np.asarray(channels)
 
         print(start_idx, end_idx)
-        ess_train(model, spectrograms, raw_signals, labels, ids, channels, lam, mask_path, image_size, nchannels, figures=True)
+        ess_train(model, spectrograms, raw_signals, labels, ids, channels, lam, mask_path, image_size, nchannels, figures=CONFIG.save_figures)
         print("Last image processed: ", end_idx, flush=True)
         start_idx = end_idx
         end_idx = batch_size + start_idx

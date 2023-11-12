@@ -2,7 +2,7 @@ import torch
 import mne
 from mne.channels import make_standard_montage, make_dig_montage
 from scipy.signal import spectrogram
-from utils.eeg_dataset import EEGDataset
+from utils.read_data import EEGDataset
 from matplotlib import pyplot as plt
 from sklearn.metrics import confusion_matrix
 import seaborn as sns

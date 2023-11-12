@@ -17,71 +17,31 @@ import numpy as np
 
 
 
-def plot_spectrogram(folder, dataset, subject=1, recording=4, channel='C1', nepoch=0, notitle=False, plot=True):
+def plot_spectrogram(raw_signal, channel, id):
     """
     Function to show single channel spectrogram
     Input:
-        folder: folder containing the data
-        dataset: an EEG custom dataset
-        subject: subject ID (int)
-        recording: recording ID (int)
+        raw_signal: raw signal
         channel: channel name
-        epoch: epoch ID (int)
-        plot: if True, plot the spectrogram
+        id: id of the recording
     """
-    raw, raw_dict = get_raw(folder, dataset, subject, recording, nepoch)
-    # select channel    
-    raw = raw.pick([channel])
-    raw = np.asarray(raw.get_data())
-    fs, nperseg, noverlap = set_spectrogram_params(raw_dict)
-    _,_, spectr = spectrogram(raw, fs=fs,  window='hann', nperseg=nperseg, noverlap=noverlap, scaling='spectrum', mode='magnitude', detrend=False)
 
-    if plot:
-        plt.imshow(spectr.squeeze(0), origin='lower', vmin=0)
-        plt.colorbar(label='Amplitude(V)')
-        plt.xlabel('Time (s)')
-        plt.ylabel('Frequency (Hz)')
-        if not notitle:
-            plt.title('Subject ' + str(subject) + ' recording ' + str(recording) + ' channel ' + str(channel) + ' epoch ' + str(nepoch))
-        plt.show()
+    spectrogram = compute_wavelet_transform(raw_signal, fs=500, n_cycles=5, freqs=np.arange(10, 70, 2))
 
-    return raw, spectr
-
-
-
-
-def plot_raw(folder, dataset, subject=1, recording=4, channel=None, nepoch=None):
-    """
-    Plot raw data in dataset.
-    Input:
-        folder: folder containing the data
-        dataset: an EEG custom dataset
-        subject: subject ID (int)
-        recording: recording ID (int)
-        channel: channel name
-            - if None, plot all channels
-        epoch: epoch ID (int)
-            - if None, plot first epoch
-    """
-    # get raw object
-    raw, _ = get_raw(folder, dataset, subject, recording, nepoch)
-    
-    # select channel    
-    channel = channel if channel is not None else 'all'
-    if channel != 'all':
-        raw = raw.pick([channel])
-
-    
-    # plot psd
-    plt.figure(figsize=(20, 5))
-    
-    plt.plot(raw.times, raw.get_data().squeeze(0).T)
+    plt.imshow(np.abs(spectrogram), origin='lower', vmin=0,  aspect='auto', extent=[0, 250, 10, 70])
+    plt.colorbar(label='Amplitude(V)')
     plt.xlabel('Time (s)')
-    plt.ylabel('Amplitude (V)')
-    plt.title('Subject ' + str(subject) + ' recording ' + str(recording) + ' channel ' + str(channel) + ' epoch ' + str(nepoch), loc='right')
+    plt.ylabel('Frequency (Hz)')
+    
+    subject = int(id[7:9])
+    epoch = id.split('_')[2]
+    plt.title('Subject ' + str(subject) + ' recording - channel ' + str(channel) + ' epoch ' + str(epoch))
     plt.show()
 
-    return raw
+
+
+
+
 
 
 
