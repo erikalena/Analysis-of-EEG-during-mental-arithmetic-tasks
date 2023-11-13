@@ -265,7 +265,6 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
                         
                         mwt = compute_wavelet_transform(eeg_data, fs=500, n_cycles=5, freqs=freqs)
                         mwt = scipy.signal.resample(mwt, 100, axis=1)
-                        
                         """
                         freqs = np.arange(10,70,2)
                         ncycles = np.zeros(len(freqs)) + 10
@@ -308,7 +307,7 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
 
 
 
-def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffle=True):
+def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffle=True, resample=False):
     """
     A function which provides all the dataloaders needed for training, validation and testing
     Input:
@@ -318,6 +317,7 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
         valid_rate: the percentage of the dataset used for validation
         test_rate: the percentage of the dataset used for testing
         shuffle: whether to shuffle the dataset before splitting it
+        resample: whether to resample the spectrograms to make them smaller
     """
 
     # build trainloader
@@ -327,6 +327,15 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
 
     # before loading data into dataloader, normalize the data
     dataset_tmp = copy.deepcopy(dataset)
+
+    if resample:
+        # resample spectrograms
+        for idx, _ in enumerate(dataset):
+            # resample spectrogram
+            spectrogram = dataset_tmp.get_spectrogram(idx)
+            dataset_tmp.spectrograms[idx] = scipy.signal.resample(spectrogram, 30, axis=2)
+            if idx == 0:
+                print("Shape of spectrogram after resampling: ", dataset_tmp.spectrograms[idx].shape)
 
     # transform data to tensors if not already
     for idx in range(len(dataset_tmp.raw)):

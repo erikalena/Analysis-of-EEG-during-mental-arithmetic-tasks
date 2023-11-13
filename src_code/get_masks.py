@@ -25,7 +25,7 @@ class Config:
     end_idx: int = 0
     nclasses: int = 2
     classification: str = 'ms'
-    model_path: str = './results_classifier/resnet18_20231111-153301/best_model_params.pt'
+    model_path: str = './results_classifier/resnet18_20231113-211857/best_model_params.pt'
     save_figures: bool = True
     input_channels: int = 20
     train_rate: float = 0.8
@@ -55,7 +55,7 @@ def load_classifier():
     # move model and model parameters to device
     model.to(device)
 
-    _, _, testloader = build_dataloader(dataset, batch_size=CONFIG.batch_size, train_rate=CONFIG.train_rate, valid_rate=CONFIG.valid_rate, shuffle=True)
+    _, _, testloader = build_dataloader(dataset, batch_size=CONFIG.batch_size, train_rate=CONFIG.train_rate, valid_rate=CONFIG.valid_rate, shuffle=True, resample = True)
     test_acc, _, _, _ = test_model(model, testloader, folder=None)
 
     print("Test accuracy: ", test_acc, flush=True)
@@ -90,13 +90,7 @@ if __name__ == "__main__":
     model = load_classifier()
     
     
-    # for each element in the dataset, compute its mask
-    # loop over each element in the dataset
-    input = dataset[0][0]
-    print("Shape of first element: ", dataset[0][0].shape)
-
-    image_size = tuple((input.shape[1], input.shape[2]))
-    nchannels = input.shape[0]
+    
 
     lam = 0.01
     mask_path = './results_masks/'
@@ -111,15 +105,30 @@ if __name__ == "__main__":
     dataset_tmp = copy.deepcopy(dataset)
     dataset_tmp.raw = list(dataset_tmp.raw)
 
+    
     for i, _ in enumerate(dataset_tmp):
-        spectr = torch.tensor(dataset_tmp.get_spectrogram(i))
+        spectr = dataset_tmp.get_spectrogram(i)
+        spectr = scipy.signal.resample(spectr, 30, axis=2)
+        if i == 0:
+            print("Shape of spectrogram after resampling: ", spectr.shape)
+        spectr = torch.tensor(spectr)
+
         #dataset_tmp.spectrograms[i] = transforms.functional.normalize(spectrogram.unsqueeze(0), mean=torch.mean(spectrogram), 
         #                                              std=torch.std(spectrogram))
+        # resample spectrogram to make them smaller
+        
         dataset_tmp.spectrograms[i] = ((spectr - torch.min(spectr))/(torch.max(spectr) -torch.min(spectr))).unsqueeze(0)
         # normalize raw data
         raw = torch.tensor(dataset.get_raw(i))
         dataset_tmp.raw[i] = (raw - torch.min(raw))/(torch.max(raw) -torch.min(raw))
 
+    # for each element in the dataset, compute its mask
+    # loop over each element in the dataset
+    input = dataset_tmp[0][0]
+    print("Shape of first element: ", dataset_tmp[0][0].shape)
+
+    image_size = tuple((input.shape[2], input.shape[3]))
+    nchannels = input.shape[1]
 
     while end_idx < len(dataset):
         spectrograms, raw_signals, labels, ids, channels = dataset_tmp[start_idx:end_idx]
