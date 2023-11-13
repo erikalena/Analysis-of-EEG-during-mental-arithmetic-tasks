@@ -170,3 +170,5 @@ scripts/
 
 *.out
 *.err
+
+src_code/results_masks/

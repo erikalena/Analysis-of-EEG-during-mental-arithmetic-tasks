@@ -81,7 +81,6 @@ class MaskDataset(torch.utils.data.Dataset):
                     self.masks.append(np.load(path+str(c)+"/"+mask))
                     self.labels.append(c)
                     id = f'{str(mask)[7:].split("_")[0]}_{str(mask).split("_")[1]}_{str(mask).split("_")[2]}' # subject + label + epoch
-                    print(id)
                     self.id.append(id) 
                     self.channel.append(channel)
 

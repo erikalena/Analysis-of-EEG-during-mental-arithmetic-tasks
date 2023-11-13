@@ -41,12 +41,13 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
     '''
 
     # clean folder if it already exists
+    """
     if not os.path.isdir(path):
         os.mkdir(path)
     else:
         clean_folder(path)
         os.mkdir(path+"figures/")
-    
+    """
 
     loss=torch.nn.CrossEntropyLoss()
     device=torch.device("cuda" if next(base_model.parameters()).is_cuda else "cpu")
@@ -115,15 +116,16 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
                             os.mkdir(figures_folder)
 
                         # plot loss
-                        plt.figure(figsize=(30,20))
-                        plt.plot(losses[i], linewidth=5)
-                        plt.xlabel("Epoch", fontsize=20)
-                        plt.ylabel("Loss", fontsize=20)
-                        # make ticks larger
-                        plt.xticks(fontsize=20)
-                        plt.yticks(fontsize=20)
-                        plt.savefig(figures_folder + str(ids[i][0]) +"_loss.png")
-                        plt.close()
+                        if figures:
+                            plt.figure(figsize=(30,20))
+                            plt.plot(losses[i], linewidth=5)
+                            plt.xlabel("Epoch", fontsize=20)
+                            plt.ylabel("Loss", fontsize=20)
+                            # make ticks larger
+                            plt.xticks(fontsize=20)
+                            plt.yticks(fontsize=20)
+                            plt.savefig(figures_folder + str(ids[i][0]) +"_loss.png")
+                            plt.close()
 
                         mask=model.mask.M.detach().cpu()
                         mask=mask.squeeze().numpy()

@@ -259,13 +259,16 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
                     #img_eeg.append(spectr)
 
                     if save_spec:
-                        freqs = np.arange(10, 80, 3)
+                        #freqs = np.arange(10, 80, 3)
                         #sig = scipy.signal.resample(eeg_data, 500)
                         #mwt = compute_wavelet_transform(sig, fs=250, n_cycles=15, freqs=freqs)
                         #mwt = compute_wavelet_transform(eeg_data, fs=500, n_cycles=5, freqs=freqs)
-
-                        eeg_data = scipy.signal.resample(eeg_data, 125)
-                        mwt = compute_wavelet_transform(eeg_data, fs=250, n_cycles=5, freqs=np.arange(10, 70, 2))
+                        
+                        freqs = np.arange(10,70,2)
+                        ncycles = np.zeros(len(freqs)) + 5
+                        ncycles[-20:] = 12
+                        eeg_data = scipy.signal.resample(eeg_data, 31)
+                        mwt = compute_wavelet_transform(eeg_data, fs=60, n_cycles=ncycles, freqs=freqs)
                         img_eeg.append(np.abs(mwt))
                     else:
                         img_eeg.append([])

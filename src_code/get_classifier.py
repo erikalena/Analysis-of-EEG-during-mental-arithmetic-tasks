@@ -138,7 +138,7 @@ if __name__ == "__main__":
         CONFIG.ndim == 2 
 
 
-    file_path = f'./saved_datasets/eeg_dataset_ns_{CONFIG.number_of_subjects}_ch_{CONFIG.input_channels}_nc_{CONFIG.nclasses}_{CONFIG.classification}_05sec.pkl'
+    file_path = f'./saved_datasets/eeg_dataset_ns_{CONFIG.number_of_subjects}_ch_{CONFIG.input_channels}_nc_{CONFIG.nclasses}_{CONFIG.classification}_05sec_resample.pkl'
 
     # if dataset already exists, load it
     load = True if os.path.isfile(file_path) else False
