@@ -166,4 +166,9 @@ src_code/results_correlation/*.ipynb
 src_code/results_correlation/id_estimation/
 src_code/saved_datasets/
 
+scripts/
+
+*.out
+*.err
+
 src_code/results_masks/
