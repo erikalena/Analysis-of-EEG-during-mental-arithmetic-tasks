@@ -9,7 +9,6 @@ from torchvision import datasets, models, transforms
 import matplotlib.pyplot as plt
 import time
 import os
-import classifier
 
 
 
