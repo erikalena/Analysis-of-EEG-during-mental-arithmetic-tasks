@@ -44,7 +44,7 @@ class EEGDataset(torch.utils.data.Dataset):
     """
 
     def __init__(self, spectrograms, raw, labels, id, channel, info):
-        self.spectrograms = spectrograms # spectrograms
+        self.spectrograms = np.array(spectrograms) # spectrograms
         self.raw = np.array(raw) # raw eeg data
         self.labels = labels 
         self.id = id  # subject ID and recording ID

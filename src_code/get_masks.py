@@ -109,12 +109,13 @@ if __name__ == "__main__":
 
     # before using the data, normalize them
     dataset_tmp = copy.deepcopy(dataset)
-    
+    dataset_tmp.raw = list(dataset_tmp.raw)
+
     for i, _ in enumerate(dataset_tmp):
-        spectrogram = torch.tensor(dataset_tmp.get_spectrogram(i))
+        spectr = torch.tensor(dataset_tmp.get_spectrogram(i))
         #dataset_tmp.spectrograms[i] = transforms.functional.normalize(spectrogram.unsqueeze(0), mean=torch.mean(spectrogram), 
         #                                              std=torch.std(spectrogram))
-        dataset_tmp.spectrograms[i] = ((spectrogram - torch.min(spectrogram))/(torch.max(spectrogram) -torch.min(spectrogram))).unsqueeze(0)
+        dataset_tmp.spectrograms[i] = ((spectr - torch.min(spectr))/(torch.max(spectr) -torch.min(spectr))).unsqueeze(0)
         # normalize raw data
         raw = torch.tensor(dataset.get_raw(i))
         dataset_tmp.raw[i] = (raw - torch.min(raw))/(torch.max(raw) -torch.min(raw))
@@ -122,9 +123,9 @@ if __name__ == "__main__":
 
     while end_idx < len(dataset):
         spectrograms, raw_signals, labels, ids, channels = dataset_tmp[start_idx:end_idx]
-        spectrograms = torch.from_numpy(np.asarray(spectrograms)).float()
-        raw_signals = torch.from_numpy(np.asarray(raw_signals))
-        labels = torch.from_numpy(np.asarray(labels)).long()
+        spectrograms = torch.stack(spectrograms).float()
+        raw_signals = torch.stack(raw_signals)
+        labels = torch.stack([torch.tensor(label) for label in labels]).long()
         ids = np.asarray(ids)
         channels = np.asarray(channels)
 
