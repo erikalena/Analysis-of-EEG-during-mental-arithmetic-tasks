@@ -26,7 +26,7 @@ class Config:
     nclasses: int = 2
     classification: str = 'ms'
     model_path: str = './results_classifier/resnet18_20231111-153301/best_model_params.pt'
-    save_figures: bool = False
+    save_figures: bool = True
     input_channels: int = 20
     train_rate: float = 0.8
     valid_rate: float = 0.1

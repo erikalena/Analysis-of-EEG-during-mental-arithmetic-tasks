@@ -28,8 +28,7 @@ class Config:
     ndim: int = 2
     input_channels: int = 20
     input_data: int = None
-    dataset: str = 'eeg_mat'
-    dir_path: str = './' + dataset + '/results_classifier/' + network_type + "_" + curr_time
+    dir_path: str = './results_classifier/' + network_type + "_" + curr_time
     checkpoint_path: str = None#'./' + dataset + 'results_classifier/resnet18_20230920-142905'
     optimizer: optim = optim.Adam
     learning_rate: float = 0.001
@@ -127,7 +126,7 @@ def run(dataset):
 if __name__ == "__main__":
     
     # load data from folder
-    sample_data_folder = './eeg_mat/eeg_data/'
+    sample_data_folder = './eeg_data/'
     
     # check that configuration parameters are consistent
     assert CONFIG.network_type.lower() in ['shallownet', 'resnet18'], "network type must be either shallowNet or resnet18"
