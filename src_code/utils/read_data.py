@@ -264,7 +264,7 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
                         #mwt = compute_wavelet_transform(sig, fs=250, n_cycles=15, freqs=freqs)
                         
                         mwt = compute_wavelet_transform(eeg_data, fs=500, n_cycles=5, freqs=freqs)
-                        mwt = scipy.signal.resample(mwt, 100, axis=1)
+                        mwt = scipy.signal.resample(mwt, 50, axis=1)
                         """
                         freqs = np.arange(10,70,2)
                         ncycles = np.zeros(len(freqs)) + 10
