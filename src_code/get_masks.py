@@ -18,7 +18,7 @@ class Config:
     A class to store all the configuration parameters
     """
     curr_time: str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    number_of_subjects: int = 36
+    number_of_subjects: int = 5
     datset_size: int = 0
     batch_size: int = 32
     start_idx: int = 0
@@ -26,7 +26,7 @@ class Config:
     nclasses: int = 2
     classification: str = 'ms'
     model_path: str = './results_classifier/resnet18_20231114-092258/best_model_params.pt'
-    save_figures: bool = False
+    save_figures: bool = True
     input_channels: int = 20
     train_rate: float = 0.8
     valid_rate: float = 0.1
@@ -105,8 +105,8 @@ if __name__ == "__main__":
     dataset_tmp = copy.deepcopy(dataset)
     dataset_tmp.raw = list(dataset_tmp.raw)
 
-    min_spectr = np.min([torch.min(torch.tensor(dataset_tmp[i][0])) for i in range(len(dataset_tmp))])
-    max_spectr = np.max([torch.max(torch.tensor(dataset_tmp[i][0])) for i in range(len(dataset_tmp))])
+    min_spectr = np.min([torch.min(torch.tensor(dataset[i][0])) for i in range(len(dataset))])
+    max_spectr = np.max([torch.max(torch.tensor(dataset[i][0])) for i in range(len(dataset))])
 
     for i, _ in enumerate(dataset_tmp):
         spectr = dataset_tmp.get_spectrogram(i)
@@ -116,11 +116,11 @@ if __name__ == "__main__":
             print("Shape of spectrogram after resampling: ", spectr.shape)
         spectr = torch.tensor(spectr)
 
-        spectr = (spectr - min_spectr)/(max_spectr - min_spectr)
+        #dataset_tmp.spectrograms[i] = (spectr - min_spectr)/(max_spectr - min_spectr)
         #dataset_tmp.spectrograms[i] = transforms.functional.normalize(spectrogram.unsqueeze(0), mean=torch.mean(spectrogram), 
         #                                              std=torch.std(spectrogram))
         
-        #dataset_tmp.spectrograms[i] = ((spectr - torch.min(spectr))/(torch.max(spectr) -torch.min(spectr))).unsqueeze(0)
+        dataset_tmp.spectrograms[i] = ((spectr - torch.min(spectr))/(torch.max(spectr) -torch.min(spectr))).unsqueeze(0)
         # normalize raw data
         raw = torch.tensor(dataset.get_raw(i))
         dataset_tmp.raw[i] = (raw - torch.min(raw))/(torch.max(raw) -torch.min(raw))
@@ -130,8 +130,8 @@ if __name__ == "__main__":
     input = dataset_tmp[0][0]
     print("Shape of first element: ", dataset_tmp[0][0].shape, flush=True)
 
-    image_size = tuple((input.shape[1], input.shape[2]))
-    nchannels = input.shape[0]
+    image_size = tuple((input.shape[2], input.shape[3]))
+    nchannels = input.shape[1]
     print("nchannels: ", nchannels, flush=True)
 
     while end_idx < len(dataset):
