@@ -21,12 +21,12 @@ class Config:
     number_of_subjects: int = 36
     datset_size: int = 0
     batch_size: int = 32
-    start_idx: int = 0
+    start_idx: int = 70
     end_idx: int = 0
     nclasses: int = 2
     classification: str = 'ms'
-    model_path: str = './results_classifier/resnet18_20231113-211857/best_model_params.pt'
-    save_figures: bool = True
+    model_path: str = './results_classifier/resnet18_20231113-230459/best_model_params.pt'
+    save_figures: bool = False
     input_channels: int = 20
     train_rate: float = 0.8
     valid_rate: float = 0.1
@@ -55,7 +55,7 @@ def load_classifier():
     # move model and model parameters to device
     model.to(device)
 
-    _, _, testloader = build_dataloader(dataset, batch_size=CONFIG.batch_size, train_rate=CONFIG.train_rate, valid_rate=CONFIG.valid_rate, shuffle=True, resample = True)
+    _, _, testloader = build_dataloader(dataset, batch_size=CONFIG.batch_size, train_rate=CONFIG.train_rate, valid_rate=CONFIG.valid_rate, shuffle=True)
     test_acc, _, _, _ = test_model(model, testloader, folder=None)
 
     print("Test accuracy: ", test_acc, flush=True)
@@ -68,7 +68,7 @@ if __name__ == "__main__":
     # load data from folder
     sample_data_folder = './eeg_data/'
 
-    file_path = f'./saved_datasets/eeg_dataset_ns_{CONFIG.number_of_subjects}_ch_{CONFIG.input_channels}_nc_{CONFIG.nclasses}_{CONFIG.classification}_05sec.pkl'
+    file_path = f'./saved_datasets/eeg_dataset_ns_{CONFIG.number_of_subjects}_ch_{CONFIG.input_channels}_nc_{CONFIG.nclasses}_{CONFIG.classification}_05sec_resample.pkl'
     print(file_path)
     # save config parameters
     CONFIG.save_config()
@@ -108,7 +108,7 @@ if __name__ == "__main__":
     
     for i, _ in enumerate(dataset_tmp):
         spectr = dataset_tmp.get_spectrogram(i)
-        spectr = scipy.signal.resample(spectr, 30, axis=2)
+        #spectr = scipy.signal.resample(spectr, 30, axis=2)
         if i == 0:
             print("Shape of spectrogram after resampling: ", spectr.shape)
         spectr = torch.tensor(spectr)
@@ -125,10 +125,11 @@ if __name__ == "__main__":
     # for each element in the dataset, compute its mask
     # loop over each element in the dataset
     input = dataset_tmp[0][0]
-    print("Shape of first element: ", dataset_tmp[0][0].shape)
+    print("Shape of first element: ", dataset_tmp[0][0].shape, flush=True)
 
     image_size = tuple((input.shape[2], input.shape[3]))
     nchannels = input.shape[1]
+    print("nchannels: ", nchannels, flush=True)
 
     while end_idx < len(dataset):
         spectrograms, raw_signals, labels, ids, channels = dataset_tmp[start_idx:end_idx]

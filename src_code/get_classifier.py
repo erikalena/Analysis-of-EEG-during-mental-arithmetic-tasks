@@ -18,7 +18,7 @@ class Config:
     number_of_subjects: int = 36
     first_subj: int = 1
     datset_size: int = 0
-    batch_size: int = 32
+    batch_size: int = 64
     epochs: int = 100
     network_type: str = 'resnet18'
     classification: str = 'ms'
