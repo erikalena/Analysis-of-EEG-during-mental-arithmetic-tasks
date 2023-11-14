@@ -55,7 +55,7 @@ def load_classifier():
     # move model and model parameters to device
     model.to(device)
 
-    _, _, testloader = build_dataloader(dataset, batch_size=CONFIG.batch_size, train_rate=CONFIG.train_rate, valid_rate=CONFIG.valid_rate, shuffle=True, resample = True)
+    _, _, testloader = build_dataloader(dataset, batch_size=CONFIG.batch_size, train_rate=CONFIG.train_rate, valid_rate=CONFIG.valid_rate, shuffle=True)
     test_acc, _, _, _ = test_model(model, testloader, folder=None)
 
     print("Test accuracy: ", test_acc, flush=True)
@@ -105,19 +105,26 @@ if __name__ == "__main__":
     dataset_tmp = copy.deepcopy(dataset)
     dataset_tmp.raw = list(dataset_tmp.raw)
 
+    min_spectr = np.min([torch.min(torch.abs(dataset_tmp[i][0])) for i in range(len(dataset_tmp))])
+    max_spectr = np.max([torch.max(torch.abs(dataset_tmp[i][0])) for i in range(len(dataset_tmp))])
+
+    # normalize spectrograms
+    
+    
     
     for i, _ in enumerate(dataset_tmp):
         spectr = dataset_tmp.get_spectrogram(i)
-        spectr = scipy.signal.resample(spectr, 30, axis=2)
+        #spectr = scipy.signal.resample(spectr, 30, axis=2)
+
         if i == 0:
             print("Shape of spectrogram after resampling: ", spectr.shape)
         spectr = torch.tensor(spectr)
 
+        spectr = (spectr - min_spectr)/(max_spectr - min_spectr)
         #dataset_tmp.spectrograms[i] = transforms.functional.normalize(spectrogram.unsqueeze(0), mean=torch.mean(spectrogram), 
         #                                              std=torch.std(spectrogram))
-        # resample spectrogram to make them smaller
         
-        dataset_tmp.spectrograms[i] = ((spectr - torch.min(spectr))/(torch.max(spectr) -torch.min(spectr))).unsqueeze(0)
+        #dataset_tmp.spectrograms[i] = ((spectr - torch.min(spectr))/(torch.max(spectr) -torch.min(spectr))).unsqueeze(0)
         # normalize raw data
         raw = torch.tensor(dataset.get_raw(i))
         dataset_tmp.raw[i] = (raw - torch.min(raw))/(torch.max(raw) -torch.min(raw))
