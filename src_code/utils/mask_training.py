@@ -101,8 +101,8 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
                 model.mask.M.data.clamp_(0.,1.)
                 epoch += 1
 
-                # train until convergence, for no less than 100 epochs and no more than 5000 epochs
-                if (epoch>200 and abs(l.item()-np.mean(losses[i][-20:]))<1e-3) or epoch>5000:
+                # train until convergence, for no less than 100 epochs and no more than 3000 epochs
+                if (epoch>100 and abs(l.item()-np.mean(losses[i][-20:]))<1e-3) or epoch>3000:
                     correct=torch.argmax(out, axis=1) == labels[i]
                     print(f'Training time for {i}th image: ', time.time()-since, ' epoch ', epoch, flush=True)
 
