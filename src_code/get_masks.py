@@ -18,7 +18,7 @@ class Config:
     A class to store all the configuration parameters
     """
     curr_time: str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    number_of_subjects: int = 5
+    number_of_subjects: int = 36
     datset_size: int = 0
     batch_size: int = 32
     start_idx: int = 0
@@ -133,8 +133,9 @@ if __name__ == "__main__":
     nchannels = input.shape[0]
     print("nchannels: ", nchannels, flush=True)
 
-    start_idx = 40
-    end_idx = batch_size + start_idx
+    #start_idx = 0
+    #end_idx = batch_size + start_idx
+
     while end_idx < len(dataset):
         spectrograms, raw_signals, labels, ids, channels = dataset_tmp[start_idx:end_idx]
         spectrograms = torch.stack(spectrograms).float()
