@@ -21,3 +21,10 @@ train_rate: 0.8
 valid_rate: 0.1
 device: cuda
 dataset_size: 8640
+
+trained without normalization on spectrograms
+and with size of spectrograms == (30,100)
+
+for idx, _ in enumerate(dataset):
+    spectrogram = torch.abs(dataset_tmp.spectrograms[idx])
+    dataset_tmp.spectrograms[idx] = (spectrogram)

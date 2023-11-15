@@ -25,7 +25,7 @@ class Config:
     end_idx: int = 0
     nclasses: int = 2
     classification: str = 'ms'
-    model_path: str = './results_classifier/resnet18_20231114-092258/best_model_params.pt'
+    model_path: str = './results_classifier/resnet18_20231114-232544/best_model_params.pt' #/resnet18_20231114-221314/best_model_params.pt'
     save_figures: bool = True
     input_channels: int = 20
     train_rate: float = 0.8
@@ -55,7 +55,7 @@ def load_classifier():
     # move model and model parameters to device
     model.to(device)
 
-    _, _, testloader = build_dataloader(dataset, batch_size=CONFIG.batch_size, train_rate=CONFIG.train_rate, valid_rate=CONFIG.valid_rate, shuffle=True)
+    _, _, testloader = build_dataloader(dataset, batch_size=CONFIG.batch_size, train_rate=CONFIG.train_rate, valid_rate=CONFIG.valid_rate, shuffle=True, resample=True)
     test_acc, _, _, _ = test_model(model, testloader, folder=None)
 
     print("Test accuracy: ", test_acc, flush=True)
@@ -105,35 +105,36 @@ if __name__ == "__main__":
     dataset_tmp = copy.deepcopy(dataset)
     dataset_tmp.raw = list(dataset_tmp.raw)
 
-    min_spectr = np.min([torch.min(torch.tensor(dataset[i][0])) for i in range(len(dataset))])
-    max_spectr = np.max([torch.max(torch.tensor(dataset[i][0])) for i in range(len(dataset))])
-
+ 
     for i, _ in enumerate(dataset_tmp):
         spectr = dataset_tmp.get_spectrogram(i)
-        #spectr = scipy.signal.resample(spectr, 30, axis=2)
+        spectr = scipy.signal.resample(spectr, 50, axis=2)
 
         if i == 0:
             print("Shape of spectrogram after resampling: ", spectr.shape)
-        spectr = torch.tensor(spectr)
+        dataset_tmp.spectrograms[i] = torch.tensor(spectr)
 
-        #dataset_tmp.spectrograms[i] = (spectr - min_spectr)/(max_spectr - min_spectr)
+        #dataset_tmp.spectrograms[i] = ((spectr - min_spectr)/(max_spectr - min_spectr)).unsqueeze(0)
         #dataset_tmp.spectrograms[i] = transforms.functional.normalize(spectrogram.unsqueeze(0), mean=torch.mean(spectrogram), 
         #                                              std=torch.std(spectrogram))
+        #dataset_tmp.spectrograms[i] = ((spectr - torch.min(spectr))/(torch.max(spectr) -torch.min(spectr)))#.unsqueeze(0)
         
-        dataset_tmp.spectrograms[i] = ((spectr - torch.min(spectr))/(torch.max(spectr) -torch.min(spectr))).unsqueeze(0)
         # normalize raw data
-        raw = torch.tensor(dataset.get_raw(i))
-        dataset_tmp.raw[i] = (raw - torch.min(raw))/(torch.max(raw) -torch.min(raw))
+        #raw = torch.tensor(dataset.get_raw(i))
+        #dataset_tmp.raw[i] = (raw - torch.min(raw))/(torch.max(raw) -torch.min(raw))
+        dataset_tmp.raw[i] = torch.tensor(dataset.get_raw(i))
 
     # for each element in the dataset, compute its mask
     # loop over each element in the dataset
     input = dataset_tmp[0][0]
     print("Shape of first element: ", dataset_tmp[0][0].shape, flush=True)
 
-    image_size = tuple((input.shape[2], input.shape[3]))
-    nchannels = input.shape[1]
+    image_size = tuple((input.shape[1], input.shape[2]))
+    nchannels = input.shape[0]
     print("nchannels: ", nchannels, flush=True)
 
+    start_idx = 40
+    end_idx = batch_size + start_idx
     while end_idx < len(dataset):
         spectrograms, raw_signals, labels, ids, channels = dataset_tmp[start_idx:end_idx]
         spectrograms = torch.stack(spectrograms).float()

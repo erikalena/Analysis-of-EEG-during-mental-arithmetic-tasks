@@ -264,7 +264,7 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
                         #mwt = compute_wavelet_transform(sig, fs=250, n_cycles=15, freqs=freqs)
                         
                         mwt = compute_wavelet_transform(eeg_data, fs=500, n_cycles=5, freqs=freqs)
-                        mwt = scipy.signal.resample(mwt, 50, axis=1)
+                        mwt = scipy.signal.resample(mwt, 100, axis=1)
                         """
                         freqs = np.arange(10,70,2)
                         ncycles = np.zeros(len(freqs)) + 10
@@ -333,7 +333,7 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
         for idx, _ in enumerate(dataset):
             # resample spectrogram
             spectrogram = dataset_tmp.get_spectrogram(idx)
-            dataset_tmp.spectrograms[idx] = scipy.signal.resample(spectrogram, 30, axis=2)
+            dataset_tmp.spectrograms[idx] = scipy.signal.resample(spectrogram, 50, axis=2)
             if idx == 0:
                 print("Shape of spectrogram after resampling: ", dataset_tmp.spectrograms[idx].shape)
 
@@ -349,10 +349,10 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
     max_spectr = np.max([torch.max(torch.abs(dataset_tmp[i][0])) for i in range(len(dataset_tmp))])
 
     # normalize spectrograms
-    """
+    
     for idx, _ in enumerate(dataset):
         spectrogram = torch.abs(dataset_tmp.spectrograms[idx])
-        dataset_tmp.spectrograms[idx] = (spectrogram - min_spectr) / (max_spectr - min_spectr)
+        dataset_tmp.spectrograms[idx] = (spectrogram)# - min_spectr) / (max_spectr - min_spectr)
     
     """
     # standardize spectrograms
@@ -363,6 +363,7 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
         #                                              std=torch.std(spectrogram)) 
         dataset_tmp.spectrograms[idx] = ((spectrogram - torch.min(spectrogram))/(torch.max(spectrogram) -torch.min(spectrogram))).unsqueeze(0)
     
+    """
     train_dataset, valid_dataset, test_dataset = torch.utils.data.random_split(dataset_tmp, [train_size, valid_size, test_size])
     del dataset_tmp
 
