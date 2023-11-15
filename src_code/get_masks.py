@@ -26,7 +26,7 @@ class Config:
     nclasses: int = 2
     classification: str = 'ms'
     model_path: str = './results_classifier/resnet18_20231114-232544/best_model_params.pt' #/resnet18_20231114-221314/best_model_params.pt'
-    save_figures: bool = True
+    save_figures: bool = False
     input_channels: int = 20
     train_rate: float = 0.8
     valid_rate: float = 0.1
@@ -108,7 +108,7 @@ if __name__ == "__main__":
  
     for i, _ in enumerate(dataset_tmp):
         spectr = dataset_tmp.get_spectrogram(i)
-        spectr = scipy.signal.resample(spectr, 50, axis=2)
+        spectr = scipy.signal.resample(spectr, 30, axis=2)
 
         if i == 0:
             print("Shape of spectrogram after resampling: ", spectr.shape)
