@@ -18,7 +18,7 @@ class Config:
     A class to store all the configuration parameters
     """
     curr_time: str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    number_of_subjects: int = 36
+    number_of_subjects: int = 5
     datset_size: int = 0
     batch_size: int = 32
     start_idx: int = 0
@@ -113,15 +113,6 @@ if __name__ == "__main__":
         if i == 0:
             print("Shape of spectrogram after resampling: ", spectr.shape)
         dataset_tmp.spectrograms[i] = torch.tensor(spectr)
-
-        #dataset_tmp.spectrograms[i] = ((spectr - min_spectr)/(max_spectr - min_spectr)).unsqueeze(0)
-        #dataset_tmp.spectrograms[i] = transforms.functional.normalize(spectrogram.unsqueeze(0), mean=torch.mean(spectrogram), 
-        #                                              std=torch.std(spectrogram))
-        #dataset_tmp.spectrograms[i] = ((spectr - torch.min(spectr))/(torch.max(spectr) -torch.min(spectr)))#.unsqueeze(0)
-        
-        # normalize raw data
-        #raw = torch.tensor(dataset.get_raw(i))
-        #dataset_tmp.raw[i] = (raw - torch.min(raw))/(torch.max(raw) -torch.min(raw))
         dataset_tmp.raw[i] = torch.tensor(dataset.get_raw(i))
 
     # for each element in the dataset, compute its mask
@@ -132,9 +123,6 @@ if __name__ == "__main__":
     image_size = tuple((input.shape[1], input.shape[2]))
     nchannels = input.shape[0]
     print("nchannels: ", nchannels, flush=True)
-
-    #start_idx = 0
-    #end_idx = batch_size + start_idx
 
     while end_idx < len(dataset):
         spectrograms, raw_signals, labels, ids, channels = dataset_tmp[start_idx:end_idx]

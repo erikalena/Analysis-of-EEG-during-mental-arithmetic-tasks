@@ -136,13 +136,17 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
                             filename = str(ids[i]) + '_' + str(channels[i])
                             save_figure(figures_folder, filename, spectrograms[i][0], raw_sigs[i][0], mask) if figures else None
                             # save mask
-                            np.save(folder +"/"+ filename +".npy", mask[0])
+                            mask_ch = np.sum(mask[0], axis=1)
+                            np.save(folder +"/"+ filename +".npy", mask_ch)
                         else:
                             for j in range(input_channels):
                                 filename = str(ids[i][j]) + '_' + str(channels[i][j])
                                 save_figure(figures_folder, filename, spectrograms[i][j], raw_sigs[i][j], mask[j]) if figures else None
                                 # save mask
-                                np.save(folder +"/"+ filename +".npy", mask[j])
+                                # sum mask across time dimension
+                                mask_ch = np.sum(mask[j], axis=1)
+                                np.save(folder +"/"+ filename +".npy", mask_ch)
+                                del mask_ch
 
                         del mask
                     break
