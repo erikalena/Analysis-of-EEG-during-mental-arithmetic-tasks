@@ -103,7 +103,7 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
                 # train until convergence, for no less than 100 epochs and no more than 3000 epochs
                 if (epoch>200 and abs(l.item()-np.mean(losses[i][-20:]))<1e-3) or epoch>3000:
                     correct=torch.argmax(out, axis=1) == labels[i]
-                    print('out: ', out, ' labels: ', labels[i], ' correct: ', correct, ' loss: ', l.item(), flush=True)
+                    #print('out: ', out, ' labels: ', labels[i], ' correct: ', correct, ' loss: ', l.item(), flush=True)
                     print(f'Training time for {i}th image: ', time.time()-since, ' epoch ', epoch, '- ', correct, flush=True)
 
                     if correct:
@@ -149,7 +149,7 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
                                     save_figure(figures_folder, filename, spectrograms[i][j], raw_sigs[i][j], mask[j]) if figures else None
                                     # save mask
                                     np.save(folder +"/"+ filename +".npy", mask_ch)
-                                del mask_ch
+                               
 
                         del mask
                     break
