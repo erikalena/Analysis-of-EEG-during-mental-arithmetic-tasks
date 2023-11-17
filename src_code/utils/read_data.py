@@ -333,7 +333,7 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
         for idx, _ in enumerate(dataset):
             # resample spectrogram
             spectrogram = dataset_tmp.get_spectrogram(idx)
-            dataset_tmp.spectrograms[idx] = scipy.signal.resample(spectrogram, 30, axis=2)
+            dataset_tmp.spectrograms[idx] = scipy.signal.resample(spectrogram, 50, axis=2)
             if idx == 0:
                 print("Shape of spectrogram after resampling: ", dataset_tmp.spectrograms[idx].shape)
 
