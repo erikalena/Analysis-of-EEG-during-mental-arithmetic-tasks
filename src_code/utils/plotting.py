@@ -114,3 +114,45 @@ def get_confusion_matrix(ytrue, ypred, path=None):
         plt.show()
 
     return cm
+
+
+
+
+def plot_topographic_map_freq(data, positions):
+
+    fig = plt.figure(figsize=(20,10))
+    fig, ax1= plt.subplots(ncols=1)
+    im, _ = mne.viz.plot_topomap(data, positions, ch_type='eeg', axes=ax1,  cmap="viridis", size=5, show=False, names=raw.ch_names);
+    ax_x_start = 0.95
+    ax_x_width = 0.03
+    ax_y_start = 0.0
+    ax_y_height = 0.9
+    cbar_ax = fig.add_axes([ax_x_start, ax_y_start, ax_x_width, ax_y_height])
+    clb = fig.colorbar(im, cax=cbar_ax)
+    clb.ax.set_title('dB',fontsize=15) # title on top of colorbar
+    plt.show()
+    
+def plot_topographic_map_time(data, positions, size):
+
+    names = None #raw.ch_names
+    # plot topographic map
+    fig = plt.figure(figsize=(50,10))
+    fig,(ax1,ax2, ax3, ax4) = plt.subplots(ncols=4)
+    idx1, idx2, idx3, idx4 = size//4, size//2, 3*size//4, size-1
+    im,cm   = mne.viz.plot_topomap(data[:,idx1], positions, ch_type='eeg', cmap='jet', axes=ax1, show=False, names=names)
+    ax1.set_title(f'{2*idx1} ms')
+    im,cm   = mne.viz.plot_topomap(data[:,idx2], positions, ch_type='eeg', cmap='jet', axes=ax2, show=False, names=names)   
+    ax2.set_title(f'{2*idx2} ms')
+    im,cm   = mne.viz.plot_topomap(data[:,idx3], positions, ch_type='eeg', cmap='jet', axes=ax3, show=False, names=names)
+    ax3.set_title(f'{2*idx3} ms')
+    im,cm   = mne.viz.plot_topomap(data[:,idx4], positions, ch_type='eeg', cmap='jet', axes=ax4, show=False, names=names)   
+    ax4.set_title(f'{2*idx4} ms')
+    # manually fiddle the position of colorbar
+    ax_x_start = 0.95
+    ax_x_width = 0.02
+    ax_y_start = 0.3
+    ax_y_height = 0.4
+    cbar_ax = fig.add_axes([ax_x_start, ax_y_start, ax_x_width, ax_y_height])
+    clb = fig.colorbar(im, cax=cbar_ax)
+    clb.ax.set_title('uV',fontsize=15) # title on top of colorbar
+    plt.show()
