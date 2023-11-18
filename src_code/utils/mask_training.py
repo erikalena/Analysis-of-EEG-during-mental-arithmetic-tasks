@@ -141,7 +141,7 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
                         else:
                             for j in range(input_channels):
                                 # sum mask across time dimension
-                                mask_ch = np.sum(mask[j], axis=1)
+                                mask_ch = mask[j] #np.sum(mask[j], axis=1)
 
                                 # if mask is all zeros, skip
                                 if np.sum(mask_ch) != 0:

@@ -225,8 +225,8 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
             
             fs = data.info['sfreq']
 
-            factor = 2
-            segment_length = int(fs/factor)#int(fs*6)
+            factor = 1
+            segment_length = int(fs/factor) #int(fs*6)
 
             sample = data.get_data(0)[0]
             # pad sample so that it is divisible by 6
@@ -259,12 +259,12 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
                     #img_eeg.append(spectr)
 
                     if save_spec:
-                        freqs = np.arange(10, 70, 2)
+                        freqs = np.arange(1, 70, 1)
                         #sig = scipy.signal.resample(eeg_data, 500)
                         #mwt = compute_wavelet_transform(sig, fs=250, n_cycles=15, freqs=freqs)
-                        
-                        mwt = compute_wavelet_transform(eeg_data, fs=500, n_cycles=5, freqs=freqs)
-                        #mwt = scipy.signal.resample(mwt, 100, axis=1)
+                        ncycles = np.linspace(1,5,len(freqs))
+                        mwt = compute_wavelet_transform(eeg_data, fs=500, n_cycles=ncycles, freqs=freqs)
+                        mwt = scipy.signal.resample(mwt, 100, axis=1)
                         """
                         freqs = np.arange(10,70,2)
                         ncycles = np.zeros(len(freqs)) + 10
@@ -333,7 +333,7 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
         for idx, _ in enumerate(dataset):
             # resample spectrogram
             spectrogram = dataset_tmp.get_spectrogram(idx)
-            dataset_tmp.spectrograms[idx] = scipy.signal.resample(spectrogram, 50, axis=2)
+            dataset_tmp.spectrograms[idx] = scipy.signal.resample(spectrogram, 100, axis=2)
             if idx == 0:
                 print("Shape of spectrogram after resampling: ", dataset_tmp.spectrograms[idx].shape)
 
@@ -352,7 +352,7 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
     
     for idx, _ in enumerate(dataset):
         spectrogram = torch.abs(dataset_tmp.spectrograms[idx])
-        dataset_tmp.spectrograms[idx] = (spectrogram)# - min_spectr) / (max_spectr - min_spectr)
+        dataset_tmp.spectrograms[idx] = (spectrogram) #- min_spectr) / (max_spectr - min_spectr)
     
     """
     # standardize spectrograms

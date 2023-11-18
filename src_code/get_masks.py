@@ -18,15 +18,15 @@ class Config:
     A class to store all the configuration parameters
     """
     curr_time: str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    number_of_subjects: int = 5
+    number_of_subjects: int = 36
     datset_size: int = 0
     batch_size: int = 32
-    start_idx: int = 120
+    start_idx: int = 0
     end_idx: int = 0
     nclasses: int = 2
     classification: str = 'ms'
-    model_path: str = './results_classifier/resnet18_20231117-110808/best_model_params.pt' #/resnet18_20231114-221314/best_model_params.pt'
-    save_figures: bool = True
+    model_path: str = './results_classifier/resnet18_20231118-001246/best_model_params.pt' #/resnet18_20231114-221314/best_model_params.pt'
+    save_figures: bool = False
     input_channels: int = 20
     train_rate: float = 0.8
     valid_rate: float = 0.1
@@ -60,9 +60,6 @@ def load_classifier(dataset):
 
     print("Test accuracy: ", test_acc, flush=True)
 
-    spectrograms, raw_signals, labels, ids, channels = next(iter(testloader))
-    print("Shape of spectrograms: ", spectrograms.shape, flush=True)
-
     return model
     
 
@@ -71,7 +68,7 @@ if __name__ == "__main__":
     # load data from folder
     sample_data_folder = './eeg_data/'
 
-    file_path = f'./saved_datasets/eeg_dataset_ns_{CONFIG.number_of_subjects}_ch_{CONFIG.input_channels}_nc_{CONFIG.nclasses}_{CONFIG.classification}_05sec.pkl'
+    file_path = f'./saved_datasets/eeg_dataset_ns_{CONFIG.number_of_subjects}_ch_{CONFIG.input_channels}_nc_{CONFIG.nclasses}_{CONFIG.classification}_1sec.pkl'
     print(file_path)
     # save config parameters
     CONFIG.save_config()
@@ -93,7 +90,7 @@ if __name__ == "__main__":
     model = load_classifier(dataset)
     
 
-    lam = 0.005 # 0.001
+    lam = 0.01 # 0.001
     mask_path = './results_masks/'
 
     print("Training masks...", flush=True)
@@ -109,7 +106,7 @@ if __name__ == "__main__":
  
     for i, _ in enumerate(dataset_tmp):
         spectr = dataset_tmp.spectrograms[i]
-        spectr = scipy.signal.resample(spectr, 50, axis=2)
+        spectr = scipy.signal.resample(spectr, 100, axis=2)
         spectr = torch.tensor(spectr.real)
         dataset_tmp.spectrograms[i] = torch.abs(spectr)
         dataset_tmp.raw[i] = torch.tensor(dataset.get_raw(i))
