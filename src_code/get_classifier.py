@@ -19,7 +19,7 @@ class Config:
     first_subj: int = 1
     datset_size: int = 0
     batch_size: int = 32
-    epochs: int = 100
+    epochs: int = 10
     network_type: str = 'resnet18'
     classification: str = 'cq'
     pretrained: bool = False
@@ -152,6 +152,7 @@ if __name__ == "__main__":
         
     CONFIG.dataset_size = len(dataset)
     print(dataset.spectrograms[0].shape, flush=True)
-
+    print('len dataset: ', len(dataset), flush=True)
+    print('unique labels: ', np.unique(dataset.labels), flush=True)
     run(dataset)
     

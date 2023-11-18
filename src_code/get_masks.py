@@ -21,12 +21,12 @@ class Config:
     number_of_subjects: int = 36
     datset_size: int = 0
     batch_size: int = 32
-    start_idx: int = 3300
+    start_idx: int = 0
     end_idx: int = 0
     nclasses: int = 2
-    classification: str = 'ms'
-    model_path: str = './results_classifier/resnet18_20231118-121300/best_model_params.pt' #/resnet18_20231114-221314/best_model_params.pt'
-    save_figures: bool = False
+    classification: str = 'cq'
+    model_path: str = './results_classifier/resnet18_20231118-180643/best_model_params.pt' #/resnet18_20231114-221314/best_model_params.pt'
+    save_figures: bool = True
     input_channels: int = 20
     train_rate: float = 0.8
     valid_rate: float = 0.1
@@ -90,8 +90,8 @@ if __name__ == "__main__":
     model = load_classifier(dataset)
     
 
-    lam = 0.001 # 0.001
-    mask_path = './results_masks/'
+    lam = 0.001 
+    mask_path = './results_masks_cq/'
 
     print("Training masks...", flush=True)
 

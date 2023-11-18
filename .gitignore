@@ -172,3 +172,4 @@ scripts/
 *.err
 
 src_code/results_masks/
+src_code/results_masks_cq/
