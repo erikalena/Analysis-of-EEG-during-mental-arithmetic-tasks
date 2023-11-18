@@ -15,10 +15,10 @@ class Config:
     A class to store all the configuration parameters
     """
     curr_time: str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    number_of_subjects: int = 36
+    number_of_subjects: int = 5
     first_subj: int = 1
     datset_size: int = 0
-    batch_size: int = 64
+    batch_size: int = 32
     epochs: int = 100
     network_type: str = 'resnet18'
     classification: str = 'ms'
