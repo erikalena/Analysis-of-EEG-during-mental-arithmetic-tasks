@@ -46,7 +46,7 @@ def print_usage():
     sys.exit(0)
 
 
-def save_correlation(dataset, channels, nclasses, raw, dir_path):
+def save_correlation(dataset, channels, nclasses, raw, dir_path, sel_class=None):
     """
     Save correlation results for the specified channels.
     Input:
@@ -88,8 +88,8 @@ def save_correlation(dataset, channels, nclasses, raw, dir_path):
             else:
                 mask_path = './results_masks/'
                 # get the masks for the two channels
-                dataset1 = MaskDataset(ch=ch1, path=mask_path, nclasses=nclasses)
-                dataset2 = MaskDataset(ch=ch2, path=mask_path, nclasses=nclasses)
+                dataset1 = MaskDataset(ch=ch1, path=mask_path, nclasses=nclasses, sel_class=sel_class)
+                dataset2 = MaskDataset(ch=ch2, path=mask_path, nclasses=nclasses, sel_class=sel_class)
 
             with open(results_path, 'a') as f:
                 f.write(f'Dataset1 size: {len(dataset1)}\n')
@@ -222,27 +222,30 @@ if __name__ == "__main__":
             # split dataset in more datasets one for each class 
             correlation_per_class(filtered_dataset, band_dir_path) 
    
-    # compute correlation for the full spectrum
-    band_dir_path = dir_path +  '/full_spectrum'
-    
+        # compute correlation for the full spectrum
+        band_dir_path = dir_path +  '/full_spectrum'
+        
 
-    if not os.path.exists(dir_path):
-        os.makedirs(band_dir_path) 
-    
-    correlation_per_class = False
+        if not os.path.exists(dir_path):
+            os.makedirs(band_dir_path) 
 
-    if correlation_per_class:
+        # compute correlation for each class for the full spectrum
         correlation_per_class(dataset, band_dir_path)
+    
+    
     else:
         print(f"Computing correlation for the whole dataset", flush=True)
         dataset.raw = np.array(dataset.raw)
 
-        dir_path += '/full_spectrum_masks' if not CONFIG.raw else '/full_spectrum'
-        dir_path  += '/class_boths/'
+        dir_path += 'full_spectrum_masks' 
+        #dir_path  += '/class_boths/'
+        sel_class = 1
+        dir_path += f'/class_{sel_class}/'
         print(dir_path, flush=True)
         if not os.path.exists(dir_path):
             os.makedirs(dir_path)
-        save_correlation(dataset, CONFIG.channels, CONFIG.nclasses, raw=CONFIG.raw, dir_path=dir_path)
+        
+        save_correlation(dataset, CONFIG.channels, CONFIG.nclasses, raw=CONFIG.raw, dir_path=dir_path, sel_class=sel_class)
 
     
     

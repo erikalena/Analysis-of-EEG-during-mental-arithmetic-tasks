@@ -142,16 +142,17 @@ def compute_correlation(dataset1, dataset2, file_path, raw=True):
         data2=np.array(dataset2.masks)[ind2.astype(int)]
         
         # sum along temporal dimension
-        data1 = np.sum(data1, axis=2)
-        data2 = np.sum(data2, axis=2)
-        print('resized shape: ', data1.shape, data2.shape, flush=True)
+        #data1 = np.sum(data1, axis=2)
+        #data2 = np.sum(data2, axis=2)
+        #print('resized shape: ', data1.shape, data2.shape, flush=True)
 
-        #data1 = data1.reshape(-1, data1.shape[1]*data1.shape[2])
-        #data2 = data2.reshape(-1, data2.shape[1]*data2.shape[2])
-       
+        data1 = data1.reshape(-1, data1.shape[1]*data1.shape[2])
+        data2 = data2.reshape(-1, data2.shape[1]*data2.shape[2])
+        print('shape: ', data1.shape, data2.shape, flush=True)
+        
         # normalize data
-        data1 = data1/np.linalg.norm(data1, axis=1, keepdims=True)
-        data2 = data2/np.linalg.norm(data2, axis=1, keepdims=True)
+        #data1 = data1/np.linalg.norm(data1, axis=1, keepdims=True)
+        #data2 = data2/np.linalg.norm(data2, axis=1, keepdims=True)
         print(data1.shape, data2.shape)
 
     # if too few masks are provided, return 

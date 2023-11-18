@@ -62,7 +62,7 @@ class MaskDataset(torch.utils.data.Dataset):
 
     '''
 
-    def __init__(self, ch=None, path = None, nclasses=None, dict_ch=None):
+    def __init__(self, ch=None, path = None, nclasses=None, sel_class=None):
 
         self.masks=[]
         self.labels=[]
@@ -70,13 +70,13 @@ class MaskDataset(torch.utils.data.Dataset):
         self.channel=[]
 
         if path is not None:
-
-            for c in range(nclasses):
+            classes = np.arange(nclasses) if sel_class is None else np.asarray([sel_class])
+            for c in classes:
                 class_list=sorted(os.listdir(path+str(c)))
                 
                 for mask in class_list:
                     channel = str(mask).split('_')[3][:-4]
-                    if ch is not None and channel != ch: # if channel is specified, skip masks that do not belong to that channel
+                    if (ch is not None and channel != ch): # if channel is specified, skip masks that do not belong to that channel
                         continue
                     self.masks.append(np.load(path+str(c)+"/"+mask))
                     self.labels.append(c)
