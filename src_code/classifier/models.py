@@ -21,6 +21,11 @@ def load_resnet18(nclasses = 2, pretrained = True, device = 'cpu', input_channel
 
     weights = ResNet18_Weights.DEFAULT if pretrained else None
     model = models.resnet18(weights = weights)
+    
+    # freeze parameters except for the last layer and the first conv layer
+    if pretrained:
+        for param in model.parameters():
+            param.requires_grad = False
 
     # change the last layer with the number of classes we have
     num_ftrs = model.fc.in_features

@@ -24,8 +24,8 @@ class Config:
     start_idx: int = 0
     end_idx: int = 0
     nclasses: int = 2
-    classification: str = 'cq'
-    model_path: str = './results_classifier/resnet18_20231118-180643/best_model_params.pt' #/resnet18_20231114-221314/best_model_params.pt'
+    classification: str = 'ms'
+    model_path: str = './results_classifier/resnet18_20231118-231325/best_model_params.pt' 
     save_figures: bool = True
     input_channels: int = 20
     train_rate: float = 0.8
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     
 
     lam = 0.001 
-    mask_path = './results_masks_cq/'
+    mask_path = f'./results_masks_{str(CONFIG.classification)}/' 
 
     print("Training masks...", flush=True)
 
@@ -103,12 +103,20 @@ if __name__ == "__main__":
     dataset_tmp = copy.deepcopy(dataset)
     dataset_tmp.raw = list(dataset_tmp.raw)
 
+    min_spectr = np.min([torch.min(torch.abs(torch.tensor(dataset_tmp[i][0]))) for i in range(len(dataset_tmp))])
+    max_spectr = np.max([torch.max(torch.abs(torch.tensor(dataset_tmp[i][0]))) for i in range(len(dataset_tmp))])
  
     for i, _ in enumerate(dataset_tmp):
         spectr = dataset_tmp.spectrograms[i]
         #spectr = scipy.signal.resample(spectr, 100, axis=2)
         spectr = torch.tensor(spectr.real)
-        dataset_tmp.spectrograms[i] = torch.abs(spectr)
+        spectr = torch.abs(spectr)
+        # standardize spectrogram
+        #spectr = (spectr - torch.mean(spectr))/torch.std(spectr)
+        # normalize spectrogram
+        spectr = (spectr - min_spectr)/(max_spectr - min_spectr)
+        dataset_tmp.spectrograms[i] = spectr
+
         dataset_tmp.raw[i] = torch.tensor(dataset.get_raw(i))
 
     # for each element in the dataset, compute its mask
