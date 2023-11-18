@@ -21,11 +21,11 @@ class Config:
     number_of_subjects: int = 5
     datset_size: int = 0
     batch_size: int = 32
-    start_idx: int =60
+    start_idx: int = 60
     end_idx: int = 0
     nclasses: int = 2
-    classification: str = 'ms'
-    model_path: str = './results_classifier/resnet18_20231118-001246/best_model_params.pt' #/resnet18_20231114-221314/best_model_params.pt'
+    classification: str = 'cq'
+    model_path: str = './results_classifier/resnet18_20231118-180643/best_model_params.pt' #/resnet18_20231114-221314/best_model_params.pt'
     save_figures: bool = True
     input_channels: int = 20
     train_rate: float = 0.8
@@ -55,7 +55,7 @@ def load_classifier(dataset):
     # move model and model parameters to device
     model.to(device)
 
-    _, _, testloader = build_dataloader(dataset, batch_size=CONFIG.batch_size, train_rate=CONFIG.train_rate, valid_rate=CONFIG.valid_rate, shuffle=True, resample=True)
+    _, _, testloader = build_dataloader(dataset, batch_size=CONFIG.batch_size, train_rate=CONFIG.train_rate, valid_rate=CONFIG.valid_rate, shuffle=True, resample=False)
     test_acc, _, _, _ = test_model(model, testloader, folder=None)
 
     print("Test accuracy: ", test_acc, flush=True)
@@ -90,8 +90,8 @@ if __name__ == "__main__":
     model = load_classifier(dataset)
     
 
-    lam = 0.01 # 0.001
-    mask_path = './results_masks/'
+    lam = 0.001 
+    mask_path = './results_masks_cq/'
 
     print("Training masks...", flush=True)
 
@@ -106,7 +106,7 @@ if __name__ == "__main__":
  
     for i, _ in enumerate(dataset_tmp):
         spectr = dataset_tmp.spectrograms[i]
-        spectr = scipy.signal.resample(spectr, 100, axis=2)
+        #spectr = scipy.signal.resample(spectr, 30, axis=2)
         spectr = torch.tensor(spectr.real)
         dataset_tmp.spectrograms[i] = torch.abs(spectr)
         dataset_tmp.raw[i] = torch.tensor(dataset.get_raw(i))
