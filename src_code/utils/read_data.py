@@ -333,7 +333,7 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
         for idx, _ in enumerate(dataset):
             # resample spectrogram
             spectrogram = dataset_tmp.get_spectrogram(idx)
-            dataset_tmp.spectrograms[idx] = scipy.signal.resample(spectrogram, 100, axis=2)
+            dataset_tmp.spectrograms[idx] = scipy.signal.resample(spectrogram, 30, axis=2)
             if idx == 0:
                 print("Shape of spectrogram after resampling: ", dataset_tmp.spectrograms[idx].shape)
 
@@ -345,16 +345,15 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
         dataset_tmp.labels[idx] = torch.tensor(dataset_tmp.labels[idx]).long() 
         #self.channel[idx] = torch.tensor(self.channel[idx]).long()
 
-    min_spectr = np.min([torch.min(torch.abs(dataset_tmp[i][0])) for i in range(len(dataset_tmp))])
-    max_spectr = np.max([torch.max(torch.abs(dataset_tmp[i][0])) for i in range(len(dataset_tmp))])
-    print('max of spectrograms', max_spectr)
+    #min_spectr = np.min([torch.min(torch.abs(dataset_tmp[i][0])) for i in range(len(dataset_tmp))])
+    #max_spectr = np.max([torch.max(torch.abs(dataset_tmp[i][0])) for i in range(len(dataset_tmp))])
+    #print('max of spectrograms', max_spectr)
 
     # normalize spectrograms
     for idx, _ in enumerate(dataset):
         spectrogram = torch.abs(dataset_tmp.spectrograms[idx])
         dataset_tmp.spectrograms[idx] = (spectrogram) # - min_spectr) / (max_spectr - min_spectr)
-        # normalize frequency
-        dataset_tmp.spectrograms[idx] = (spectrogram) / max_spectr
+
        
     """
     # standardize spectrograms
