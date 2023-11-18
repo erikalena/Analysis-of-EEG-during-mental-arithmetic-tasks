@@ -25,8 +25,8 @@ class Config:
     end_idx: int = 0
     nclasses: int = 2
     classification: str = 'ms'
-    model_path: str = './results_classifier/resnet18_20231117-082126/best_model_params.pt' #/resnet18_20231114-221314/best_model_params.pt'
-    save_figures: bool = True
+    model_path: str = './results_classifier/resnet18_20231118-001246/best_model_params.pt' #/resnet18_20231114-221314/best_model_params.pt'
+    save_figures: bool = False
     input_channels: int = 20
     train_rate: float = 0.8
     valid_rate: float = 0.1
@@ -68,7 +68,7 @@ if __name__ == "__main__":
     # load data from folder
     sample_data_folder = './eeg_data/'
 
-    file_path = f'./saved_datasets/eeg_dataset_ns_{CONFIG.number_of_subjects}_ch_{CONFIG.input_channels}_nc_{CONFIG.nclasses}_{CONFIG.classification}_05sec.pkl'
+    file_path = f'./saved_datasets/eeg_dataset_ns_{CONFIG.number_of_subjects}_ch_{CONFIG.input_channels}_nc_{CONFIG.nclasses}_{CONFIG.classification}_1sec.pkl'
     print(file_path)
     # save config parameters
     CONFIG.save_config()
@@ -106,7 +106,7 @@ if __name__ == "__main__":
  
     for i, _ in enumerate(dataset_tmp):
         spectr = dataset_tmp.spectrograms[i]
-        spectr = scipy.signal.resample(spectr, 30, axis=2)
+        spectr = scipy.signal.resample(spectr, 100, axis=2)
         spectr = torch.tensor(spectr.real)
         dataset_tmp.spectrograms[i] = torch.abs(spectr)
         dataset_tmp.raw[i] = torch.tensor(dataset.get_raw(i))
