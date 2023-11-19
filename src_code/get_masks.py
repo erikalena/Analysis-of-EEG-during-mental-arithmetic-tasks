@@ -21,7 +21,7 @@ class Config:
     number_of_subjects: int = 10
     datset_size: int = 0
     batch_size: int = 32
-    start_idx: int = 37
+    start_idx: int = 0
     end_idx: int = 0
     nclasses: int = 3
     classification: str = 'both'
