@@ -77,8 +77,8 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
         filename = str(ids[i]) + '_' + str(channels[i])
         
         # if label is zero, skip
-        if labels[i] == 0:
-            continue
+        #if labels[i] == 0:
+        #    continue
 
         # if the file does not exist already and the image was correctly classified
         if i in correct_cls and not os.path.isfile(folder +"/"+ filename +".npy"):
@@ -106,7 +106,7 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
                 epoch += 1
 
                 # train until convergence, for no less than 100 epochs and no more than 3000 epochs
-                if (epoch>200 and abs(l.item()-np.mean(losses[i][-20:]))<1e-4) or epoch>3000:
+                if (epoch>100 and abs(l.item()-np.mean(losses[i][-20:]))<1e-3) or epoch>1000:
                     correct=torch.argmax(out, axis=1) == labels[i]
 
                     mask=model.mask.M.detach().cpu()

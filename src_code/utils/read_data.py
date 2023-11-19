@@ -240,23 +240,12 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
 
             #print(segment_length, n_segments)
 
-            freqs = np.arange(1, 70, 2)
-            ncycles = np.linspace(2,15,len(freqs))
-            all_mwt = []
-             
-            for i in range(len(data.ch_names)-1):
-                sample = data.get_data(i)[0]
-                all_mwt.append(compute_wavelet_transform(sample, fs=500, n_cycles=ncycles, freqs=freqs))
-
-        
             for j in range(n_segments):
                 
                 img_eeg = []
                 raw_eeg = []
 
                 identifiers = []
-                
-                
 
                 for i in range(len(data.ch_names)-1):
                     sample = data.get_data(i)[0]
@@ -269,17 +258,13 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
                     #img_eeg.append(spectr)
 
                     if save_spec:
-                        
-                        mwt = all_mwt[i][:,j*segment_length:(j+1)*segment_length] 
 
-
-                        """ freqs = np.arange(1, 60, 2)
+                        freqs = np.arange(1, 60, 2)
                         #sig = scipy.signal.resample(eeg_data, 500)
                         #mwt = compute_wavelet_transform(sig, fs=250, n_cycles=15, freqs=freqs)
                         ncycles = np.linspace(1,5,len(freqs))
                         mwt = compute_wavelet_transform(eeg_data, fs=500, n_cycles=ncycles, freqs=freqs)
-                        mwt = scipy.signal.resample(mwt, 200, axis=1) """
-                       
+                        mwt = scipy.signal.resample(mwt, 200, axis=1)
                         img_eeg.append(np.abs(mwt))
                        
                        
@@ -306,7 +291,6 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
                     ids.append(identifiers)
                     channels.append(channel_names)
 
-            del all_mwt
     dataset = EEGDataset(spectrograms, raw, labels, ids, channels, {})
 
     with open(data_path, 'wb') as f:
@@ -362,7 +346,7 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
     # normalize spectrograms
     for idx, _ in enumerate(dataset):
         spectrogram = torch.abs(dataset_tmp.spectrograms[idx])
-        dataset_tmp.spectrograms[idx] = (spectrogram) # - min_spectr) / (max_spectr - min_spectr)
+        dataset_tmp.spectrograms[idx] = (spectrogram - min_spectr) / (max_spectr - min_spectr)
 
        
     """

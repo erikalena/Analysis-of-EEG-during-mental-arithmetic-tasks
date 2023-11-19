@@ -18,15 +18,15 @@ class Config:
     A class to store all the configuration parameters
     """
     curr_time: str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    number_of_subjects: int = 5
+    number_of_subjects: int = 10
     datset_size: int = 0
     batch_size: int = 32
-    start_idx: int = 60
+    start_idx: int = 37
     end_idx: int = 0
-    nclasses: int = 2
-    classification: str = 'ms'
-    model_path: str = './results_classifier/resnet18_20231118-230445/best_model_params.pt' 
-    save_figures: bool = True
+    nclasses: int = 3
+    classification: str = 'both'
+    model_path: str = './results_classifier/resnet18_20231119-154023/best_model_params.pt' 
+    save_figures: bool = False
     input_channels: int = 20
     train_rate: float = 0.8
     valid_rate: float = 0.1
@@ -90,7 +90,7 @@ if __name__ == "__main__":
     model = load_classifier(dataset)
     
 
-    lam = 10**(-3) #001 10^(-5)
+    lam = 0.01
     mask_path = f'./results_masks_{str(CONFIG.classification)}/' 
 
     print("Training masks...", flush=True)
@@ -111,7 +111,7 @@ if __name__ == "__main__":
         #spectr = scipy.signal.resample(spectr, 100, axis=2)
         spectr = torch.tensor(spectr.real)
         spectr = torch.abs(spectr)
-
+        spectr = (spectr - min_spectr) / (max_spectr - min_spectr)
         dataset_tmp.spectrograms[i] = spectr
 
         dataset_tmp.raw[i] = torch.tensor(dataset.get_raw(i))

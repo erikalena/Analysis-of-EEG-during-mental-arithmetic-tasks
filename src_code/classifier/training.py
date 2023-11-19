@@ -53,6 +53,9 @@ def train_model(model, criterion, dataloaders, num_epochs=25, folder = None, loa
 
     start_epoch = 0
 
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
+    
     # load checkpoint if needed
     if load_checkpoint:
         checkpoint = torch.load(checkpoint_path)
@@ -80,9 +83,6 @@ def train_model(model, criterion, dataloaders, num_epochs=25, folder = None, loa
 
     print(f'Training on {len(dataloaders["train"])} samples and validating on {len(dataloaders["val"])} samples', flush=True)
 
-
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
 
     early_stopper = EarlyStopper(patience=10, min_delta=0.001)
 
