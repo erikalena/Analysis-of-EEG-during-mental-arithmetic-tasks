@@ -244,7 +244,7 @@ if __name__ == "__main__":
 
         dir_path += 'full_spectrum_masks_both' 
         #dir_path  += '/class_boths/'
-        sel_class = None
+        sel_class = 2
         dir_path += f'/class_{sel_class}/' if sel_class is not None else '/class_both/'
         print(dir_path, flush=True)
         if not os.path.exists(dir_path):

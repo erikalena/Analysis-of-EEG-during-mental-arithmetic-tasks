@@ -346,9 +346,7 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
     # normalize spectrograms
     for idx, _ in enumerate(dataset):
         spectrogram = torch.abs(dataset_tmp.spectrograms[idx])
-        #for i in range(spectrogram.shape[0]):
-        #    dataset_tmp.spectrograms[idx][i] = ((spectrogram[i]- torch.min(spectrogram[i])) / (torch.max(spectrogram[i]) - torch.min(spectrogram[i])))
-        dataset_tmp.spectrograms[idx] = ((spectrogram - min_spectr) / (max_spectr - min_spectr))
+        dataset_tmp.spectrograms[idx] = ((spectrogram- min_spectr) / (max_spectr - min_spectr))
 
     """
     norm_factor_min = np.zeros((num_subjects))
