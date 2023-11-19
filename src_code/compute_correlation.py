@@ -15,9 +15,9 @@ class Config:
     A class to store all the configuration parameters
     """
     curr_time: str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    number_of_subjects: int = 5
-    nclasses: int = 2
-    classification: str = 'ms'
+    number_of_subjects: int = 10
+    nclasses: int = 3
+    classification: str = 'both'
     nelectrodes: int = 20
     input_channels: int = 1
     bandpass: bool = False
@@ -61,6 +61,11 @@ def save_correlation(dataset, channels, nclasses, raw, dir_path, sel_class=None)
     # extract the band we are working on from the directory path
     band = dir_path.split('/')[3]
 
+    if CONFIG.classification == 'both':
+        CONFIG.nclasses = 3
+    else:
+        CONFIG.nclasses = 2
+
     CONFIG.save_config(results_path)
 
     # for each channel pair, compute the correlation
@@ -86,7 +91,7 @@ def save_correlation(dataset, channels, nclasses, raw, dir_path, sel_class=None)
                 dataset1 = dataset.select_channels(ch1)
                 dataset2 = dataset.select_channels(ch2)
             else:
-                mask_path = './results_masks/'
+                mask_path = f'./results_masks_{CONFIG.classification}/'
                 # get the masks for the two channels
                 dataset1 = MaskDataset(ch=ch1, path=mask_path, nclasses=nclasses, sel_class=sel_class)
                 dataset2 = MaskDataset(ch=ch2, path=mask_path, nclasses=nclasses, sel_class=sel_class)
@@ -153,7 +158,7 @@ def get_dataset(input_channels, dir_path):
 
     print(f"Saving results in {dir_path}", flush=True)
 
-    data_path = f'{dir_path}eeg_mat_ch_{str(input_channels)}_ns_{str(CONFIG.number_of_subjects)}_nc_{str(CONFIG.nclasses)}_{str(CONFIG.classification)}_05sec.pkl'
+    data_path = f'{dir_path}eeg_dataset_ns_{str(CONFIG.number_of_subjects)}_ch_{str(input_channels)}_nc_{str(CONFIG.nclasses)}_{str(CONFIG.classification)}_1sec.pkl'
     dataset = read_eeg_data(sample_data_folder, data_path, input_channels=input_channels, number_of_subjects=CONFIG.number_of_subjects, type = CONFIG.classification, save_spec=False)
 
     return dataset
@@ -235,12 +240,12 @@ if __name__ == "__main__":
     
     else:
         print(f"Computing correlation for the whole dataset", flush=True)
-        dataset.raw = np.array(dataset.raw)
+        #dataset.raw = np.array(dataset.raw)
 
-        dir_path += 'full_spectrum_masks' 
+        dir_path += 'full_spectrum_masks_both' 
         #dir_path  += '/class_boths/'
-        sel_class = 1
-        dir_path += f'/class_{sel_class}/'
+        sel_class = None
+        dir_path += f'/class_{sel_class}/' if sel_class is not None else '/class_both/'
         print(dir_path, flush=True)
         if not os.path.exists(dir_path):
             os.makedirs(dir_path)

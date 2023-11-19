@@ -1,0 +1,167 @@
+curr_time: 20231119-182405
+number_of_subjects: 10
+nclasses: 3
+classification: both
+nelectrodes: 20
+input_channels: 1
+bandpass: False
+raw: False
+channels: ['FP1', 'FP2', 'F3', 'F4', 'F7', 'F8', 'T3', 'T4', 'C3', 'C4', 'T5', 'T6', 'P3', 'P4', 'O1', 'O2', 'FZ', 'CZ', 'PZ', 'A2']
+datset_size: 24000
+
+
+Computing correlation for FP1 and FP2
+
+Dataset1 size: 521
+Dataset2 size: 521
+
+Number of data: 521
+Data shape: (521, 30)
+Pearson coefficient: 0.20773261693533898
+Cosine similarity: mean 0.40818947553634644, std 0.2931962013244629
+No-shuffle Id: 6.208907413893256
+Shuffled Id mean: 6.078242216874531, std: 0.4509121041168798
+Z-score: 0.2897797504784992
+P-value: 0.6140076298577655
+---------------------------------------
+
+
+
+Computing correlation for FP1 and F3
+
+Dataset1 size: 521
+Dataset2 size: 521
+
+Number of data: 521
+Data shape: (521, 30)
+Pearson coefficient: 0.11027067423370866
+Cosine similarity: mean 0.3459703028202057, std 0.29581767320632935
+No-shuffle Id: 5.086701262831708
+Shuffled Id mean: 5.932845570747379, std: 0.32589873154880217
+Z-score: -2.5963412127885603
+P-value: 0.004711122238403553
+---------------------------------------
+
+
+
+Computing correlation for FP1 and F4
+
+Dataset1 size: 521
+Dataset2 size: 521
+
+Number of data: 521
+Data shape: (521, 30)
+Pearson coefficient: 0.06425446937755963
+Cosine similarity: mean 0.30276453495025635, std 0.26822829246520996
+No-shuffle Id: 5.579817671818934
+Shuffled Id mean: 6.231756902462106, std: 0.4098714846112111
+Z-score: -1.5905942597143032
+P-value: 0.05585045858554661
+---------------------------------------
+
+
+
+Computing correlation for FP1 and F7
+
+Dataset1 size: 521
+Dataset2 size: 521
+
+Number of data: 521
+Data shape: (521, 30)
+Pearson coefficient: 0.2220170516361523
+Cosine similarity: mean 0.4376305639743805, std 0.28730446100234985
+No-shuffle Id: 5.470572220680796
+Shuffled Id mean: 5.549957322813109, std: 0.32874378083008093
+Z-score: -0.24148016407143755
+P-value: 0.40459149421922325
+---------------------------------------
+
+
+
+Computing correlation for FP1 and F8
+
+Dataset1 size: 521
+Dataset2 size: 521
+
+Number of data: 521
+Data shape: (521, 30)
+Pearson coefficient: 0.13165937567643526
+Cosine similarity: mean 0.35529419779777527, std 0.2827344238758087
+No-shuffle Id: 5.906524430691732
+Shuffled Id mean: 6.774108506354015, std: 0.39010001400487004
+Z-score: -2.224004215625205
+P-value: 0.013074080307015588
+---------------------------------------
+
+
+
+Computing correlation for FP1 and T3
+
+Dataset1 size: 521
+Dataset2 size: 521
+
+Number of data: 521
+Data shape: (521, 30)
+Pearson coefficient: 0.029209665285014137
+Cosine similarity: mean 0.3327687680721283, std 0.26207953691482544
+No-shuffle Id: 4.605690134477398
+Shuffled Id mean: 5.11821428825716, std: 0.3385565138269044
+Z-score: -1.5138511085974946
+P-value: 0.0650318033366967
+---------------------------------------
+
+
+
+Computing correlation for FP1 and T4
+
+Dataset1 size: 521
+Dataset2 size: 521
+
+Number of data: 521
+Data shape: (521, 30)
+Pearson coefficient: 0.07340154075600919
+Cosine similarity: mean 0.32110196352005005, std 0.2874903380870819
+No-shuffle Id: 5.4067935698161875
+Shuffled Id mean: 5.887216779841488, std: 0.3397030257204832
+Z-score: -1.4142447186225695
+P-value: 0.07864503105173187
+---------------------------------------
+
+
+
+Computing correlation for FP1 and C3
+
+Dataset1 size: 521
+Dataset2 size: 521
+
+Number of data: 521
+Data shape: (521, 30)
+Pearson coefficient: 0.07342340287380762
+Cosine similarity: mean 0.34773096442222595, std 0.28747808933258057
+No-shuffle Id: 6.427099657806629
+Shuffled Id mean: 6.714670468947843, std: 0.4392602889971036
+Z-score: -0.6546706322981781
+P-value: 0.2563399186412785
+---------------------------------------
+
+
+
+Computing correlation for FP1 and C4
+
+Dataset1 size: 521
+Dataset2 size: 521
+
+Number of data: 521
+Data shape: (521, 30)
+Pearson coefficient: 0.11433018889527785
+Cosine similarity: mean 0.3714342713356018, std 0.2968571186065674
+No-shuffle Id: 6.819869340584864
+Shuffled Id mean: 6.569311931987226, std: 0.4319814848520534
+Z-score: 0.5800188604922498
+P-value: 0.7190490504463698
+---------------------------------------
+
+
+
+Computing correlation for FP1 and T5
+
