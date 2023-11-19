@@ -29,7 +29,7 @@ class Config:
     input_channels: int = 20
     input_data: int = None
     dir_path: str = './results_classifier/' + network_type + "_" + curr_time
-    checkpoint_path: str = './results_classifier/resnet18_20231119-152229'
+    checkpoint_path: str = None #'./results_classifier/resnet18_20231119-152229'
     optimizer: optim = optim.Adam
     learning_rate: float = 0.001
     loss_fn: nn = nn.CrossEntropyLoss 
