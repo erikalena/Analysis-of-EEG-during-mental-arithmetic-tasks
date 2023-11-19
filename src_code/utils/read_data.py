@@ -301,7 +301,7 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
 
 
 
-def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffle=True, resample=False):
+def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffle=True, resample=False, num_subjects = 10):
     """
     A function which provides all the dataloaders needed for training, validation and testing
     Input:
@@ -348,7 +348,25 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
         spectrogram = torch.abs(dataset_tmp.spectrograms[idx])
         dataset_tmp.spectrograms[idx] = (spectrogram- min_spectr) / (max_spectr - min_spectr)
 
-       
+    """
+    norm_factor_min = np.zeros((num_subjects))
+    norm_factor_max = np.zeros((num_subjects))
+    nsegm = 60*2 
+    for j in range(num_subjects):
+        min_spectr = np.min([torch.min(torch.abs(dataset_tmp[i][0])) for i in range(j*nsegm,(j+1)*nsegm)])
+        max_spectr = np.max([torch.max(torch.abs(dataset_tmp[i][0])) for i in range(j*nsegm,(j+1)*nsegm)])
+        norm_factor_min[j] = min_spectr
+        norm_factor_max[j] = max_spectr
+
+
+    # normalize spectrograms
+    for idx, _ in enumerate(dataset):
+        # get subject number
+        subj = dataset_tmp.id[idx][0].split('_')[0][7:]
+        spectrogram = torch.abs(dataset_tmp.spectrograms[idx])
+        dataset_tmp.spectrograms[idx] = (spectrogram - norm_factor_min[int(subj)]) / (norm_factor_max[int(subj)] - norm_factor_min[int(subj)])
+        
+    """
     """
     # standardize spectrograms
     for idx, _ in enumerate(dataset):
