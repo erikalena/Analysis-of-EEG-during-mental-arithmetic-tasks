@@ -21,9 +21,9 @@ class Config:
     batch_size: int = 32
     epochs: int = 10
     network_type: str = 'resnet18'
-    classification: str = 'ms'
+    classification: str = 'both'
     pretrained: bool = True
-    nclasses: int = 2
+    nclasses: int = 3
     nelectrodes: int = 20
     ndim: int = 2
     input_channels: int = 20
@@ -135,7 +135,11 @@ if __name__ == "__main__":
         CONFIG.input_channels == 64
     else:
         CONFIG.ndim == 2 
-
+    
+    if CONFIG.classification == 'both':
+        CONFIG.nclasses = 3
+    else:
+        CONFIG.nclasses = 2
 
     file_path = f'./saved_datasets/eeg_dataset_ns_{CONFIG.number_of_subjects}_ch_{CONFIG.input_channels}_nc_{CONFIG.nclasses}_{CONFIG.classification}_1sec.pkl'
 

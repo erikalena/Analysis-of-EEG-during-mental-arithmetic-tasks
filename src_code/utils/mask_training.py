@@ -75,10 +75,14 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
     for i in range(n):
         folder = path+ str(labels[i].item()) 
         filename = str(ids[i]) + '_' + str(channels[i])
-                    
+        
+        # if label is zero, skip
+        if labels[i] == 0:
+            continue
 
         # if the file does not exist already and the image was correctly classified
         if i in correct_cls and not os.path.isfile(folder +"/"+ filename +".npy"):
+            #lam = 0.01 if labels[i] == 0 else 0.001
             since = time.time()
             model = MaskedClf(Mask((nchannels, img_size[0], img_size[1])).to(device), base_model)
             for p in model.clf.parameters(): # freeze classifier parameters
@@ -87,11 +91,12 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
             model.mask.train()
             optimizer = torch.optim.Adam(model.mask.parameters(), lr=0.01)
             epoch = 0
+            lam2 = 10**(-5)
             while True:
                 out = model(spectrograms[i])
                 l = loss(out, labels[i].reshape(1))
                 penalty = model.mask.M.abs().sum()
-                l += penalty*lam
+                l += penalty*lam #+ (1/penalty)*lam2
                 losses[i].append(l.item())
                 optimizer.zero_grad()
                 l.backward()
@@ -101,8 +106,14 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
                 epoch += 1
 
                 # train until convergence, for no less than 100 epochs and no more than 3000 epochs
-                if (epoch>200 and abs(l.item()-np.mean(losses[i][-20:]))<1e-3) or epoch>3000:
+                if (epoch>200 and abs(l.item()-np.mean(losses[i][-20:]))<1e-4) or epoch>3000:
                     correct=torch.argmax(out, axis=1) == labels[i]
+
+                    mask=model.mask.M.detach().cpu()
+                    mask=mask.squeeze().numpy()
+                    if np.sum(mask) <= 0:
+                        print("mask is all zeros, skipping...", flush=True)
+
                     #print('out: ', out, ' labels: ', labels[i], ' correct: ', correct, ' loss: ', l.item(), flush=True)
                     print(f'Training time for {i}th image: ', time.time()-since, ' epoch ', epoch, '- ', correct, flush=True)
 
@@ -142,9 +153,8 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
                             for j in range(input_channels):
                                 # sum mask across time dimension
                                 mask_ch = mask[j] #np.sum(mask[j], axis=1)
-
                                 # if mask is all zeros, skip
-                                if np.sum(mask_ch) != 0:
+                                if np.sum(mask_ch) > 0:
                                     filename = str(ids[i][j]) + '_' + str(channels[i][j])
                                     save_figure(figures_folder, filename, spectrograms[i][j], raw_sigs[i][j], mask[j]) if figures else None
                                     # save mask
