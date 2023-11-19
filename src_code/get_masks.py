@@ -18,15 +18,15 @@ class Config:
     A class to store all the configuration parameters
     """
     curr_time: str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    number_of_subjects: int = 10
+    number_of_subjects: int = 5
     datset_size: int = 0
     batch_size: int = 32
-    start_idx: int = 37
+    start_idx: int = 60
     end_idx: int = 0
-    nclasses: int = 3
-    classification: str = 'both'
-    model_path: str = './results_classifier/resnet18_20231119-154023/best_model_params.pt' 
-    save_figures: bool = False
+    nclasses: int = 2
+    classification: str = 'ms'
+    model_path: str = './results_classifier/resnet18_ms_36/best_model_params.pt' 
+    save_figures: bool = True
     input_channels: int = 20
     train_rate: float = 0.8
     valid_rate: float = 0.1
