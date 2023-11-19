@@ -346,7 +346,7 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
     # normalize spectrograms
     for idx, _ in enumerate(dataset):
         spectrogram = torch.abs(dataset_tmp.spectrograms[idx])
-        dataset_tmp.spectrograms[idx] = (spectrogram - min_spectr) / (max_spectr - min_spectr)
+        dataset_tmp.spectrograms[idx] = (spectrogram- min_spectr) / (max_spectr - min_spectr)
 
        
     """
@@ -354,11 +354,11 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
     for idx, _ in enumerate(dataset):
         # standardize spectrogram
         spectrogram = dataset_tmp.get_spectrogram(idx)
-        dataset_tmp.spectrograms[idx] = transforms.functional.normalize(spectrogram.unsqueeze(0), mean=torch.mean(spectrogram), 
-                                                      std=torch.std(spectrogram)) 
-        #dataset_tmp.spectrograms[idx] = ((spectrogram - torch.min(spectrogram))/(torch.max(spectrogram) -torch.min(spectrogram))).unsqueeze(0)
-    
+        #dataset_tmp.spectrograms[idx] = transforms.functional.normalize(spectrogram.unsqueeze(0), mean=torch.mean(spectrogram), 
+        #                                              std=torch.std(spectrogram)) 
+        dataset_tmp.spectrograms[idx] = ((spectrogram - torch.min(spectrogram))/(torch.max(spectrogram) -torch.min(spectrogram))).unsqueeze(0)
     """
+    
 
     train_dataset, valid_dataset, test_dataset = torch.utils.data.random_split(dataset_tmp, [train_size, valid_size, test_size])
     del dataset_tmp
