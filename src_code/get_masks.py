@@ -21,12 +21,12 @@ class Config:
     number_of_subjects: int = 5
     datset_size: int = 0
     batch_size: int = 32
-    start_idx: int = 60
+    start_idx: int = 0
     end_idx: int = 0
     nclasses: int = 2
     classification: str = 'ms'
     model_path: str = './results_classifier/resnet18_ms_36/best_model_params.pt' 
-    save_figures: bool = True
+    save_figures: bool = False
     input_channels: int = 20
     train_rate: float = 0.8
     valid_rate: float = 0.1

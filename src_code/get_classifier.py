@@ -15,15 +15,15 @@ class Config:
     A class to store all the configuration parameters
     """
     curr_time: str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    number_of_subjects: int = 10
+    number_of_subjects: int = 36
     first_subj: int = 1
     datset_size: int = 0
-    batch_size: int = 32
-    epochs: int = 10
+    batch_size: int = 64
+    epochs: int = 100
     network_type: str = 'resnet18'
-    classification: str = 'both'
+    classification: str = 'cq'
     pretrained: bool = True
-    nclasses: int = 3
+    nclasses: int = 2
     nelectrodes: int = 20
     ndim: int = 2
     input_channels: int = 20
@@ -73,7 +73,7 @@ def run(dataset):
         validloader = dataloaders['val']
         testloader = dataloaders['test']
     else:
-        trainloader, validloader, testloader = build_dataloader(dataset, batch_size=CONFIG.batch_size, train_rate=CONFIG.train_rate, valid_rate=CONFIG.valid_rate, shuffle=True, resample=False) 
+        trainloader, validloader, testloader = build_dataloader(dataset, batch_size=CONFIG.batch_size, train_rate=CONFIG.train_rate, valid_rate=CONFIG.valid_rate, shuffle=True, resample=False, num_subjects=CONFIG.number_of_subjects) 
     
     dataloaders = {'train': trainloader, 'val': validloader, 'test': testloader}
 
