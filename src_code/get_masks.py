@@ -21,12 +21,12 @@ class Config:
     number_of_subjects: int = 5
     datset_size: int = 0
     batch_size: int = 32
-    start_idx: int = 0
+    start_idx: int = 60
     end_idx: int = 0
     nclasses: int = 2
-    classification: str = 'ms'
-    model_path: str = './results_classifier/resnet18_ms_36/best_model_params.pt' 
-    save_figures: bool = False
+    classification: str = 'cq'
+    model_path: str = './results_classifier/resnet18_cq_36/best_model_params.pt' 
+    save_figures: bool = True
     input_channels: int = 20
     train_rate: float = 0.8
     valid_rate: float = 0.1
@@ -55,7 +55,7 @@ def load_classifier(dataset):
     # move model and model parameters to device
     model.to(device)
 
-    _, _, testloader = build_dataloader(dataset, batch_size=CONFIG.batch_size, train_rate=CONFIG.train_rate, valid_rate=CONFIG.valid_rate, shuffle=True, resample=False)
+    _, _, testloader = build_dataloader(dataset, batch_size=CONFIG.batch_size, train_rate=CONFIG.train_rate, valid_rate=CONFIG.valid_rate, shuffle=True, resample=True)
     test_acc, _, _, _ = test_model(model, testloader, folder=None)
 
     print("Test accuracy: ", test_acc, flush=True)

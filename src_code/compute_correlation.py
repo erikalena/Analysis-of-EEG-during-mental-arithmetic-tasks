@@ -15,13 +15,13 @@ class Config:
     A class to store all the configuration parameters
     """
     curr_time: str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    number_of_subjects: int = 10
-    nclasses: int = 3
-    classification: str = 'both'
+    number_of_subjects: int = 5
+    nclasses: int = 2
+    classification: str = 'cq'
     nelectrodes: int = 20
     input_channels: int = 1
     bandpass: bool = False
-    raw: bool = False
+    raw: bool = True
     channels: list = field(default_factory=lambda: ['FP1','FP2', 'F3','F4','F7','F8','T3','T4','C3','C4','T5','T6','P3','P4','O1','O2','FZ','CZ','PZ','A2'])
     
 
@@ -158,7 +158,7 @@ def get_dataset(input_channels, dir_path):
 
     print(f"Saving results in {dir_path}", flush=True)
 
-    data_path = f'{dir_path}eeg_dataset_ns_{str(CONFIG.number_of_subjects)}_ch_{str(input_channels)}_nc_{str(CONFIG.nclasses)}_{str(CONFIG.classification)}_1sec.pkl'
+    data_path = f'{dir_path}eeg_dataset_ns_{str(CONFIG.number_of_subjects)}_ch_{str(input_channels)}_nc_{str(CONFIG.nclasses)}_{str(CONFIG.classification)}_05sec.pkl'
     dataset = read_eeg_data(sample_data_folder, data_path, input_channels=input_channels, number_of_subjects=CONFIG.number_of_subjects, type = CONFIG.classification, save_spec=False)
 
     return dataset
@@ -222,13 +222,13 @@ if __name__ == "__main__":
             if len(sys.argv) > 2:
                 CONFIG.channels = selected_channels(filtered_dataset, sys.argv) 
 
-            band_dir_path = dir_path + bands[idx] + '_band'             
+            band_dir_path = dir_path + bands[idx] + '_band_'  + str(CONFIG.classification) + '/'
 
             # split dataset in more datasets one for each class 
             correlation_per_class(filtered_dataset, band_dir_path) 
    
         # compute correlation for the full spectrum
-        band_dir_path = dir_path +  '/full_spectrum'
+        band_dir_path = dir_path +  '/full_spectrum_' + str(CONFIG.classification) + '/'
         
 
         if not os.path.exists(dir_path):

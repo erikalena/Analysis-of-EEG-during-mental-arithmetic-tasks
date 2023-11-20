@@ -225,7 +225,7 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
             
             fs = data.info['sfreq']
 
-            factor = 1
+            factor = 2
             segment_length = int(fs/factor) #int(fs*6)
 
             sample = data.get_data(0)[0]
@@ -327,7 +327,7 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
         for idx, _ in enumerate(dataset):
             # resample spectrogram
             spectrogram = dataset_tmp.get_spectrogram(idx)
-            dataset_tmp.spectrograms[idx] = scipy.signal.resample(spectrogram, 30, axis=2)
+            dataset_tmp.spectrograms[idx] = scipy.signal.resample(spectrogram, 100, axis=2)
             if idx == 0:
                 print("Shape of spectrogram after resampling: ", dataset_tmp.spectrograms[idx].shape)
 
