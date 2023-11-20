@@ -78,7 +78,7 @@ class MaskDataset(torch.utils.data.Dataset):
                     channel = str(mask).split('_')[3][:-4]
                     if (ch is not None and channel != ch): # if channel is specified, skip masks that do not belong to that channel
                         continue
-                    self.masks.append(np.load(path+str(c)+"/"+mask))
+                    self.masks.append(np.load(path+str(c)+"/"+mask, allow_pickle=True))
                     self.labels.append(c)
                     id = f'{str(mask)[7:].split("_")[0]}_{str(mask).split("_")[1]}_{str(mask).split("_")[2]}' # subject + label + epoch
                     self.id.append(id) 

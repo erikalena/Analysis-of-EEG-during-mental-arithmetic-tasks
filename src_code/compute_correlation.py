@@ -15,7 +15,7 @@ class Config:
     A class to store all the configuration parameters
     """
     curr_time: str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    number_of_subjects: int = 5
+    number_of_subjects: int = 36
     nclasses: int = 2
     classification: str = 'cq'
     nelectrodes: int = 20

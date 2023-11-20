@@ -137,13 +137,15 @@ def compute_correlation(dataset1, dataset2, file_path, raw=True):
             data2 = np.squeeze(data2, axis=1)
 
     else:
-
         data1=np.array(dataset1.masks)[ind1.astype(int)]
         data2=np.array(dataset2.masks)[ind2.astype(int)]
+        #namx= 900
+        #data1=data1[:nmax,:,:]
+        #data2=data2[:nmax,:,:]
         
         # sum along temporal dimension
-        data1 = np.sum(data1, axis=2)
-        data2 = np.sum(data2, axis=2)
+        data1 = np.sum(data1, axis=1)
+        data2 = np.sum(data2, axis=1)
         #print('resized shape: ', data1.shape, data2.shape, flush=True)
 
         #data1 = data1.reshape(-1, data1.shape[1]*data1.shape[2])

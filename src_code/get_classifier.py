@@ -21,8 +21,8 @@ class Config:
     batch_size: int = 64
     epochs: int = 100
     network_type: str = 'resnet18'
-    classification: str = 'cq'
-    pretrained: bool = True
+    classification: str = 'ms'
+    pretrained: bool = False
     nclasses: int = 2
     nelectrodes: int = 20
     ndim: int = 2
