@@ -1,0 +1,3240 @@
+curr_time: 20231120-141057
+number_of_subjects: 36
+nclasses: 2
+classification: cq
+nelectrodes: 20
+input_channels: 1
+bandpass: False
+raw: True
+channels: ['FP1', 'FP2', 'F3', 'F4', 'F7', 'F8', 'T3', 'T4', 'C3', 'C4', 'T5', 'T6', 'P3', 'P4', 'O1', 'O2', 'FZ', 'CZ', 'PZ', 'A2']
+datset_size: 86400
+
+
+Computing correlation for FP1 and FP2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.40958366715398314
+Cosine similarity: mean 0.3995705246925354, std 0.3831304907798767
+No-shuffle Id: 24.05243666991196
+Shuffled Id mean: 24.212334556596506, std: 0.46905718151733367
+Z-score: -0.34089209798963105
+P-value: 0.3665924069009652
+---------------------------------------
+
+
+
+Computing correlation for FP1 and F3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5918758082613161
+Cosine similarity: mean 0.592622697353363, std 0.28548020124435425
+No-shuffle Id: 23.486108332984234
+Shuffled Id mean: 25.74380069687389, std: 0.4790656083551471
+Z-score: -4.712699731548993
+P-value: 1.2222813994032022e-06
+---------------------------------------
+
+
+
+Computing correlation for FP1 and F4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4873805857034309
+Cosine similarity: mean 0.4861789047718048, std 0.30881237983703613
+No-shuffle Id: 24.483263828088866
+Shuffled Id mean: 25.75005535239919, std: 0.46954533265066684
+Z-score: -2.6979110135310287
+P-value: 0.00348880448653587
+---------------------------------------
+
+
+
+Computing correlation for FP1 and F7
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5592490673128265
+Cosine similarity: mean 0.5869305729866028, std 0.30979883670806885
+No-shuffle Id: 23.69129388334598
+Shuffled Id mean: 24.943767171551993, std: 0.5136046189540178
+Z-score: -2.4385942843674933
+P-value: 0.007372255896313181
+---------------------------------------
+
+
+
+Computing correlation for FP1 and F8
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.2953070545203258
+Cosine similarity: mean 0.3189530074596405, std 0.3753105700016022
+No-shuffle Id: 23.853361269817945
+Shuffled Id mean: 24.524870732036547, std: 0.4044048847711767
+Z-score: -1.6604880096801005
+P-value: 0.048408159024465346
+---------------------------------------
+
+
+
+Computing correlation for FP1 and T3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.37411366190870826
+Cosine similarity: mean 0.4040416181087494, std 0.3201472759246826
+No-shuffle Id: 25.30762329552111
+Shuffled Id mean: 25.778989999687173, std: 0.4399601639096968
+Z-score: -1.0713849635323156
+P-value: 0.14199818549415677
+---------------------------------------
+
+
+
+Computing correlation for FP1 and T4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.23469846530776067
+Cosine similarity: mean 0.24128133058547974, std 0.326745867729187
+No-shuffle Id: 25.87475810760742
+Shuffled Id mean: 25.683112255071336, std: 0.4628286438785345
+Z-score: 0.414075176786983
+P-value: 0.6605904742183027
+---------------------------------------
+
+
+
+Computing correlation for FP1 and C3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.435841670358799
+Cosine similarity: mean 0.450151264667511, std 0.2919915020465851
+No-shuffle Id: 24.743919594006105
+Shuffled Id mean: 25.566865613652514, std: 0.4671216651752631
+Z-score: -1.7617380673997238
+P-value: 0.03905678146919927
+---------------------------------------
+
+
+
+Computing correlation for FP1 and C4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.36042453687067155
+Cosine similarity: mean 0.376198947429657, std 0.29181501269340515
+No-shuffle Id: 25.413089170316702
+Shuffled Id mean: 25.814722139882083, std: 0.474336678182548
+Z-score: -0.8467255180524162
+P-value: 0.1985740659228924
+---------------------------------------
+
+
+
+Computing correlation for FP1 and T5
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.2614750361823228
+Cosine similarity: mean 0.2749084532260895, std 0.3231598436832428
+No-shuffle Id: 25.72432466519433
+Shuffled Id mean: 25.742320459680286, std: 0.429153182064867
+Z-score: -0.041933265878091854
+P-value: 0.48327594868807844
+---------------------------------------
+
+
+
+Computing correlation for FP1 and T6
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.06427369161403398
+Cosine similarity: mean 0.09408276528120041, std 0.3405105471611023
+No-shuffle Id: 26.005130459961805
+Shuffled Id mean: 25.634898010012172, std: 0.5554739842079944
+Z-score: 0.6665162734444123
+P-value: 0.7474594172298465
+---------------------------------------
+
+
+
+Computing correlation for FP1 and P3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.22960877889094336
+Cosine similarity: mean 0.25603625178337097, std 0.30878788232803345
+No-shuffle Id: 25.99746467136588
+Shuffled Id mean: 25.537820401113176, std: 0.4878864668983995
+Z-score: 0.9421131788605688
+P-value: 0.8269326510514639
+---------------------------------------
+
+
+
+Computing correlation for FP1 and P4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.17381489935542793
+Cosine similarity: mean 0.1913098841905594, std 0.3139033019542694
+No-shuffle Id: 25.677831427618134
+Shuffled Id mean: 25.255701455681052, std: 0.5014934292131226
+Z-score: 0.8417457684329637
+P-value: 0.8000348631914289
+---------------------------------------
+
+
+
+Computing correlation for FP1 and O1
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.0652620753726337
+Cosine similarity: mean 0.09598688036203384, std 0.3174499571323395
+No-shuffle Id: 25.812967858220837
+Shuffled Id mean: 25.00883009633724, std: 0.5135297928016864
+Z-score: 1.5659028417736585
+P-value: 0.9413143177596991
+---------------------------------------
+
+
+
+Computing correlation for FP1 and O2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.042116372441156937
+Cosine similarity: mean 0.07134389877319336, std 0.3162989318370819
+No-shuffle Id: 24.530773569116036
+Shuffled Id mean: 24.562165129590152, std: 0.46498288446538333
+Z-score: -0.06751121712836548
+P-value: 0.47308736621143305
+---------------------------------------
+
+
+
+Computing correlation for FP1 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5453572948053855
+Cosine similarity: mean 0.5531415939331055, std 0.286203533411026
+No-shuffle Id: 23.651134052154163
+Shuffled Id mean: 25.417577548969263, std: 0.448124459667238
+Z-score: -3.941859139148086
+P-value: 4.042622886120545e-05
+---------------------------------------
+
+
+
+Computing correlation for FP1 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.41937484716118534
+Cosine similarity: mean 0.4319676458835602, std 0.2909846305847168
+No-shuffle Id: 24.81288071541872
+Shuffled Id mean: 25.494279947582232, std: 0.5370184002690316
+Z-score: -1.268856396395632
+P-value: 0.10224614320449299
+---------------------------------------
+
+
+
+Computing correlation for FP1 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.18828798344318448
+Cosine similarity: mean 0.2229154109954834, std 0.3058875501155853
+No-shuffle Id: 25.60022292070061
+Shuffled Id mean: 25.014268135026335, std: 0.5104996928819814
+Z-score: 1.147806343166082
+P-value: 0.8744757409226656
+---------------------------------------
+
+
+
+Computing correlation for FP1 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: -0.1516748493131582
+Cosine similarity: mean -0.14614234864711761, std 0.33791133761405945
+No-shuffle Id: 26.192116444561766
+Shuffled Id mean: 25.343343913547102, std: 0.444009829175634
+Z-score: 1.9116075258751095
+P-value: 0.9720367233448022
+---------------------------------------
+
+
+
+Computing correlation for FP2 and F3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.49404210756766814
+Cosine similarity: mean 0.5183684229850769, std 0.3151952922344208
+No-shuffle Id: 25.117885875415766
+Shuffled Id mean: 25.40702534847688, std: 0.4364299181462665
+Z-score: -0.6625106598769185
+P-value: 0.2538220027072502
+---------------------------------------
+
+
+
+Computing correlation for FP2 and F4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5834397065892373
+Cosine similarity: mean 0.6144596338272095, std 0.29892224073410034
+No-shuffle Id: 22.86974015976984
+Shuffled Id mean: 25.43488695038795, std: 0.488912732913172
+Z-score: -5.246635274425678
+P-value: 7.74510615105501e-08
+---------------------------------------
+
+
+
+Computing correlation for FP2 and F7
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.3222808054474547
+Cosine similarity: mean 0.35775068402290344, std 0.3656403124332428
+No-shuffle Id: 24.82689190963471
+Shuffled Id mean: 24.626036125530906, std: 0.48405793052113855
+Z-score: 0.41494162462654566
+P-value: 0.6609076812775556
+---------------------------------------
+
+
+
+Computing correlation for FP2 and F8
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5224033930459575
+Cosine similarity: mean 0.5677167773246765, std 0.31101304292678833
+No-shuffle Id: 22.004185022228945
+Shuffled Id mean: 24.241130579217778, std: 0.46430164232464927
+Z-score: -4.81787129976317
+P-value: 7.254895445348134e-07
+---------------------------------------
+
+
+
+Computing correlation for FP2 and T3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.2579428391264422
+Cosine similarity: mean 0.2908506989479065, std 0.33510589599609375
+No-shuffle Id: 26.237257862252022
+Shuffled Id mean: 25.38192333234446, std: 0.4897090011886598
+Z-score: 1.746617946232207
+P-value: 0.9596481839509163
+---------------------------------------
+
+
+
+Computing correlation for FP2 and T4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.38259304586188464
+Cosine similarity: mean 0.4068818986415863, std 0.29065969586372375
+No-shuffle Id: 24.604957596565626
+Shuffled Id mean: 25.33750306829583, std: 0.5731190079076183
+Z-score: -1.2781734013754522
+P-value: 0.10059414623599106
+---------------------------------------
+
+
+
+Computing correlation for FP2 and C3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.3609641036061123
+Cosine similarity: mean 0.3819039463996887, std 0.307856023311615
+No-shuffle Id: 26.340914431051154
+Shuffled Id mean: 25.35156984227341, std: 0.5189022229215497
+Z-score: 1.906610812355911
+P-value: 0.9717144980457406
+---------------------------------------
+
+
+
+Computing correlation for FP2 and C4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4042845095477388
+Cosine similarity: mean 0.4473080337047577, std 0.281713604927063
+No-shuffle Id: 25.316129208853628
+Shuffled Id mean: 25.54316163490145, std: 0.4960369615124736
+Z-score: -0.4576925585455821
+P-value: 0.32358666749751475
+---------------------------------------
+
+
+
+Computing correlation for FP2 and T5
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.13241524005515837
+Cosine similarity: mean 0.1577242910861969, std 0.33763185143470764
+No-shuffle Id: 26.472734833297967
+Shuffled Id mean: 25.32554498229717, std: 0.49710036125269325
+Z-score: 2.3077630603805575
+P-value: 0.9894938407339808
+---------------------------------------
+
+
+
+Computing correlation for FP2 and T6
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.16434037554139042
+Cosine similarity: mean 0.1955096572637558, std 0.32608696818351746
+No-shuffle Id: 25.386015676078053
+Shuffled Id mean: 25.35226120530446, std: 0.5512023434067992
+Z-score: 0.06123789417325257
+P-value: 0.5244151244186336
+---------------------------------------
+
+
+
+Computing correlation for FP2 and P3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.1787409537622175
+Cosine similarity: mean 0.22057530283927917, std 0.31230515241622925
+No-shuffle Id: 26.149492084864114
+Shuffled Id mean: 25.306400311297125, std: 0.4910063587554842
+Z-score: 1.717068951416248
+P-value: 0.9570167128103529
+---------------------------------------
+
+
+
+Computing correlation for FP2 and P4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.1927747210802318
+Cosine similarity: mean 0.24631230533123016, std 0.3091926574707031
+No-shuffle Id: 25.81956816769076
+Shuffled Id mean: 24.913144339988847, std: 0.5275008444099608
+Z-score: 1.718336259187983
+P-value: 0.9571323503385312
+---------------------------------------
+
+
+
+Computing correlation for FP2 and O1
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.037290388057862514
+Cosine similarity: mean 0.08417464792728424, std 0.32416898012161255
+No-shuffle Id: 24.4058623954948
+Shuffled Id mean: 24.640038100618785, std: 0.4665353271890521
+Z-score: -0.5019463510618362
+P-value: 0.3078526297583257
+---------------------------------------
+
+
+
+Computing correlation for FP2 and O2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.07199196153621172
+Cosine similarity: mean 0.09821268916130066, std 0.3205101191997528
+No-shuffle Id: 25.264471888677054
+Shuffled Id mean: 24.37160293166097, std: 0.5051479602648296
+Z-score: 1.7675394681352121
+P-value: 0.9614310373742111
+---------------------------------------
+
+
+
+Computing correlation for FP2 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5475927694263809
+Cosine similarity: mean 0.5796611309051514, std 0.29131871461868286
+No-shuffle Id: 23.612816676030185
+Shuffled Id mean: 25.0045813110661, std: 0.4770840585485105
+Z-score: -2.9172314817440066
+P-value: 0.001765767876892561
+---------------------------------------
+
+
+
+Computing correlation for FP2 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.41731103051332624
+Cosine similarity: mean 0.4504511058330536, std 0.2886287569999695
+No-shuffle Id: 24.419400513206416
+Shuffled Id mean: 25.34630887204738, std: 0.4932254333676181
+Z-score: -1.8792793236801881
+P-value: 0.030103181694910556
+---------------------------------------
+
+
+
+Computing correlation for FP2 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.16928616173874725
+Cosine similarity: mean 0.22190317511558533, std 0.31061673164367676
+No-shuffle Id: 25.508266067268714
+Shuffled Id mean: 24.826889092946875, std: 0.4920299596956088
+Z-score: 1.3848282221338086
+P-value: 0.9169475004551768
+---------------------------------------
+
+
+
+Computing correlation for FP2 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.1523318346282458
+Cosine similarity: mean 0.11755578219890594, std 0.3440207839012146
+No-shuffle Id: 25.591849142878356
+Shuffled Id mean: 24.675029920498098, std: 0.45853392056002124
+Z-score: 1.9994577964058138
+P-value: 0.9772205780789002
+---------------------------------------
+
+
+
+Computing correlation for F3 and F4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.7844499878782187
+Cosine similarity: mean 0.7716600298881531, std 0.16957460343837738
+No-shuffle Id: 24.058594193620188
+Shuffled Id mean: 26.957353865319597, std: 0.4599141034693789
+Z-score: -6.302828397373573
+P-value: 1.461312108872125e-10
+---------------------------------------
+
+
+
+Computing correlation for F3 and F7
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5882653629691484
+Cosine similarity: mean 0.6352446675300598, std 0.250079482793808
+No-shuffle Id: 23.410099432458818
+Shuffled Id mean: 26.229274780132346, std: 0.5459310368092303
+Z-score: -5.163977054960257
+P-value: 1.208786721788299e-07
+---------------------------------------
+
+
+
+Computing correlation for F3 and F8
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4567929620850114
+Cosine similarity: mean 0.4817737936973572, std 0.28303250670433044
+No-shuffle Id: 25.00884038513463
+Shuffled Id mean: 25.784985808705372, std: 0.42330831723733636
+Z-score: -1.8335227350035292
+P-value: 0.03336243536974311
+---------------------------------------
+
+
+
+Computing correlation for F3 and T3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6185098483363726
+Cosine similarity: mean 0.6484147906303406, std 0.22473302483558655
+No-shuffle Id: 25.027942911787925
+Shuffled Id mean: 26.828277136794178, std: 0.5164864433869794
+Z-score: -3.4857337458852644
+P-value: 0.00024539461610027303
+---------------------------------------
+
+
+
+Computing correlation for F3 and T4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.45559907327464705
+Cosine similarity: mean 0.46637967228889465, std 0.25602811574935913
+No-shuffle Id: 25.99230675075799
+Shuffled Id mean: 26.85763669606799, std: 0.5261610541109525
+Z-score: -1.644610406925946
+P-value: 0.05002508967120659
+---------------------------------------
+
+
+
+Computing correlation for F3 and C3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.7476477856682437
+Cosine similarity: mean 0.7585861682891846, std 0.18091385066509247
+No-shuffle Id: 24.280195933197188
+Shuffled Id mean: 26.93476780633827, std: 0.5408526227865857
+Z-score: -4.908124249197821
+P-value: 4.5975798182616144e-07
+---------------------------------------
+
+
+
+Computing correlation for F3 and C4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6764371936604979
+Cosine similarity: mean 0.6819790005683899, std 0.1896611601114273
+No-shuffle Id: 24.934365344877335
+Shuffled Id mean: 27.053205155074888, std: 0.4404652767655573
+Z-score: -4.810458217630012
+P-value: 7.529234022912023e-07
+---------------------------------------
+
+
+
+Computing correlation for F3 and T5
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.42258465770523695
+Cosine similarity: mean 0.44692063331604004, std 0.2661064565181732
+No-shuffle Id: 26.564605834755195
+Shuffled Id mean: 26.748196797125694, std: 0.5145475355214406
+Z-score: -0.3568007806789865
+P-value: 0.3606204758930613
+---------------------------------------
+
+
+
+Computing correlation for F3 and T6
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.2113754378077011
+Cosine similarity: mean 0.24672646820545197, std 0.31533339619636536
+No-shuffle Id: 27.02959174385743
+Shuffled Id mean: 26.782227713976813, std: 0.5867205198398503
+Z-score: 0.42160453148653804
+P-value: 0.663343150924762
+---------------------------------------
+
+
+
+Computing correlation for F3 and P3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.47132159090388603
+Cosine similarity: mean 0.505073606967926, std 0.2527424991130829
+No-shuffle Id: 26.41659026453405
+Shuffled Id mean: 26.65280351418698, std: 0.4651250593450528
+Z-score: -0.5078488997895421
+P-value: 0.30577965672574015
+---------------------------------------
+
+
+
+Computing correlation for F3 and P4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.38647175176061904
+Cosine similarity: mean 0.42226743698120117, std 0.27565062046051025
+No-shuffle Id: 26.17308852279306
+Shuffled Id mean: 26.399181146919517, std: 0.5215463738499347
+Z-score: -0.4335043544785768
+P-value: 0.3323242016504621
+---------------------------------------
+
+
+
+Computing correlation for F3 and O1
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.21657617579224733
+Cosine similarity: mean 0.2574198544025421, std 0.3112580478191376
+No-shuffle Id: 25.804497161182617
+Shuffled Id mean: 26.06362058876146, std: 0.4990487470993002
+Z-score: -0.5192347021908909
+P-value: 0.30179854115186183
+---------------------------------------
+
+
+
+Computing correlation for F3 and O2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.16550177473762448
+Cosine similarity: mean 0.22478093206882477, std 0.30626294016838074
+No-shuffle Id: 26.215989527656518
+Shuffled Id mean: 25.774643962521953, std: 0.5005991039155169
+Z-score: 0.881634748609235
+P-value: 0.8110128211827561
+---------------------------------------
+
+
+
+Computing correlation for F3 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.8409671538142109
+Cosine similarity: mean 0.8481185436248779, std 0.1629938930273056
+No-shuffle Id: 22.360668564941438
+Shuffled Id mean: 26.53727698091255, std: 0.6370915744012655
+Z-score: -6.555742665245986
+P-value: 2.7682817771683772e-11
+---------------------------------------
+
+
+
+Computing correlation for F3 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.7641593183671295
+Cosine similarity: mean 0.7640225887298584, std 0.1540323942899704
+No-shuffle Id: 23.965271146938317
+Shuffled Id mean: 26.875113593603384, std: 0.49299285387017444
+Z-score: -5.902402892499837
+P-value: 1.7912249402640086e-09
+---------------------------------------
+
+
+
+Computing correlation for F3 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.40723443549551525
+Cosine similarity: mean 0.4567407965660095, std 0.26410040259361267
+No-shuffle Id: 25.176381574785548
+Shuffled Id mean: 26.137815178040942, std: 0.48237021957671783
+Z-score: -1.9931446101690444
+P-value: 0.023122807157667395
+---------------------------------------
+
+
+
+Computing correlation for F3 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: -0.10402404272370791
+Cosine similarity: mean -0.1198246031999588, std 0.32851967215538025
+No-shuffle Id: 26.756970572838668
+Shuffled Id mean: 26.319146125865718, std: 0.5403891747821269
+Z-score: 0.8102021050837509
+P-value: 0.7910879860893654
+---------------------------------------
+
+
+
+Computing correlation for F4 and F7
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4393674982837915
+Cosine similarity: mean 0.4709460139274597, std 0.27913200855255127
+No-shuffle Id: 25.912727623179915
+Shuffled Id mean: 26.079511163322763, std: 0.557252239890578
+Z-score: -0.29929631180234995
+P-value: 0.38235698422353104
+---------------------------------------
+
+
+
+Computing correlation for F4 and F8
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6104713835161145
+Cosine similarity: mean 0.6265171766281128, std 0.2451368123292923
+No-shuffle Id: 23.011360296805286
+Shuffled Id mean: 25.723625967852204, std: 0.5551970210892458
+Z-score: -4.885230950493395
+P-value: 5.165384394380939e-07
+---------------------------------------
+
+
+
+Computing correlation for F4 and T3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.48488398879840017
+Cosine similarity: mean 0.5000820159912109, std 0.2510988116264343
+No-shuffle Id: 25.859041078667282
+Shuffled Id mean: 26.81031204048073, std: 0.5570623741121371
+Z-score: -1.7076561010418516
+P-value: 0.0438500860761381
+---------------------------------------
+
+
+
+Computing correlation for F4 and T4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5789996738599218
+Cosine similarity: mean 0.5973169803619385, std 0.23209244012832642
+No-shuffle Id: 24.345316692435684
+Shuffled Id mean: 26.777924127796393, std: 0.4377766876742321
+Z-score: -5.5567313286698194
+P-value: 1.3743667809415251e-08
+---------------------------------------
+
+
+
+Computing correlation for F4 and C3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6640162674265382
+Cosine similarity: mean 0.6606652140617371, std 0.20320452749729156
+No-shuffle Id: 24.759588668527176
+Shuffled Id mean: 26.830462326354397, std: 0.5746657865755745
+Z-score: -3.6036139721620253
+P-value: 0.0001569115216651944
+---------------------------------------
+
+
+
+Computing correlation for F4 and C4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.7409864558193797
+Cosine similarity: mean 0.7448704838752747, std 0.17192432284355164
+No-shuffle Id: 24.2771155671878
+Shuffled Id mean: 27.105077753275136, std: 0.498127175102407
+Z-score: -5.6771891344935215
+P-value: 6.846302606427368e-09
+---------------------------------------
+
+
+
+Computing correlation for F4 and T5
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.2966735490213898
+Cosine similarity: mean 0.3167760670185089, std 0.2841845452785492
+No-shuffle Id: 27.454618003051536
+Shuffled Id mean: 26.752535109410747, std: 0.5448616016742571
+Z-score: 1.2885527104193437
+P-value: 0.9012231836239082
+---------------------------------------
+
+
+
+Computing correlation for F4 and T6
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.30993243177424745
+Cosine similarity: mean 0.34422993659973145, std 0.31291186809539795
+No-shuffle Id: 26.7882373735094
+Shuffled Id mean: 26.623209488586653, std: 0.5621357330082885
+Z-score: 0.2935730202376472
+P-value: 0.6154579027522458
+---------------------------------------
+
+
+
+Computing correlation for F4 and P3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4057890429612546
+Cosine similarity: mean 0.4269980788230896, std 0.2628159523010254
+No-shuffle Id: 26.86719558889964
+Shuffled Id mean: 26.71692097743786, std: 0.5269926323280177
+Z-score: 0.28515505197470425
+P-value: 0.6122373226834035
+---------------------------------------
+
+
+
+Computing correlation for F4 and P4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.40408355226345505
+Cosine similarity: mean 0.4492008686065674, std 0.2704375088214874
+No-shuffle Id: 25.673131174264807
+Shuffled Id mean: 26.325893692795866, std: 0.5137386498023149
+Z-score: -1.2706120491075377
+P-value: 0.10193334914109581
+---------------------------------------
+
+
+
+Computing correlation for F4 and O1
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.1658341493290005
+Cosine similarity: mean 0.21329034864902496, std 0.307908296585083
+No-shuffle Id: 25.820811014543732
+Shuffled Id mean: 26.069413144202, std: 0.5374307882041198
+Z-score: -0.46257515407518035
+P-value: 0.3218344606482181
+---------------------------------------
+
+
+
+Computing correlation for F4 and O2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.16406602061602393
+Cosine similarity: mean 0.23037803173065186, std 0.3043517768383026
+No-shuffle Id: 26.41680399435587
+Shuffled Id mean: 25.76941480296774, std: 0.49911479118372987
+Z-score: 1.2970747467786774
+P-value: 0.9026972652235203
+---------------------------------------
+
+
+
+Computing correlation for F4 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.836790186829123
+Cosine similarity: mean 0.8307322263717651, std 0.1818937212228775
+No-shuffle Id: 21.612698127582604
+Shuffled Id mean: 26.51389305748134, std: 0.555388432607954
+Z-score: -8.824805563349688
+P-value: 5.482507483092416e-19
+---------------------------------------
+
+
+
+Computing correlation for F4 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.7608878249546298
+Cosine similarity: mean 0.7514975666999817, std 0.16158393025398254
+No-shuffle Id: 23.780053947473696
+Shuffled Id mean: 26.791679345464342, std: 0.40819490134133524
+Z-score: -7.377910375887582
+P-value: 8.03965714295209e-14
+---------------------------------------
+
+
+
+Computing correlation for F4 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.39461653955689857
+Cosine similarity: mean 0.438860148191452, std 0.26160162687301636
+No-shuffle Id: 25.68985292732092
+Shuffled Id mean: 26.20268842255947, std: 0.5099251655911695
+Z-score: -1.0057073661857898
+P-value: 0.15727817935968635
+---------------------------------------
+
+
+
+Computing correlation for F4 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.08460018901284998
+Cosine similarity: mean 0.055932167917490005, std 0.317851722240448
+No-shuffle Id: 26.553870879420195
+Shuffled Id mean: 25.923768820144325, std: 0.4958289169052363
+Z-score: 1.2708053882954484
+P-value: 0.8981010543223397
+---------------------------------------
+
+
+
+Computing correlation for F7 and F8
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.2286889333926661
+Cosine similarity: mean 0.29175272583961487, std 0.35770341753959656
+No-shuffle Id: 25.13453106679087
+Shuffled Id mean: 24.932572057421357, std: 0.5153913714039311
+Z-score: 0.3918556277327176
+P-value: 0.6524175548913649
+---------------------------------------
+
+
+
+Computing correlation for F7 and T3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.47546685906535113
+Cosine similarity: mean 0.5275089144706726, std 0.2796400189399719
+No-shuffle Id: 24.51664238615138
+Shuffled Id mean: 26.18844684401115, std: 0.5066600899095118
+Z-score: -3.2996568925694367
+P-value: 0.00048401550329718135
+---------------------------------------
+
+
+
+Computing correlation for F7 and T4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.24277156294780533
+Cosine similarity: mean 0.2650095522403717, std 0.31276562809944153
+No-shuffle Id: 26.078509329940808
+Shuffled Id mean: 26.153934469516674, std: 0.48390440101192694
+Z-score: -0.15586785203469863
+P-value: 0.4380685929552129
+---------------------------------------
+
+
+
+Computing correlation for F7 and C3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.47340349114701136
+Cosine similarity: mean 0.5126152634620667, std 0.2577967941761017
+No-shuffle Id: 24.03612228467413
+Shuffled Id mean: 25.891145753849276, std: 0.5503780601779564
+Z-score: -3.370453154646742
+P-value: 0.0003752233210587164
+---------------------------------------
+
+
+
+Computing correlation for F7 and C4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.35016840444620007
+Cosine similarity: mean 0.3885587155818939, std 0.2756803035736084
+No-shuffle Id: 26.254847254930233
+Shuffled Id mean: 26.34010571779675, std: 0.4754885266319885
+Z-score: -0.17930708753463437
+P-value: 0.42884829099761096
+---------------------------------------
+
+
+
+Computing correlation for F7 and T5
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.313714859120595
+Cosine similarity: mean 0.3578643500804901, std 0.3018360137939453
+No-shuffle Id: 26.125327296073834
+Shuffled Id mean: 26.13002898814893, std: 0.563401523156633
+Z-score: -0.008345188789608085
+P-value: 0.49667078999617625
+---------------------------------------
+
+
+
+Computing correlation for F7 and T6
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.057265840864116783
+Cosine similarity: mean 0.08564335852861404, std 0.3246295154094696
+No-shuffle Id: 26.29828695442678
+Shuffled Id mean: 25.955556173339087, std: 0.5147868761968859
+Z-score: 0.6657721805569314
+P-value: 0.74722163547318
+---------------------------------------
+
+
+
+Computing correlation for F7 and P3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.26491926639115837
+Cosine similarity: mean 0.31339511275291443, std 0.29226410388946533
+No-shuffle Id: 25.47733204422435
+Shuffled Id mean: 25.864657858697527, std: 0.6347411384716887
+Z-score: -0.6102106685660356
+P-value: 0.27086113174501847
+---------------------------------------
+
+
+
+Computing correlation for F7 and P4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.19330152001675044
+Cosine similarity: mean 0.23256181180477142, std 0.30196505784988403
+No-shuffle Id: 25.79409691252164
+Shuffled Id mean: 25.446799903556418, std: 0.6276973357420911
+Z-score: 0.5532873714600542
+P-value: 0.7099666764535968
+---------------------------------------
+
+
+
+Computing correlation for F7 and O1
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.06307375414797618
+Cosine similarity: mean 0.12666742503643036, std 0.313742995262146
+No-shuffle Id: 26.43945777380918
+Shuffled Id mean: 25.202313294752106, std: 0.5209579759921306
+Z-score: 2.3747490893118863
+P-value: 0.991219558502778
+---------------------------------------
+
+
+
+Computing correlation for F7 and O2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.055972328480888414
+Cosine similarity: mean 0.10542279481887817, std 0.31342509388923645
+No-shuffle Id: 26.435487528410334
+Shuffled Id mean: 24.825486516468505, std: 0.5199442248103769
+Z-score: 3.0964879214284857
+P-value: 0.9990208608004809
+---------------------------------------
+
+
+
+Computing correlation for F7 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5119261376035786
+Cosine similarity: mean 0.5536874532699585, std 0.2572672963142395
+No-shuffle Id: 23.72160758326688
+Shuffled Id mean: 25.693167629815953, std: 0.5032108532250545
+Z-score: -3.9179601034306737
+P-value: 4.465074088919573e-05
+---------------------------------------
+
+
+
+Computing correlation for F7 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.43168553705524393
+Cosine similarity: mean 0.47005537152290344, std 0.2618357241153717
+No-shuffle Id: 24.438870270620594
+Shuffled Id mean: 25.907985862083347, std: 0.6855899176337618
+Z-score: -2.142848886303993
+P-value: 0.01606261719885689
+---------------------------------------
+
+
+
+Computing correlation for F7 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.22130824063076984
+Cosine similarity: mean 0.2677769660949707, std 0.2942759096622467
+No-shuffle Id: 24.72362746226836
+Shuffled Id mean: 25.28522968347735, std: 0.4897027510293757
+Z-score: -1.1468226797347536
+P-value: 0.12572745689639292
+---------------------------------------
+
+
+
+Computing correlation for F7 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: -0.23691897189752265
+Cosine similarity: mean -0.22416512668132782, std 0.35106855630874634
+No-shuffle Id: 26.442411890659127
+Shuffled Id mean: 26.072428495630852, std: 0.5154908620466121
+Z-score: 0.7177302688923699
+P-value: 0.7635381919855322
+---------------------------------------
+
+
+
+Computing correlation for F8 and T3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.23605080809662218
+Cosine similarity: mean 0.26634183526039124, std 0.32198265194892883
+No-shuffle Id: 25.946110232560546
+Shuffled Id mean: 25.73461505051449, std: 0.5785259277732053
+Z-score: 0.36557597834918165
+P-value: 0.6426592486881729
+---------------------------------------
+
+
+
+Computing correlation for F8 and T4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4411828657358271
+Cosine similarity: mean 0.46978959441185, std 0.295895516872406
+No-shuffle Id: 24.67251831577667
+Shuffled Id mean: 25.780539621596418, std: 0.44170224411256553
+Z-score: -2.5085254163602886
+P-value: 0.006061812299342152
+---------------------------------------
+
+
+
+Computing correlation for F8 and C3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.3402233984942409
+Cosine similarity: mean 0.3666108250617981, std 0.2944267690181732
+No-shuffle Id: 25.33827002611232
+Shuffled Id mean: 25.626344694243222, std: 0.5300443705222516
+Z-score: -0.5434916096685718
+P-value: 0.293395683101897
+---------------------------------------
+
+
+
+Computing correlation for F8 and C4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4413371268962278
+Cosine similarity: mean 0.48615923523902893, std 0.2617325484752655
+No-shuffle Id: 24.89814211352542
+Shuffled Id mean: 25.772500844176456, std: 0.558467850588771
+Z-score: -1.5656384333122007
+P-value: 0.058716643530974645
+---------------------------------------
+
+
+
+Computing correlation for F8 and T5
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.0742673015121985
+Cosine similarity: mean 0.11666073650121689, std 0.32608506083488464
+No-shuffle Id: 25.990854193735174
+Shuffled Id mean: 25.863521220209847, std: 0.5526226002455172
+Z-score: 0.23041579093717118
+P-value: 0.5911156540776955
+---------------------------------------
+
+
+
+Computing correlation for F8 and T6
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.24287940518001272
+Cosine similarity: mean 0.2626204490661621, std 0.3188193142414093
+No-shuffle Id: 25.752860501215075
+Shuffled Id mean: 25.535195327566104, std: 0.5106032058298504
+Z-score: 0.4262902605462765
+P-value: 0.6650518230576996
+---------------------------------------
+
+
+
+Computing correlation for F8 and P3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.16633975973866177
+Cosine similarity: mean 0.20231133699417114, std 0.30044034123420715
+No-shuffle Id: 25.1695607048915
+Shuffled Id mean: 25.576595659207918, std: 0.49893222032699724
+Z-score: -0.8158121238384861
+P-value: 0.2073037990192318
+---------------------------------------
+
+
+
+Computing correlation for F8 and P4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.2210083588053483
+Cosine similarity: mean 0.2661382257938385, std 0.2987019717693329
+No-shuffle Id: 25.78766865273807
+Shuffled Id mean: 25.15997267295038, std: 0.4849916212044339
+Z-score: 1.2942408741595595
+P-value: 0.9022088838592308
+---------------------------------------
+
+
+
+Computing correlation for F8 and O1
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.021947141293749774
+Cosine similarity: mean 0.059266138821840286, std 0.31000033020973206
+No-shuffle Id: 25.096847491152936
+Shuffled Id mean: 24.933847437616947, std: 0.4010385376240346
+Z-score: 0.4064448631338207
+P-value: 0.6577921191762794
+---------------------------------------
+
+
+
+Computing correlation for F8 and O2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.05570982381726191
+Cosine similarity: mean 0.08630572259426117, std 0.31621652841567993
+No-shuffle Id: 24.602894339323694
+Shuffled Id mean: 24.60072606496306, std: 0.5625936030590806
+Z-score: 0.0038540686364809677
+P-value: 0.5015375471242459
+---------------------------------------
+
+
+
+Computing correlation for F8 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5180011977077991
+Cosine similarity: mean 0.5438317060470581, std 0.26035481691360474
+No-shuffle Id: 23.355256799547057
+Shuffled Id mean: 25.47889075859885, std: 0.5188599332968158
+Z-score: -4.092884847666512
+P-value: 2.1301966223743076e-05
+---------------------------------------
+
+
+
+Computing correlation for F8 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.42287764817739487
+Cosine similarity: mean 0.4507872760295868, std 0.2738960385322571
+No-shuffle Id: 24.42513399687976
+Shuffled Id mean: 25.435759080342887, std: 0.4649651823083887
+Z-score: -2.173550024639968
+P-value: 0.014869472532547324
+---------------------------------------
+
+
+
+Computing correlation for F8 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.17902712542839222
+Cosine similarity: mean 0.22028104960918427, std 0.2976454496383667
+No-shuffle Id: 24.84524092547444
+Shuffled Id mean: 25.23077791373403, std: 0.4687548878061857
+Z-score: -0.822470332125898
+P-value: 0.20540463251902574
+---------------------------------------
+
+
+
+Computing correlation for F8 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.2526202842146039
+Cosine similarity: mean 0.1835024654865265, std 0.3427972197532654
+No-shuffle Id: 26.268195792138567
+Shuffled Id mean: 25.25915607762819, std: 0.5024421707667117
+Z-score: 2.0082703507363076
+P-value: 0.9776927146191885
+---------------------------------------
+
+
+
+Computing correlation for T3 and T4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.36774231205352503
+Cosine similarity: mean 0.37420669198036194, std 0.2857581079006195
+No-shuffle Id: 27.38904042109317
+Shuffled Id mean: 26.913020166670716, std: 0.4941867215352387
+Z-score: 0.9632396697014682
+P-value: 0.8322863692319953
+---------------------------------------
+
+
+
+Computing correlation for T3 and C3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.7019920724134823
+Cosine similarity: mean 0.7321459650993347, std 0.2022537887096405
+No-shuffle Id: 23.315288447561976
+Shuffled Id mean: 26.729470318989634, std: 0.5813226102100454
+Z-score: -5.873127608427333
+P-value: 2.138245129838627e-09
+---------------------------------------
+
+
+
+Computing correlation for T3 and C4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5302500770914959
+Cosine similarity: mean 0.5489431619644165, std 0.2356775999069214
+No-shuffle Id: 26.941823086735297
+Shuffled Id mean: 26.99379483044668, std: 0.45404930147987066
+Z-score: -0.11446277649143809
+P-value: 0.4544354762370528
+---------------------------------------
+
+
+
+Computing correlation for T3 and T5
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6015846533984542
+Cosine similarity: mean 0.657497227191925, std 0.24152424931526184
+No-shuffle Id: 25.307412637638357
+Shuffled Id mean: 27.15410438183042, std: 0.4777021942719437
+Z-score: -3.8657803257667047
+P-value: 5.536728832516546e-05
+---------------------------------------
+
+
+
+Computing correlation for T3 and T6
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.2090514439593967
+Cosine similarity: mean 0.2363581657409668, std 0.31570735573768616
+No-shuffle Id: 27.125099183746606
+Shuffled Id mean: 26.721600168658895, std: 0.5363155086381398
+Z-score: 0.7523538077657149
+P-value: 0.7740808413044067
+---------------------------------------
+
+
+
+Computing correlation for T3 and P3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5970896507626949
+Cosine similarity: mean 0.6427512168884277, std 0.22807924449443817
+No-shuffle Id: 25.178944157256062
+Shuffled Id mean: 26.638152284170918, std: 0.47891825946151567
+Z-score: -3.046883467244608
+P-value: 0.0011561366693927098
+---------------------------------------
+
+
+
+Computing correlation for T3 and P4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4107725006055425
+Cosine similarity: mean 0.4508073329925537, std 0.2657053768634796
+No-shuffle Id: 25.49132490033564
+Shuffled Id mean: 26.10109897795398, std: 0.46565692299355815
+Z-score: -1.3094921336040688
+P-value: 0.09518385032989002
+---------------------------------------
+
+
+
+Computing correlation for T3 and O1
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.36183911536059576
+Cosine similarity: mean 0.41749683022499084, std 0.2748216688632965
+No-shuffle Id: 25.492276646850662
+Shuffled Id mean: 25.789723377173075, std: 0.5039969957260078
+Z-score: -0.590175601927827
+P-value: 0.27753646371890983
+---------------------------------------
+
+
+
+Computing correlation for T3 and O2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.2371719837003409
+Cosine similarity: mean 0.3179147243499756, std 0.2871573269367218
+No-shuffle Id: 25.57812870726911
+Shuffled Id mean: 25.392943105535572, std: 0.5074917531481691
+Z-score: 0.3649036670739141
+P-value: 0.6424083415691422
+---------------------------------------
+
+
+
+Computing correlation for T3 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5280413911172368
+Cosine similarity: mean 0.5524359941482544, std 0.2441083788871765
+No-shuffle Id: 24.840050646383396
+Shuffled Id mean: 26.31919671798279, std: 0.5473811661131188
+Z-score: -2.702223173118314
+P-value: 0.0034438756733432014
+---------------------------------------
+
+
+
+Computing correlation for T3 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6188702294308351
+Cosine similarity: mean 0.6440470218658447, std 0.21515218913555145
+No-shuffle Id: 24.94933133925943
+Shuffled Id mean: 26.67489049759753, std: 0.474524342562994
+Z-score: -3.6363975534279978
+P-value: 0.00013823876361487
+---------------------------------------
+
+
+
+Computing correlation for T3 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4817818582487167
+Cosine similarity: mean 0.5424879193305969, std 0.24820278584957123
+No-shuffle Id: 25.159598436379422
+Shuffled Id mean: 25.96912134692011, std: 0.4495772130973695
+Z-score: -1.8006315421626202
+P-value: 0.035880487091813205
+---------------------------------------
+
+
+
+Computing correlation for T3 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: -0.23470601379844835
+Cosine similarity: mean -0.26193341612815857, std 0.3309010863304138
+No-shuffle Id: 27.74297277826969
+Shuffled Id mean: 26.870797253040177, std: 0.5024354785927798
+Z-score: 1.7358955774227949
+P-value: 0.9587088500325738
+---------------------------------------
+
+
+
+Computing correlation for T4 and C3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.49197505152783466
+Cosine similarity: mean 0.5109391212463379, std 0.2442270964384079
+No-shuffle Id: 26.16133417772587
+Shuffled Id mean: 26.82946592906786, std: 0.5520101782998167
+Z-score: -1.2103612897135847
+P-value: 0.11307014449428338
+---------------------------------------
+
+
+
+Computing correlation for T4 and C4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.672062426479928
+Cosine similarity: mean 0.7078608870506287, std 0.20091520249843597
+No-shuffle Id: 23.770769747655162
+Shuffled Id mean: 26.942931141840983, std: 0.4941719652945547
+Z-score: -6.419144785550576
+P-value: 6.852101263361149e-11
+---------------------------------------
+
+
+
+Computing correlation for T4 and T5
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.26634555668415055
+Cosine similarity: mean 0.29165127873420715, std 0.28871551156044006
+No-shuffle Id: 27.897320878227408
+Shuffled Id mean: 26.932933064118753, std: 0.5444058475636089
+Z-score: 1.7714501385769459
+P-value: 0.9617570613754174
+---------------------------------------
+
+
+
+Computing correlation for T4 and T6
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5506435314922783
+Cosine similarity: mean 0.596567690372467, std 0.2390015423297882
+No-shuffle Id: 24.575081454449823
+Shuffled Id mean: 26.768596729801494, std: 0.5073750945798413
+Z-score: -4.323261623963091
+P-value: 7.686961890811741e-06
+---------------------------------------
+
+
+
+Computing correlation for T4 and P3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.41136527342190765
+Cosine similarity: mean 0.44771239161491394, std 0.2621995806694031
+No-shuffle Id: 27.435063507741837
+Shuffled Id mean: 26.64823908090743, std: 0.497497422820367
+Z-score: 1.5815648297710043
+P-value: 0.9431255258863234
+---------------------------------------
+
+
+
+Computing correlation for T4 and P4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5363582933242618
+Cosine similarity: mean 0.6087209582328796, std 0.2296481728553772
+No-shuffle Id: 24.92051987657178
+Shuffled Id mean: 26.258720489911898, std: 0.5079752980745663
+Z-score: -2.634381274862072
+P-value: 0.0042145388278526374
+---------------------------------------
+
+
+
+Computing correlation for T4 and O1
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.28672351162326076
+Cosine similarity: mean 0.3319101631641388, std 0.2757560908794403
+No-shuffle Id: 25.29173894769117
+Shuffled Id mean: 25.98347086383553, std: 0.6345505454209793
+Z-score: -1.0901131850504482
+P-value: 0.1378316444756596
+---------------------------------------
+
+
+
+Computing correlation for T4 and O2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.30476109668876944
+Cosine similarity: mean 0.3959011733531952, std 0.2702057361602783
+No-shuffle Id: 25.42705032521742
+Shuffled Id mean: 25.547461281841507, std: 0.488318546745819
+Z-score: -0.24658280425044912
+P-value: 0.4026155569512664
+---------------------------------------
+
+
+
+Computing correlation for T4 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5282004965041023
+Cosine similarity: mean 0.5376467704772949, std 0.2434627264738083
+No-shuffle Id: 25.64842013679288
+Shuffled Id mean: 26.42856442269198, std: 0.5134119248565351
+Z-score: -1.519528955462226
+P-value: 0.06431470265351417
+---------------------------------------
+
+
+
+Computing correlation for T4 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5851556074703739
+Cosine similarity: mean 0.6097833514213562, std 0.2168131172657013
+No-shuffle Id: 24.673325811954978
+Shuffled Id mean: 26.61816285611138, std: 0.5823158445161815
+Z-score: -3.3398319184879357
+P-value: 0.0004191455464782855
+---------------------------------------
+
+
+
+Computing correlation for T4 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.44955207361009514
+Cosine similarity: mean 0.5098899602890015, std 0.25325247645378113
+No-shuffle Id: 25.904542655541416
+Shuffled Id mean: 25.999902624751677, std: 0.4454232262601656
+Z-score: -0.2140884524835313
+P-value: 0.415239040311998
+---------------------------------------
+
+
+
+Computing correlation for T4 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.19297035458026648
+Cosine similarity: mean 0.19092683494091034, std 0.3400363624095917
+No-shuffle Id: 26.84939542702773
+Shuffled Id mean: 26.483086583474513, std: 0.5611020120829618
+Z-score: 0.6528382284593484
+P-value: 0.7430697122696249
+---------------------------------------
+
+
+
+Computing correlation for C3 and C4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.7529511082948322
+Cosine similarity: mean 0.7539034485816956, std 0.18239328265190125
+No-shuffle Id: 24.01910448636117
+Shuffled Id mean: 26.949589331211786, std: 0.5380289289952803
+Z-score: -5.446704976111655
+P-value: 2.5655732608890463e-08
+---------------------------------------
+
+
+
+Computing correlation for C3 and T5
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5679826474448425
+Cosine similarity: mean 0.5944599509239197, std 0.23278525471687317
+No-shuffle Id: 25.248799008887964
+Shuffled Id mean: 26.85296249775878, std: 0.5272039585553668
+Z-score: -3.0427758798824507
+P-value: 0.0011720342117649783
+---------------------------------------
+
+
+
+Computing correlation for C3 and T6
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.3151965409115805
+Cosine similarity: mean 0.35300347208976746, std 0.2989473044872284
+No-shuffle Id: 26.233425940073495
+Shuffled Id mean: 26.564688996392288, std: 0.591343378949241
+Z-score: -0.5601873092879046
+P-value: 0.2876758411558158
+---------------------------------------
+
+
+
+Computing correlation for C3 and P3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6886543579766281
+Cosine similarity: mean 0.711137056350708, std 0.2040710300207138
+No-shuffle Id: 24.13407511905472
+Shuffled Id mean: 26.597877605991854, std: 0.5192062973525478
+Z-score: -4.745324737970541
+P-value: 1.0408604599151768e-06
+---------------------------------------
+
+
+
+Computing correlation for C3 and P4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5470432435439772
+Cosine similarity: mean 0.593419075012207, std 0.23416630923748016
+No-shuffle Id: 24.969334000922565
+Shuffled Id mean: 26.306721899790265, std: 0.47729776550863
+Z-score: -2.801999077960315
+P-value: 0.002539350939272145
+---------------------------------------
+
+
+
+Computing correlation for C3 and O1
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.40342683414250835
+Cosine similarity: mean 0.4610980749130249, std 0.26890766620635986
+No-shuffle Id: 25.53722866087236
+Shuffled Id mean: 26.069793343567284, std: 0.47582006218983697
+Z-score: -1.1192564690188473
+P-value: 0.13151537052215634
+---------------------------------------
+
+
+
+Computing correlation for C3 and O2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.28056175654839893
+Cosine similarity: mean 0.40151166915893555, std 0.2816459536552429
+No-shuffle Id: 25.15977466581206
+Shuffled Id mean: 25.713773205849993, std: 0.5211737746589317
+Z-score: -1.0629823812613826
+P-value: 0.14389497069173796
+---------------------------------------
+
+
+
+Computing correlation for C3 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6962850953351634
+Cosine similarity: mean 0.7045109868049622, std 0.20102059841156006
+No-shuffle Id: 23.706625123732927
+Shuffled Id mean: 26.406720960402268, std: 0.48772353980711597
+Z-score: -5.536119576547751
+P-value: 1.546232377301614e-08
+---------------------------------------
+
+
+
+Computing correlation for C3 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.8481644881561219
+Cosine similarity: mean 0.847903311252594, std 0.1365555077791214
+No-shuffle Id: 22.171386053040326
+Shuffled Id mean: 26.79687748584313, std: 0.5382338160053363
+Z-score: -8.59383281996712
+P-value: 4.205769092463843e-18
+---------------------------------------
+
+
+
+Computing correlation for C3 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6197844364133915
+Cosine similarity: mean 0.662841260433197, std 0.231082484126091
+No-shuffle Id: 23.84908224181834
+Shuffled Id mean: 26.09384955514345, std: 0.5046709950399693
+Z-score: -4.44798162642045
+P-value: 4.334047111585724e-06
+---------------------------------------
+
+
+
+Computing correlation for C3 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: -0.11935492583293439
+Cosine similarity: mean -0.14270903170108795, std 0.31658869981765747
+No-shuffle Id: 26.476633911818613
+Shuffled Id mean: 25.824327359600094, std: 0.5329686771724573
+Z-score: 1.2239116108646038
+P-value: 0.8895072134683146
+---------------------------------------
+
+
+
+Computing correlation for C4 and T5
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.42222439192803857
+Cosine similarity: mean 0.44053736329078674, std 0.2648884057998657
+No-shuffle Id: 27.104711659566096
+Shuffled Id mean: 26.734749545892182, std: 0.5488869021061921
+Z-score: 0.6740224848767444
+P-value: 0.7498514906323928
+---------------------------------------
+
+
+
+Computing correlation for C4 and T6
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4947182594459573
+Cosine similarity: mean 0.5331865549087524, std 0.2493523806333542
+No-shuffle Id: 26.371033421652914
+Shuffled Id mean: 26.962229500409958, std: 0.4704035300105391
+Z-score: -1.2567849538539777
+P-value: 0.10441575789866603
+---------------------------------------
+
+
+
+Computing correlation for C4 and P3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6236182555381683
+Cosine similarity: mean 0.6360146403312683, std 0.21000759303569794
+No-shuffle Id: 25.707125474776955
+Shuffled Id mean: 26.960100406987067, std: 0.48838636335919905
+Z-score: -2.5655403717498397
+P-value: 0.005150761625653651
+---------------------------------------
+
+
+
+Computing correlation for C4 and P4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6782688768747313
+Cosine similarity: mean 0.7187716960906982, std 0.187654048204422
+No-shuffle Id: 23.924058643410515
+Shuffled Id mean: 26.398452597283118, std: 0.49684033348406875
+Z-score: -4.980259828184712
+P-value: 3.1749480931679836e-07
+---------------------------------------
+
+
+
+Computing correlation for C4 and O1
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.40788955605574617
+Cosine similarity: mean 0.4430294334888458, std 0.2686222791671753
+No-shuffle Id: 25.543813569766186
+Shuffled Id mean: 26.230341528593115, std: 0.532814863233118
+Z-score: -1.2884925068739272
+P-value: 0.09878728777319773
+---------------------------------------
+
+
+
+Computing correlation for C4 and O2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.34281337275486523
+Cosine similarity: mean 0.46683552861213684, std 0.2581544816493988
+No-shuffle Id: 26.146473932259756
+Shuffled Id mean: 25.96989461572151, std: 0.44889973236329717
+Z-score: 0.39336026245464123
+P-value: 0.652973292538805
+---------------------------------------
+
+
+
+Computing correlation for C4 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.7049635167094948
+Cosine similarity: mean 0.718828022480011, std 0.19113455712795258
+No-shuffle Id: 24.08949258588397
+Shuffled Id mean: 26.735497853475273, std: 0.4485549550978555
+Z-score: -5.898954492686538
+P-value: 1.8290605170324899e-09
+---------------------------------------
+
+
+
+Computing correlation for C4 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.8627805246174853
+Cosine similarity: mean 0.8638993501663208, std 0.13262003660202026
+No-shuffle Id: 22.787966061846227
+Shuffled Id mean: 26.901230102630006, std: 0.572616925516812
+Z-score: -7.183273594421571
+P-value: 3.4030852168240166e-13
+---------------------------------------
+
+
+
+Computing correlation for C4 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6473070244748075
+Cosine similarity: mean 0.676356852054596, std 0.213760107755661
+No-shuffle Id: 24.614292051691802
+Shuffled Id mean: 26.460528624929243, std: 0.5344192555950168
+Z-score: -3.454659527905409
+P-value: 0.00027549407143474054
+---------------------------------------
+
+
+
+Computing correlation for C4 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.08605652144516679
+Cosine similarity: mean 0.06387511640787125, std 0.3289814591407776
+No-shuffle Id: 26.431548535219598
+Shuffled Id mean: 26.13976372885944, std: 0.42654372290503195
+Z-score: 0.6840677536476688
+P-value: 0.7530338084940997
+---------------------------------------
+
+
+
+Computing correlation for T5 and T6
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.23989261396193567
+Cosine similarity: mean 0.28620606660842896, std 0.29853180050849915
+No-shuffle Id: 27.197112013995955
+Shuffled Id mean: 26.928380233323654, std: 0.584943409807256
+Z-score: 0.4594150069334918
+P-value: 0.6770319131789904
+---------------------------------------
+
+
+
+Computing correlation for T5 and P3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6574699985423434
+Cosine similarity: mean 0.6932928562164307, std 0.20445552468299866
+No-shuffle Id: 23.84621144806459
+Shuffled Id mean: 26.59666880289113, std: 0.46957574498432203
+Z-score: -5.857324157401638
+P-value: 2.3519222002316384e-09
+---------------------------------------
+
+
+
+Computing correlation for T5 and P4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4458791482327649
+Cosine similarity: mean 0.4827563166618347, std 0.2602638006210327
+No-shuffle Id: 25.796547767860524
+Shuffled Id mean: 26.062766229463694, std: 0.4786082529628376
+Z-score: -0.5562345821559438
+P-value: 0.289025250592627
+---------------------------------------
+
+
+
+Computing correlation for T5 and O1
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5238689282088522
+Cosine similarity: mean 0.5802897214889526, std 0.23981082439422607
+No-shuffle Id: 24.270984568825195
+Shuffled Id mean: 25.6709360701644, std: 0.6038159325985365
+Z-score: -2.318507057795711
+P-value: 0.01021088991662034
+---------------------------------------
+
+
+
+Computing correlation for T5 and O2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.29394814810571995
+Cosine similarity: mean 0.42041268944740295, std 0.2668740749359131
+No-shuffle Id: 26.0490407666391
+Shuffled Id mean: 25.34414815966816, std: 0.5446340287466978
+Z-score: 1.2942500280289624
+P-value: 0.9022104642979808
+---------------------------------------
+
+
+
+Computing correlation for T5 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.34010322760546624
+Cosine similarity: mean 0.36422693729400635, std 0.279199481010437
+No-shuffle Id: 26.385111825768142
+Shuffled Id mean: 26.11625696375001, std: 0.5242285259098591
+Z-score: 0.5128581310059428
+P-value: 0.6959747184911418
+---------------------------------------
+
+
+
+Computing correlation for T5 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4795226732491782
+Cosine similarity: mean 0.5021770000457764, std 0.24795016646385193
+No-shuffle Id: 26.441190107351463
+Shuffled Id mean: 26.403124052509998, std: 0.5618653638315886
+Z-score: 0.06774942413584169
+P-value: 0.5270074475545254
+---------------------------------------
+
+
+
+Computing correlation for T5 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5070291588754783
+Cosine similarity: mean 0.5558433532714844, std 0.24818755686283112
+No-shuffle Id: 24.834665751601033
+Shuffled Id mean: 25.85392755037016, std: 0.4720899862555102
+Z-score: -2.1590413447521604
+P-value: 0.015423479753697393
+---------------------------------------
+
+
+
+Computing correlation for T5 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: -0.24537115763162506
+Cosine similarity: mean -0.284489244222641, std 0.3281930685043335
+No-shuffle Id: 28.326740442709212
+Shuffled Id mean: 27.421539228695558, std: 0.506899846185335
+Z-score: 1.7857594963299535
+P-value: 0.9629308962825054
+---------------------------------------
+
+
+
+Computing correlation for T6 and P3
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4185665170341733
+Cosine similarity: mean 0.44749271869659424, std 0.269155889749527
+No-shuffle Id: 26.44217305021427
+Shuffled Id mean: 26.618496661837213, std: 0.48973420294129966
+Z-score: -0.3600394062002623
+P-value: 0.3594088324903293
+---------------------------------------
+
+
+
+Computing correlation for T6 and P4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5946857395584838
+Cosine similarity: mean 0.6559001803398132, std 0.21646489202976227
+No-shuffle Id: 24.03019514763879
+Shuffled Id mean: 26.15404355120095, std: 0.5023864435959642
+Z-score: -4.227519334240296
+P-value: 1.1814093865939893e-05
+---------------------------------------
+
+
+
+Computing correlation for T6 and O1
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4258229672506961
+Cosine similarity: mean 0.4647122919559479, std 0.267341673374176
+No-shuffle Id: 24.657725620269627
+Shuffled Id mean: 25.768118778407434, std: 0.5564931820679542
+Z-score: -1.9953400938562
+P-value: 0.023002899917499778
+---------------------------------------
+
+
+
+Computing correlation for T6 and O2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4608485299626139
+Cosine similarity: mean 0.5850647687911987, std 0.24148507416248322
+No-shuffle Id: 24.64549814225906
+Shuffled Id mean: 25.54967537137595, std: 0.418975101693813
+Z-score: -2.158069120244912
+P-value: 0.015461229094651315
+---------------------------------------
+
+
+
+Computing correlation for T6 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.24595756422818316
+Cosine similarity: mean 0.28511086106300354, std 0.3153163492679596
+No-shuffle Id: 26.132781825804063
+Shuffled Id mean: 26.33382955898646, std: 0.5633471008346942
+Z-score: -0.35688074525369773
+P-value: 0.3605905424149892
+---------------------------------------
+
+
+
+Computing correlation for T6 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.38677813708081277
+Cosine similarity: mean 0.4252771735191345, std 0.28723955154418945
+No-shuffle Id: 26.22262596633243
+Shuffled Id mean: 26.6111969732483, std: 0.46644536855178625
+Z-score: -0.8330471971933211
+P-value: 0.20240905575633594
+---------------------------------------
+
+
+
+Computing correlation for T6 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.43658878706920806
+Cosine similarity: mean 0.49208247661590576, std 0.28731611371040344
+No-shuffle Id: 25.562438963668285
+Shuffled Id mean: 25.972889877326203, std: 0.5492872992334292
+Z-score: -0.7472426801616069
+P-value: 0.22745854269030186
+---------------------------------------
+
+
+
+Computing correlation for T6 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.21898334125017888
+Cosine similarity: mean 0.21972545981407166, std 0.313663125038147
+No-shuffle Id: 27.23622342281526
+Shuffled Id mean: 26.362206245066, std: 0.515097849410783
+Z-score: 1.6967983437497198
+P-value: 0.9551326040020724
+---------------------------------------
+
+
+
+Computing correlation for P3 and P4
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.7297967889924378
+Cosine similarity: mean 0.740760862827301, std 0.17040349543094635
+No-shuffle Id: 24.09869057005339
+Shuffled Id mean: 26.22092090537697, std: 0.5673094920832491
+Z-score: -3.740868723226225
+P-value: 9.169264674359767e-05
+---------------------------------------
+
+
+
+Computing correlation for P3 and O1
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.7367723267599098
+Cosine similarity: mean 0.7618818879127502, std 0.1764032393693924
+No-shuffle Id: 22.756978497973954
+Shuffled Id mean: 26.072259880635237, std: 0.5741943771276176
+Z-score: -5.773796321806274
+P-value: 3.875255868050966e-09
+---------------------------------------
+
+
+
+Computing correlation for P3 and O2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4750939400841
+Cosine similarity: mean 0.6404353380203247, std 0.22538019716739655
+No-shuffle Id: 24.611747662625323
+Shuffled Id mean: 25.61051166887341, std: 0.551505740324741
+Z-score: -1.8109766285659865
+P-value: 0.035072234766467786
+---------------------------------------
+
+
+
+Computing correlation for P3 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4173442068202186
+Cosine similarity: mean 0.45301395654678345, std 0.26301905512809753
+No-shuffle Id: 26.429621590326224
+Shuffled Id mean: 26.3778709443049, std: 0.5296534387664402
+Z-score: 0.09770661763634059
+P-value: 0.538917369704983
+---------------------------------------
+
+
+
+Computing correlation for P3 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6646201211447781
+Cosine similarity: mean 0.6790454387664795, std 0.1923372447490692
+No-shuffle Id: 23.681610398825036
+Shuffled Id mean: 26.725332321888104, std: 0.49766390558934076
+Z-score: -6.116019041924787
+P-value: 4.797093304917254e-10
+---------------------------------------
+
+
+
+Computing correlation for P3 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.8025709431501986
+Cosine similarity: mean 0.8044114112854004, std 0.18623842298984528
+No-shuffle Id: 22.271982784672616
+Shuffled Id mean: 26.044948841616396, std: 0.5217306549291947
+Z-score: -7.231635751699923
+P-value: 2.386053680793516e-13
+---------------------------------------
+
+
+
+Computing correlation for P3 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: -0.10603101577451174
+Cosine similarity: mean -0.13737571239471436, std 0.32143303751945496
+No-shuffle Id: 26.974048139183434
+Shuffled Id mean: 25.798758129933304, std: 0.501221955613658
+Z-score: 2.3448494146893353
+P-value: 0.9904826171928064
+---------------------------------------
+
+
+
+Computing correlation for P4 and O1
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6509617167776354
+Cosine similarity: mean 0.6896731853485107, std 0.19427888095378876
+No-shuffle Id: 23.68592273030614
+Shuffled Id mean: 25.73598293102589, std: 0.6081860456729145
+Z-score: -3.370778095461738
+P-value: 0.0003747810446686801
+---------------------------------------
+
+
+
+Computing correlation for P4 and O2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.5631301510507983
+Cosine similarity: mean 0.7711499333381653, std 0.1864229142665863
+No-shuffle Id: 22.43048658908112
+Shuffled Id mean: 25.478746293411245, std: 0.3652402656901012
+Z-score: -8.345902658269639
+P-value: 3.533600021728444e-17
+---------------------------------------
+
+
+
+Computing correlation for P4 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.3724275944047258
+Cosine similarity: mean 0.42158523201942444, std 0.2758966386318207
+No-shuffle Id: 26.196259528409037
+Shuffled Id mean: 26.101171675113218, std: 0.5387694051649101
+Z-score: 0.17649081849165904
+P-value: 0.5700458193762342
+---------------------------------------
+
+
+
+Computing correlation for P4 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6318483340300453
+Cosine similarity: mean 0.6726477742195129, std 0.20803824067115784
+No-shuffle Id: 25.03415919331263
+Shuffled Id mean: 26.296066712836787, std: 0.5222897010980596
+Z-score: -2.4161064575294686
+P-value: 0.007843737008420296
+---------------------------------------
+
+
+
+Computing correlation for P4 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.816611415189509
+Cosine similarity: mean 0.8220754861831665, std 0.16858643293380737
+No-shuffle Id: 21.882594043970872
+Shuffled Id mean: 25.687619914668048, std: 0.6195397489869917
+Z-score: -6.141697731128255
+P-value: 4.0822055153239115e-10
+---------------------------------------
+
+
+
+Computing correlation for P4 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.05951921233478651
+Cosine similarity: mean 0.04905576631426811, std 0.32695406675338745
+No-shuffle Id: 26.056533605015062
+Shuffled Id mean: 25.23114555933029, std: 0.4762106846109408
+Z-score: 1.733241341191463
+P-value: 0.9584736090593109
+---------------------------------------
+
+
+
+Computing correlation for O1 and O2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6501985824848794
+Cosine similarity: mean 0.7639840245246887, std 0.1964692324399948
+No-shuffle Id: 22.513497304746185
+Shuffled Id mean: 25.192913682381, std: 0.43081949731232316
+Z-score: -6.219347996899892
+P-value: 2.496124907642848e-10
+---------------------------------------
+
+
+
+Computing correlation for O1 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.17153591005355734
+Cosine similarity: mean 0.22214607894420624, std 0.311222642660141
+No-shuffle Id: 25.927100652858353
+Shuffled Id mean: 25.76641721702142, std: 0.6257302260836606
+Z-score: 0.25679346967562
+P-value: 0.6013308942407894
+---------------------------------------
+
+
+
+Computing correlation for O1 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.38775581871318854
+Cosine similarity: mean 0.4414544105529785, std 0.2730715572834015
+No-shuffle Id: 25.56746515004775
+Shuffled Id mean: 25.97952772865729, std: 0.5574228295997837
+Z-score: -0.7392280271430408
+P-value: 0.2298842723433151
+---------------------------------------
+
+
+
+Computing correlation for O1 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6623427891709811
+Cosine similarity: mean 0.7099133729934692, std 0.21171867847442627
+No-shuffle Id: 23.185481302889805
+Shuffled Id mean: 25.50365208362501, std: 0.531417685863271
+Z-score: -4.3622386728989095
+P-value: 6.43691573785774e-06
+---------------------------------------
+
+
+
+Computing correlation for O1 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: -0.05777071001779116
+Cosine similarity: mean -0.09302057325839996, std 0.3167210519313812
+No-shuffle Id: 25.345292634079282
+Shuffled Id mean: 24.68746420915689, std: 0.548923005727349
+Z-score: 1.1983983510597063
+P-value: 0.8846190129458154
+---------------------------------------
+
+
+
+Computing correlation for O2 and FZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.14485883464469057
+Cosine similarity: mean 0.21485352516174316, std 0.30591708421707153
+No-shuffle Id: 25.593912231415562
+Shuffled Id mean: 25.45036033786209, std: 0.512596227399922
+Z-score: 0.28004867355661206
+P-value: 0.6102799189111352
+---------------------------------------
+
+
+
+Computing correlation for O2 and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.30354440648059494
+Cosine similarity: mean 0.4305531680583954, std 0.27440792322158813
+No-shuffle Id: 24.16772171455778
+Shuffled Id mean: 25.64823483023918, std: 0.48451225743470433
+Z-score: -3.0556773187124646
+P-value: 0.0011227638998324077
+---------------------------------------
+
+
+
+Computing correlation for O2 and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.4553920449680702
+Cosine similarity: mean 0.703731894493103, std 0.2245747148990631
+No-shuffle Id: 23.19184071204139
+Shuffled Id mean: 25.158774558385602, std: 0.5642979878907416
+Z-score: -3.485629735623027
+P-value: 0.0002454900389172501
+---------------------------------------
+
+
+
+Computing correlation for O2 and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.04724478098961326
+Cosine similarity: mean 0.011573541909456253, std 0.3203573226928711
+No-shuffle Id: 25.616677211273903
+Shuffled Id mean: 24.342144552108568, std: 0.4385138004453762
+Z-score: 2.9064824365182043
+P-value: 0.9981724129098771
+---------------------------------------
+
+
+
+Computing correlation for FZ and CZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.775614581132109
+Cosine similarity: mean 0.7809805870056152, std 0.15615786612033844
+No-shuffle Id: 23.1430357171293
+Shuffled Id mean: 26.428191351166355, std: 0.5999727039706345
+Z-score: -5.475508489462621
+P-value: 2.1812852278243286e-08
+---------------------------------------
+
+
+
+Computing correlation for FZ and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.39259877461903747
+Cosine similarity: mean 0.44472140073776245, std 0.26557743549346924
+No-shuffle Id: 25.872113634410503
+Shuffled Id mean: 26.082006955505168, std: 0.5748516641857792
+Z-score: -0.36512605628785644
+P-value: 0.3575086557752031
+---------------------------------------
+
+
+
+Computing correlation for FZ and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: -0.010219212793212567
+Cosine similarity: mean -0.028476161882281303, std 0.3225187063217163
+No-shuffle Id: 25.1448949499484
+Shuffled Id mean: 25.15679138880301, std: 0.5049767571121649
+Z-score: -0.023558388949706143
+P-value: 0.49060243186929375
+---------------------------------------
+
+
+
+Computing correlation for CZ and PZ
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: 0.6640053675065897
+Cosine similarity: mean 0.6994250416755676, std 0.19995544850826263
+No-shuffle Id: 24.15493319920123
+Shuffled Id mean: 26.208899847252543, std: 0.5172996792705876
+Z-score: -3.9705546520877086
+P-value: 3.585275239128246e-05
+---------------------------------------
+
+
+
+Computing correlation for CZ and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: -0.004067349191643347
+Cosine similarity: mean -0.024700218811631203, std 0.3292449414730072
+No-shuffle Id: 26.24806124315311
+Shuffled Id mean: 25.538258162345617, std: 0.5083379644730455
+Z-score: 1.3963212083584804
+P-value: 0.9186911049896025
+---------------------------------------
+
+
+
+Computing correlation for PZ and A2
+
+Dataset1 size: 3120
+Dataset2 size: 3120
+
+Number of data: 3120
+Data shape: (3120, 250)
+Pearson coefficient: -0.028785880766153262
+Cosine similarity: mean -0.051856160163879395, std 0.3256446421146393
+No-shuffle Id: 25.662195578924912
+Shuffled Id mean: 24.747669118784255, std: 0.4885543988988363
+Z-score: 1.8719030310686555
+P-value: 0.9693899899086258
+---------------------------------------
+
