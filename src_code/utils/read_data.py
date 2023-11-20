@@ -163,7 +163,7 @@ def filter_eeg_data(data, fs, lowcut, highcut, order):
     return filtered_eeg_data
 
 
-def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, type = 'ms', save_spec = True):
+def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, type = 'ms', save_spec = True, channel = None):
 
     '''
     Create an EEGDataset object from the mnist dataset.
@@ -177,6 +177,7 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
          - 'cq': use data to classify counting quality (good, bad)
          - 'both': use data to classify both mental state and counting quality (3 classes)
         save_spec: if True, save spectrograms, so that if they are not needed, the size of the dataset is reduced
+        channel: if not None, select only the specified channel
     Output: 
         dataset: an EEGDataset object
     '''
@@ -225,7 +226,7 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
             
             fs = data.info['sfreq']
 
-            factor = 2
+            factor = 1
             segment_length = int(fs/factor) #int(fs*6)
 
             sample = data.get_data(0)[0]
@@ -248,6 +249,8 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
                 identifiers = []
 
                 for i in range(len(data.ch_names)-1):
+                    if channel is not None and channel != channel_names[i]:
+                        continue
                     sample = data.get_data(i)[0]
                     eeg_data = sample[j*segment_length:(j+1)*segment_length] 
                    
@@ -275,7 +278,7 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
                     identifiers.append(f'{id}_{j}')
 
                     
-                if input_channels == 1:
+                if input_channels == 1 and channel is None:
                     spectrograms.extend(np.array(img_eeg))
                     raw.extend(raw_eeg)
 
@@ -289,7 +292,7 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
         
                     labels.append(label) # get label from event
                     ids.append(identifiers)
-                    channels.append(channel_names)
+                    channels.append(channel_names) if channel is None else channels.append(channel)
 
     dataset = EEGDataset(spectrograms, raw, labels, ids, channels, {})
 
@@ -346,7 +349,7 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
     # normalize spectrograms
     for idx, _ in enumerate(dataset):
         spectrogram = torch.abs(dataset_tmp.spectrograms[idx])
-        dataset_tmp.spectrograms[idx] = ((spectrogram- min_spectr) / (max_spectr - min_spectr))
+        dataset_tmp.spectrograms[idx] = (spectrogram- min_spectr) / (max_spectr - min_spectr)
 
     """
     norm_factor_min = np.zeros((num_subjects))
