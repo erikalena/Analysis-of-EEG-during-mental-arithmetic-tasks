@@ -163,7 +163,7 @@ def filter_eeg_data(data, fs, lowcut, highcut, order):
     return filtered_eeg_data
 
 
-def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, type = 'ms', save_spec = True, channel = None):
+def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, type = 'ms', save_spec = True, channel_list = None):
 
     '''
     Create an EEGDataset object from the mnist dataset.
@@ -200,6 +200,7 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
     nchannels = 20
     channel_names = ['FP1','FP2', 'F3','F4','F7','F8','T3','T4','C3','C4','T5','T6','P3','P4','O1','O2','FZ','CZ','PZ','A2']
 
+    
     for subj in range(number_of_subjects):
         if subj > 35:
             break
@@ -249,7 +250,7 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
                 identifiers = []
 
                 for i in range(len(data.ch_names)-1):
-                    if channel is not None and channel != channel_names[i]:
+                    if channel_list is not None and channel_names[i] not in channel_list:
                         continue
                     sample = data.get_data(i)[0]
                     eeg_data = sample[j*segment_length:(j+1)*segment_length] 
@@ -278,13 +279,13 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
                     identifiers.append(f'{id}_{j}')
 
                     
-                if input_channels == 1 and channel is None:
+                if input_channels == 1:
                     spectrograms.extend(np.array(img_eeg))
                     raw.extend(raw_eeg)
 
-                    labels.extend([label]*nchannels)
+                    labels.extend([label]*nchannels) if channel_list is None else labels.extend([label]*len(channel_list))
                     ids.extend(identifiers)
-                    channels.extend(channel_names)
+                    channels.extend(channel_names) if channel_list is None else channels.extend(channel_list)
 
                 else:
                     spectrograms.append(np.array(img_eeg))
@@ -292,7 +293,7 @@ def read_eeg_data(folder, data_path, input_channels, number_of_subjects = 10, ty
         
                     labels.append(label) # get label from event
                     ids.append(identifiers)
-                    channels.append(channel_names) if channel is None else channels.append(channel)
+                    channels.append(channel_names) 
 
     dataset = EEGDataset(spectrograms, raw, labels, ids, channels, {})
 
@@ -351,35 +352,7 @@ def build_dataloader(dataset, batch_size, train_rate=0.8, valid_rate=0.1, shuffl
         spectrogram = torch.abs(dataset_tmp.spectrograms[idx])
         dataset_tmp.spectrograms[idx] = (spectrogram- min_spectr) / (max_spectr - min_spectr)
 
-    """
-    norm_factor_min = np.zeros((num_subjects))
-    norm_factor_max = np.zeros((num_subjects))
-    nsegm = 60*2 
-    for j in range(num_subjects):
-        min_spectr = np.min([torch.min(torch.abs(dataset_tmp[i][0])) for i in range(j*nsegm,(j+1)*nsegm)])
-        max_spectr = np.max([torch.max(torch.abs(dataset_tmp[i][0])) for i in range(j*nsegm,(j+1)*nsegm)])
-        norm_factor_min[j] = min_spectr
-        norm_factor_max[j] = max_spectr
-
-
-    # normalize spectrograms
-    for idx, _ in enumerate(dataset):
-        # get subject number
-        subj = dataset_tmp.id[idx][0].split('_')[0][7:]
-        spectrogram = torch.abs(dataset_tmp.spectrograms[idx])
-        dataset_tmp.spectrograms[idx] = (spectrogram - norm_factor_min[int(subj)]) / (norm_factor_max[int(subj)] - norm_factor_min[int(subj)])
-        
-    """
-    """
-    # standardize spectrograms
-    for idx, _ in enumerate(dataset):
-        # standardize spectrogram
-        spectrogram = dataset_tmp.get_spectrogram(idx)
-        dataset_tmp.spectrograms[idx] = transforms.functional.normalize(spectrogram.unsqueeze(0), mean=torch.mean(spectrogram), 
-                                                      std=torch.std(spectrogram)) 
-        #dataset_tmp.spectrograms[idx] = ((spectrogram - torch.min(spectrogram))/(torch.max(spectrogram) -torch.min(spectrogram))).unsqueeze(0)
     
-    """
 
     train_dataset, valid_dataset, test_dataset = torch.utils.data.random_split(dataset_tmp, [train_size, valid_size, test_size])
     del dataset_tmp

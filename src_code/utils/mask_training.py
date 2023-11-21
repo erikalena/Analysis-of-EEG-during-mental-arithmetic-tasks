@@ -19,7 +19,7 @@ from classifier.training import *
 from neurodsp.timefrequency.wavelets import compute_wavelet_transform
 from utils.utils import *
 import time
-
+from tqdm import tqdm
 
 
 def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, path, img_size, nchannels=20, figures=False):
@@ -82,7 +82,6 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
 
         # if the file does not exist already and the image was correctly classified
         if i in correct_cls and not os.path.isfile(folder +"/"+ filename +".npy"):
-            #lam = 0.01 if labels[i] == 0 else 0.001
             since = time.time()
             model = MaskedClf(Mask((nchannels, img_size[0], img_size[1])).to(device), base_model)
             for p in model.clf.parameters(): # freeze classifier parameters
@@ -91,12 +90,11 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
             model.mask.train()
             optimizer = torch.optim.Adam(model.mask.parameters(), lr=0.01)
             epoch = 0
-            lam2 = 10**(-5)
             while True:
                 out = model(spectrograms[i])
                 l = loss(out, labels[i].reshape(1))
                 penalty = model.mask.M.abs().sum()
-                l += penalty*lam #+ (1/penalty)*lam2
+                l += penalty*lam 
                 losses[i].append(l.item())
                 optimizer.zero_grad()
                 l.backward()
@@ -114,7 +112,6 @@ def ess_train(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, pa
                     if np.sum(mask) <= 0:
                         print("mask is all zeros, skipping...", flush=True)
 
-                    #print('out: ', out, ' labels: ', labels[i], ' correct: ', correct, ' loss: ', l.item(), flush=True)
                     print(f'Training time for {i}th image: ', time.time()-since, ' epoch ', epoch, '- ', correct, flush=True)
 
                     if correct:
@@ -243,3 +240,154 @@ def save_figure(figures_folder, filename, spectrogram, raw_sig, mask):
     plt.savefig(figures_folder + filename +".png")
     plt.close()
 
+
+
+def get_correctly_classified(base_model, spectrograms, labels, ids, channels):
+    """
+    Return only those data instances which are correctly classified by the base model
+    """
+
+    base_out = base_model(spectrograms)
+    correct_cls=(np.where((torch.argmax(base_out, axis=1)==labels).cpu())[0])
+    spectrograms = spectrograms[correct_cls]
+    labels = labels[correct_cls]
+    ids = ids[correct_cls]
+    channels = channels[correct_cls]
+
+    return spectrograms, labels, ids, channels
+
+
+def single_mask_training(base_model, spectrograms, raw_sigs, labels, ids, channels, lam, path, img_size, nchannels=20, figures=False):
+
+    '''
+    Function to train one single mask for all the instances of one class
+
+    Param base_model (torch.nn.Module): pre-trained classifier
+    Param spectrograms (torch.tensor): all the spectrograms of one class  
+    Param raw_sigs (torch.tensor): tensor containing corresponding 1D eeg signals
+    Param labels (torch.tensor): tensor containing the image labels
+    Param id (str): id of the current image to be processed
+    Param channel (str): the channel from which the current image (spectrogram was obtained)
+    Param lam (float): parameter governing l_1 regularization
+    Param path (str): path to the folder used to store masks
+    Param img_size (tuple): (height, width) of the images
+    Param figures (bool): True if masks are to be stored after training, False otherwise
+    '''
+
+    # clean folder if it already exists
+    """
+    if not os.path.isdir(path):
+        os.mkdir(path)
+    else:
+        clean_folder(path)
+        os.mkdir(path+"figures/")
+    """
+
+    loss=torch.nn.CrossEntropyLoss()
+    device=torch.device("cuda" if next(base_model.parameters()).is_cuda else "cpu")
+
+    labels = labels.to(device)
+
+    # check that all labels are the same
+    if not torch.all(torch.eq(labels, labels[0])):
+        print("Error: labels are not all the same")
+        return
+
+    spectrograms = spectrograms.to(device)
+    if len(spectrograms.shape) > 4:
+        spectrograms = spectrograms.squeeze(1)
+
+    spectrograms, labels, ids, channels = get_correctly_classified(base_model, spectrograms, labels, ids, channels)
+    
+    print("spectrograms shape: ", spectrograms.shape)
+    print("labels shape: ", labels.shape)
+
+    print("Start class specific mask training...", flush=True)    
+
+    # one single mask model for all the images of the same class
+    model = MaskedClf(Mask((nchannels, img_size[0], img_size[1])).to(device), base_model)
+    for p in model.clf.parameters(): # freeze classifier parameters
+        p.requires_grad=False
+
+    model.mask.train()
+    optimizer = torch.optim.Adam(model.mask.parameters(), lr=0.01)
+    
+    losses=[]
+    max_nepochs = 5000
+    
+    for epoch in range(max_nepochs):
+        since = time.time()
+        # give to the model the full batch of spectrograms
+        out = model(spectrograms)
+        l = loss(out, labels)
+        penalty = model.mask.M.abs().sum()
+        l += penalty*lam 
+        losses.append(l.item())
+        optimizer.zero_grad()
+        l.backward()
+        optimizer.step()
+        # mask entries are in [0,1]
+        model.mask.M.data.clamp_(0.,1.)
+        epoch += 1
+        print(f'Epoch training time: ', time.time()-since, ' epoch ', epoch, flush=True)
+        print(f'Loss: ', l.item(), flush=True)
+
+        # train until convergence, for no less than a certain number of epochs and no more than 3000 epochs
+        if (epoch> 100 and abs(l.item()-np.mean(losses[-20:]))<1e-3) or epoch>3000:
+
+            mask=model.mask.M.detach().cpu()
+            mask=mask.squeeze().numpy()
+            if np.sum(mask) <= 0:
+                print("mask is all zeros, skipping...", flush=True)
+
+            print(f'Training time: ', time.time()-since, ' epoch ', epoch, flush=True)
+
+            
+            # plot loss
+            if figures:
+                plt.figure(figsize=(30,20))
+                plt.plot(losses, linewidth=5)
+                plt.xlabel("Epoch", fontsize=20)
+                plt.ylabel("Loss", fontsize=20)
+                # make ticks larger
+                plt.xticks(fontsize=20)
+                plt.yticks(fontsize=20)
+                plt.savefig(path + "loss.png")
+                plt.close()
+
+                mask=model.mask.M.detach().cpu()
+                mask=mask.squeeze().numpy()
+                
+                input_channels = nchannels
+
+                
+                for j in range(input_channels):
+                    # sum mask across time dimension
+                    mask_ch = mask[j] 
+                    # if mask is all zeros, skip
+                    if np.sum(mask_ch) > 0:
+                        filename = str(channels[0][j])
+                        plot_mask(path +"/"+ filename +".png", mask_ch) 
+                        # save mask
+                        np.save(path +"/"+ filename +".npy", mask_ch)
+                    
+
+                del mask
+            break
+
+
+
+def plot_mask(file_path, mask):
+    """
+    Plot the mask and save it to file_path
+    """
+
+    # plot mask
+    plt.figure(figsize=(30,20))
+    plt.imshow(mask,  aspect='auto', origin='lower', cmap='Blues', vmin=0)
+    plt.xlabel("Time", fontsize=20)
+    plt.ylabel("Frequency", fontsize=20)
+    plt.xticks(fontsize=20)
+    plt.yticks(fontsize=20)
+    plt.savefig(file_path)
+    plt.close()

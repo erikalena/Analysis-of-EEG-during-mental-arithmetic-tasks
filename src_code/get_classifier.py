@@ -1,7 +1,8 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+
 import os
 import datetime
 from utils.utils import *
@@ -15,10 +16,10 @@ class Config:
     A class to store all the configuration parameters
     """
     curr_time: str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    number_of_subjects: int = 10
+    number_of_subjects: int = 5
     first_subj: int = 1
     datset_size: int = 0
-    batch_size: int = 64
+    batch_size: int = 32
     epochs: int = 100
     network_type: str = 'resnet18'
     classification: str = 'ms'
@@ -26,7 +27,7 @@ class Config:
     nclasses: int = 2
     nelectrodes: int = 20
     ndim: int = 2
-    channel: str = 'FP1'
+    channel: list = None #field(default_factory=lambda: ['FP1', 'T3'])
     input_channels: int = 1
     input_data: int = None
     dir_path: str = './results_classifier/' + network_type + "_" + curr_time
@@ -143,7 +144,7 @@ if __name__ == "__main__":
     else:
         CONFIG.nclasses = 2
 
-    file_path = f'./saved_datasets/eeg_dataset_ns_{CONFIG.number_of_subjects}_ch_{CONFIG.input_channels}_{CONFIG.channel}_nc_{CONFIG.nclasses}_{CONFIG.classification}_1sec.pkl'
+    file_path = f'./saved_datasets/eeg_dataset_ns_{CONFIG.number_of_subjects}_ch_{CONFIG.input_channels}_nc_{CONFIG.nclasses}_{CONFIG.classification}_1sec.pkl'
 
     # if dataset already exists, load it
     load = True if os.path.isfile(file_path) else False
@@ -153,7 +154,7 @@ if __name__ == "__main__":
         dataset = load_dataset(file_path)
     else:
         print("Creating dataset...", flush=True)
-        dataset = read_eeg_data(sample_data_folder, file_path, input_channels=CONFIG.input_channels, number_of_subjects=CONFIG.number_of_subjects, type = CONFIG.classification, channel = CONFIG.channel)
+        dataset = read_eeg_data(sample_data_folder, file_path, input_channels=CONFIG.input_channels, number_of_subjects=CONFIG.number_of_subjects, type = CONFIG.classification, channel_list = CONFIG.channel)
         
         
     CONFIG.dataset_size = len(dataset)
