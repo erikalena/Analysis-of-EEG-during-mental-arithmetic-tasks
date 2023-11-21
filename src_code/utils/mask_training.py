@@ -329,8 +329,9 @@ def single_mask_training(base_model, spectrograms, raw_sigs, labels, ids, channe
         # mask entries are in [0,1]
         model.mask.M.data.clamp_(0.,1.)
         epoch += 1
-        print(f'Epoch training time: ', time.time()-since, ' epoch ', epoch, flush=True)
-        print(f'Loss: ', l.item(), flush=True)
+        if epoch % 10 == 0:
+            print(f'Epoch training time: ', time.time()-since, ' epoch ', epoch, flush=True)
+            print(f'Loss: ', l.item(), flush=True)
 
         # train until convergence, for no less than a certain number of epochs and no more than 3000 epochs
         if (epoch> 100 and abs(l.item()-np.mean(losses[-20:]))<1e-3) or epoch>3000:
