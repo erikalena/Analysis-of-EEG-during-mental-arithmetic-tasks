@@ -8,7 +8,7 @@ from utils.mask_training import *
 
 from classifier.models import *
 from classifier.training import *
-
+import random
 
 
 
@@ -24,8 +24,8 @@ class Config:
     start_idx: int = 60
     end_idx: int = 0
     nclasses: int = 2
-    classification: str = 'cq'
-    model_path: str = './results_classifier/resnet18_cq_36/best_model_params.pt' 
+    classification: str = 'ms'
+    model_path: str = './results_classifier/resnet18_ms_36/best_model_params.pt' 
     save_figures: bool = True
     input_channels: int = 20
     train_rate: float = 0.8
@@ -134,8 +134,22 @@ if __name__ == "__main__":
         nchannels = input.shape[0]
         print("nchannels: ", nchannels, flush=True)
 
-        # transform dataset to tensor
-        spectrograms, raw_signals, labels, ids, channels = dataset_tmp[:len(dataset_tmp)]
+        # extract 1000 random indices in the interval 0 - len(dataset_tmp)
+        nmax = np.min([len(dataset_tmp), 1000])
+        indices = np.random.choice(range(len(dataset_tmp)), replace=False, size=nmax)  
+        
+        spectrograms, raw_signals, labels, ids, channels = [], [], [], [], []
+
+        for idx in indices:
+            item = dataset_tmp[idx]
+            spectrograms.append(item[0])
+            raw_signals.append(item[1])
+            labels.append(item[2])
+            ids.append(item[3])
+            channels.append(item[4])
+
+
+        #spectrograms, raw_signals, labels, ids, channels = dataset_tmp[indices]
         # size of input: (batch_size, nchannels, image_size[0], image_size[1])
         spectrograms = torch.stack(spectrograms).float()
         print("Shape of input: ", spectrograms.shape, flush=True)
