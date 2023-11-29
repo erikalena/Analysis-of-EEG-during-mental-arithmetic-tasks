@@ -1,0 +1,24 @@
+curr_time: 20231129-143516
+number_of_subjects: 36
+first_subj: 1
+datset_size: 0
+batch_size: 128
+epochs: 50
+network_type: resnet18
+classification: ms
+pretrained: False
+nclasses: 2
+nelectrodes: 20
+ndim: 2
+channel: None
+input_channels: 20
+input_data: None
+dir_path: ./results_classifier/resnet18_20231129-143516
+checkpoint_path: None
+optimizer: <class 'torch.optim.adam.Adam'>
+learning_rate: 0.001
+loss_fn: <class 'torch.nn.modules.loss.CrossEntropyLoss'>
+train_rate: 0.9
+valid_rate: 0.1
+device: cuda
+dataset_size: 4320
