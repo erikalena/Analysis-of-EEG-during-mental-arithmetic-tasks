@@ -14,16 +14,16 @@
 
 ## Introduction
 
-This project aims to analyze EEG signals  of participants performing mental arithmetic tasks. The EEG signals were captured using a 23-channel EEG system. For each participant two recordings are available, one recorded while the participant was at rest and one recorded while the participant was performing the task. 
+This project aims to analyze EEG signals  of participants performing mental arithmetic tasks. The EEG signals were captured using a 21-channel EEG system. For each participant two recordings are available, one recorded while the participant was at rest and one recorded while the participant was performing the task. 
 
 The first purpose of this project focused on the analysis of **spatial correlations** between the EEG signals.
 An [Id-based method](https://www.nature.com/articles/s41598-017-11873-y) was used to calculate non-linear correlations between the EEG signals captured by different electrodes. 
 
 A second part of this project focused on the training of a deep learning model to classify the EEG signals into different classes. 
 EEG signals were transformed into images using the wavelet transform. 
-Once one or more classifiers had been trained, the **frequency masks** representing the essential frequencies used by the model were obtained. The frequency masks are used to understand which frequency bands and which electrodes are most important for the classification of the EEG signals. This part of the project was inspired by [this paper](https://arxiv.org/pdf/2305.15203).
+Once one or more classifiers had been trained, the **frequency masks** representing the essential frequencies used by the model were obtained. The frequency masks are used to understand which frequency bands and which electrodes are most important for the classification of the EEG signals. This part of the project is based on the method proposed in the paper [Investigating Adversarial Vulnerability and Implicit Bias through Frequency Analysis](https://arxiv.org/pdf/2305.15203).
 
-In the *src_code* folder, all the code of the project is available. The code is written in Python (3.9).
+The entire code developed is available in the `src_code` folder and it is written in Python (3.9).
 In the `notebooks` folder, some Jupyter notebooks are provided.
 These notebooks can be used to understand how to work with EEG data (`read_eeg_data.ipynb`, `build_montage.ipynb`), how to visualize the results of correlation analysis on raw data (`correlation_coeff_raw_data.ipynb`) and how to plot the results obtained through frequency masks extraction (`class_masks_visualization.ipynb`).
 
@@ -36,9 +36,9 @@ pip install -r requirements.txt
 
 ### Dataset
 
-The dataset used in this project is the [EEG During Mental Arithmetic Tasks](https://physionet.org/content/eegmat/1.0.0/). The dataset contains EEG signals captured from 36 participants performing mental arithmetic tasks. The dataset contains two .edf files for each participant (e.g. Subject00_1.edf, Subject00_2.edf), one for the CQ task and one for the MS task. The dataset also contains a .csv file with the labels for each participant. 
+The dataset used in this project is the [EEG During Mental Arithmetic Tasks](https://physionet.org/content/eegmat/1.0.0/). The dataset contains EEG signals captured from 36 participants performing mental arithmetic tasks. The dataset contains two .edf files for each participant (e.g. Subject00_1.edf, Subject00_2.edf), one for the CQ task and one for the MS task. The dataset also contains a .csv file with the labels (Good or Bad counting quality) for each participant. 
 
-The first record of the .edf file contains the EEG signals captured while the participant was at rest. The second record contains the EEG signals captured while the participant was performing the task. The EEG signals were captured using a 21-channel EEG system. The EEG signals were captured at a sampling rate of 500 Hz, using a 23-channel system with the following electrodes: FP1, FP2, F7, F3, FZ, F4, F8, T3, C3, CZ, C4, T4, T5, P3, PZ, P4, T6, O1, OZ, O2, A1, A2 and one for ECG.
+The first record of the .edf file contains the EEG signals captured while the participant was at rest. The second record contains the EEG signals captured while the participant was performing the task, using a 21-channel EEG system.
 
 
 
@@ -54,8 +54,8 @@ cd src_code
 python compute_correlation.py -ns 36 -ct cq -ch FP1,PZ
 ```
 
-The above command will calculate the correlation values for the CQ (counting quality) task for the FP1 and PZ electrodes, using all the raw EEG signals available (36 subjects). The correlation values will be saved in the *results* folder. 
-For each frequency band (delta, theta, alpha, beta, gamma, full_spectrum), two or three folders will be generated (it depends on the number of classes for the task). Each folder will contain four files:
+The above command will calculate the correlation values for the CQ (counting quality) task for the FP1 and PZ electrodes, using the recordings of all the participants (36 subjects). The correlation values will be saved in the *results* folder specified. 
+For each frequency band (delta, theta, alpha, beta, gamma, full_spectrum), two or three folders will be generated depending on the number of classes. Each folder will contain four files:
 - *correlation.txt*: this file contains the correlation values for each pair of electrodes and the configuration parameters;
 - *correlation_table.pkl*: a pickle file containing the tables for Pearson and Z-score correlation values;
 - two *.png* files providing a visual representation of the correlation values.
@@ -75,8 +75,7 @@ python compute_correlation.py -ns 36 -ct cq -ch FP1,PZ --mask True
 
 ### Feature extraction
 
-For EEG signals classification, a deep learning model was used. The model has been trained on the features extracted from the EEG signals. The features were extracted using the continuous wavelet transform. 
-Continuous wavelet transforms were applied to raw EEG signals to obtain two-dimensional images. The two-dimensional images were then used to train the ResNet18 model. These inputs can be provided to the neural network as single data items, or they can be made by all the channels (electrodes) available. The second option provides the most reliable results as the channels are correlated between each other.
+For EEG signals classification, a deep learning model was used. The model has been trained on the features extracted from the EEG signals. Continuous wavelet transforms were applied to raw EEG signals to extract features and obtain two-dimensional images which were used to train the ResNet18 model. These inputs can be provided to the neural network as single data items, or they can be made by all the channels (electrodes) available. The second option provides the most reliable results as the channels are correlated between each other.
 
 ### Classification
 
@@ -95,9 +94,7 @@ The results are saved in a predefined folder, containing the confusion matrix, t
 
 ## Frequency masks extraction
 
-Once a suitable classifier has been trained, the frequency masks used by the model can be extracted. The frequency masks are used to understand which frequency bands and which electrodes are most important for the classification of the EEG signals.
-The frequency masks can be found by training an additional layer as explained in [this paper](https://arxiv.org/pdf/2305.15203). 
-
+Once a suitable classifier has been trained, the essential frequency used by the model can be extracted. The frequency masks are used to understand which frequency bands and which electrodes are the most important for the classification of the EEG signals.
 The extraction of the frequency masks can be performed using the following command:
 
 ```python
