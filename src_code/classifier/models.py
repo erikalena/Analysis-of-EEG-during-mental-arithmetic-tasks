@@ -1,25 +1,14 @@
 import torch
 import torch.nn as nn
-import torch.optim as optim
-from torch.optim import lr_scheduler
-import torch.backends.cudnn as cudnn
-import numpy as np
-import torchvision
-from torchvision import datasets, models, transforms
-from torchvision.models import resnet18, ResNet18_Weights
+from torchvision import models
+from utils.read_data import EEGDataset
 
-import matplotlib.pyplot as plt
-import time
-import os
-
-
-
-def load_resnet18(nclasses = 2, pretrained = True, device = 'cpu', input_channels = 1):
+def load_resnet18(nclasses: int = 2, pretrained: bool = True, device: str = 'cpu', input_channels: int = 1):
     """
     Load a pretrained resnet18 model
     """
 
-    weights = ResNet18_Weights.DEFAULT if pretrained else None
+    weights = models.ResNet18_Weights.DEFAULT if pretrained else None
     model = models.resnet18(weights = weights)
     
     # freeze parameters except for the last layer and the first conv layer
@@ -48,17 +37,15 @@ class shallow2d(nn.Module):
     def __init__(self, nclasses, input_size, input_channels, device='cpu'):
         super(shallow2d, self).__init__()
 
-        self.conv1 = nn.Conv2d(input_channels, 40, kernel_size=5, padding='same') # 40 x Neeg x N
+        self.conv1 = nn.Conv2d(input_channels, 40, kernel_size=5, padding='same') 
         self.bn1 = nn.BatchNorm2d(40)
-        self.conv2 = nn.Conv2d(40, 40, kernel_size=5, padding='valid') # 40 x 1 x N
+        self.conv2 = nn.Conv2d(40, 40, kernel_size=5, padding='valid') 
         self.bn2 = nn.BatchNorm2d(40)
-
-        self.avgpool = nn.AvgPool2d(kernel_size=5)  # 40 x 1 x N/15
-
+        self.avgpool = nn.AvgPool2d(kernel_size=5)
 
         self.input_channels = input_channels
-
         self.input_size = self.get_in_channels(input_size)
+
         # fully connected layer
         self.fc1 = nn.Linear(self.input_size, 80)
         self.fc2 = nn.Linear(80, nclasses)
@@ -87,64 +74,20 @@ class shallow2d(nn.Module):
         x = torch.flatten(x, start_dim=1)
         return x.shape[1]
  
-
-class ShallowConvNet(nn.Module):
-    
-    def __init__(self, nclasses, nelectrodes, input_size, input_channels, device='cpu'):
-        super(ShallowConvNet, self).__init__()
-
-        
-        self.filters = 40
-        # two conv layers with 40 kernels per layer
-        # first conv layer performs convolution along time axis
-        self.conv1 = nn.Conv2d(1, self.filters, kernel_size=(1, 30), padding='same') # 40 x Neeg x N
-        # second conv layer performs convolution along electrode axis
-        self.conv2 = nn.Conv2d(self.filters, self.filters, kernel_size=(nelectrodes,1), padding='valid') # 40 x 1 x N
-        self.avgpool = nn.AvgPool2d(kernel_size=(1, 15))  # 40 x 1 x N/15
-
-        self.input_size = self.get_in_channels(input_size, nelectrodes)
-
-        # fully connected layer
-        self.fc1 = nn.Linear(self.input_size, 80)
-        self.fc2 = nn.Linear(80, nclasses)
-        self.softmax = nn.Softmax(dim=1)
-
-        self.to(device)
-        self.device = device
-        self.input_channels = input_channels
-        
-    def forward(self, x):
-        x = self.conv1(x)
-        x = self.conv2(x)
-        x = self.avgpool(x)
-        x = torch.flatten(x, start_dim=1)
-        x = self.fc1(x)
-        x = self.fc2(x)
-        x = self.softmax(x)
-        return x
-    
-    def get_in_channels(self, input_size, nelectrodes):
-        # create dummy input
-        x = torch.randn(1, 1, nelectrodes, input_size)
-        x = self.avgpool(self.conv2(self.conv1(x)))
-        x = torch.flatten(x)
-        return x.shape[0]
-    
-
+""" 
 class Identity(nn.Module):
     def __init__(self):
         super(Identity, self).__init__()
         
     def forward(self, x):
         return x
+ """
 
-
-def get_weights(dataset, nclasses):
+def get_weights(dataset: EEGDataset, nclasses: int):
     """
     Function to get weights for each class
     proportional to the inverse of the number of samples
     """
-
     counts = [sum([1 for i, _ in enumerate(dataset) if dataset.get_label(i) == label]) for label in range(nclasses)]
 
     # compute class weights

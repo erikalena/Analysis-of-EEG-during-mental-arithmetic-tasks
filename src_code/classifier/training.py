@@ -1,17 +1,16 @@
+import os
+import numpy as np
+import time
 import torch
-import torch.nn as nn
 import torch.optim as optim
 from torch.optim import lr_scheduler
-import torch.backends.cudnn as cudnn
-import numpy as np
 import torchvision
-from torchvision import datasets, models, transforms
-import matplotlib.pyplot as plt
-import time
-import os
+from torch.utils.data import DataLoader
+from utils.utils import logger
 
-
-
+LEARNNING_RATE = 0.001
+STEP_SIZE = 7
+GAMMA = 0.1
 
 class EarlyStopper:
     def __init__(self, patience=1, min_delta=0):
@@ -32,7 +31,7 @@ class EarlyStopper:
         return False
 
 
-def save_checkpoint(model, optimizer, save_path, epoch):
+def save_checkpoint(model: torchvision.models, optimizer: torch.optim, save_path: str, epoch: int):
     torch.save({
         'model_state_dict': model.state_dict(),
         'optimizer_state_dict': optimizer.state_dict(),
@@ -40,21 +39,20 @@ def save_checkpoint(model, optimizer, save_path, epoch):
     }, save_path)
 
 
-
-
-
-def train_model(model, criterion, dataloaders, num_epochs=25, folder = None, load_checkpoint = False, checkpoint_path = None, device="cpu"):
-    
-    #  make directory to save results
+def train_model(model: torchvision.models, loss_criterion: torch.nn, dataloaders: DataLoader, num_epochs: int = 25, folder: str = None, load_checkpoint: bool = False, checkpoint_path: str = None, device: str ="cpu"):
+    """
+    Function for model training. It trains the model for a number of epochs and saves the best model based on the validation accuracy.
+    Model can be both a resnet model or a shallownet model and it can be loaded from a checkpoint.
+    """
+    # make directory to save results
     if not os.path.isdir(folder):
         os.mkdir(folder)
         
     since = time.time()
-
     start_epoch = 0
 
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
+    optimizer = torch.optim.Adam(model.parameters(), lr=LEARNNING_RATE)
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=STEP_SIZE, gamma=GAMMA)
     
     # load checkpoint if needed
     if load_checkpoint:
@@ -71,28 +69,24 @@ def train_model(model, criterion, dataloaders, num_epochs=25, folder = None, loa
     model = model.to(device)
     model.device = device
 
-    print("Running on ", device, flush=True)
+    logger.info(f'Running on {device}')
     
-
     # Create a temporary directory to save training checkpoints
     best_model = os.path.join(folder, 'best_model_params.pt')
 
     torch.save(model.state_dict(), best_model)
     best_acc = 0.0
 
-
-    print(f'Training on {len(dataloaders["train"])} samples and validating on {len(dataloaders["val"])} samples', flush=True)
-
+    logger.info(f'Training on {len(dataloaders["train"])} samples and validating on {len(dataloaders["val"])} samples')
 
     early_stopper = EarlyStopper(patience=10, min_delta=0.001)
 
     with open(os.path.join(folder, 'results.txt'), 'a') as f:
-        # print header
+        # write header
         f.write(f'epoch,train_loss,train_acc,val_loss,val_acc\n')
 
     for epoch in range(num_epochs):
-        print(f'\nEpoch {epoch}/{num_epochs - 1}\n')
-
+        logger.info(f'\nEpoch {epoch}/{num_epochs - 1}\n')
         
         for phase in ['train', 'val']:
             if phase == 'train':
@@ -105,7 +99,6 @@ def train_model(model, criterion, dataloaders, num_epochs=25, folder = None, loa
             size = 0
             for inputs, _, labels, _, _ in dataloaders[phase]:
                 inputs, labels = inputs.to(device), labels.to(device)
-                #labels = labels % 2 # change labels to 0 and 1
                 size += inputs.shape[0]
                 optimizer.zero_grad()
 
@@ -114,15 +107,13 @@ def train_model(model, criterion, dataloaders, num_epochs=25, folder = None, loa
                     if model.input_channels > 1 and len(inputs.shape) > 4:
                         inputs = inputs.squeeze(1)
                     
-                    
                     if len(inputs.shape) <= 3:
                         inputs = inputs.unsqueeze(1)
-                                            
                 
                     outputs = model(inputs)
                    
                     _, preds = torch.max(outputs, 1)
-                    loss = criterion(outputs, labels)
+                    loss = loss_criterion(outputs, labels)
 
                     if phase == 'train':
                         loss.backward()
@@ -138,7 +129,7 @@ def train_model(model, criterion, dataloaders, num_epochs=25, folder = None, loa
             epoch_loss = running_loss / size
             epoch_acc = running_corrects.double() / size
             
-            print(f'{phase} Loss: {epoch_loss:.4f} Acc: {epoch_acc:.4f}')
+            logger.info(f'{phase} Loss: {epoch_loss:.4f} Acc: {epoch_acc:.4f}')
 
             # deep copy the model
             if phase == 'val' and epoch_acc > best_acc:
@@ -164,8 +155,8 @@ def train_model(model, criterion, dataloaders, num_epochs=25, folder = None, loa
     time_elapsed = time.time() - since
     with open(os.path.join(folder, 'results.txt'), 'a') as f:
         f.write(f'Training complete in {time_elapsed // 60:.0f}m {time_elapsed % 60:.0f}s\n')
-    print(f'Training complete in {time_elapsed // 60:.0f}m {time_elapsed % 60:.0f}s')
-    print(f'Best val Acc: {best_acc:4f}')
+    logger.info(f'Training complete in {time_elapsed // 60:.0f}m {time_elapsed % 60:.0f}s')
+    logger.info(f'Best val Acc: {best_acc:4f}')
 
     # load best model weights
     model.load_state_dict(torch.load(best_model))
@@ -225,6 +216,6 @@ def test_model(model, dataloader, folder = None):
         with open(os.path.join(folder, 'results.txt'), 'a') as f:
             f.write(f'Test Acc: {test_acc:.4f}\n')
     else:
-        print(f'Test Acc: {test_acc:.4f}', flush = True)
+        logger.info(f'Test Acc: {test_acc:.4f}')
         
     return test_acc, correct_instances, ytrue, ypred

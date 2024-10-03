@@ -1,15 +1,18 @@
+import os
+import numpy as np
+import copy
+import datetime
+import argparse
 import torch
 from dataclasses import dataclass
-import os
-import datetime
-from utils.utils import *
-from utils.read_data import *
-from utils.mask_training import *
+from utils.utils import logger
+from utils.read_data import CHANNEL_NAMES, read_eeg_data, EEGDataset
+from utils.mask_training import mask_training
+from get_class_mask import load_classifier
 
-from classifier.models import *
-from classifier.training import *
-
-
+DATA_FOLDER = '../eeg_data/'            # folder where the dataset is stored
+DATASET_FOLDER = './saved_datasets/'    # folder where to save the dataset
+RESULTS_FOLDER = './results_mask/'      # folder where to save the results
 
 
 @dataclass
@@ -19,81 +22,41 @@ class Config:
     """
     curr_time: str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     number_of_subjects: int = 5
-    datset_size: int = 0
+    dataset_size: int = 0
     batch_size: int = 32
+    nclasses: int = 2
+    classification: str = 'ms'
+    network_type: str = 'resnet18'  
+    model_path: str = None
+    save_figures: bool = True
+    input_channels: int = len(CHANNEL_NAMES)   
+    timewindow: float = 1.0
+    lam: float = 0.01
     start_idx: int = 60
     end_idx: int = 0
-    nclasses: int = 2
-    classification: str = 'cq'
-    model_path: str = './results_classifier/resnet18_cq_36/best_model_params.pt' 
-    save_figures: bool = True
-    input_channels: int = 20
-    train_rate: float = 0.8
-    valid_rate: float = 0.1
     device: str = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    def save_config(self):
+    def save_config(self, file_path):
         """
         Write all the configuration parameters to file
         """
-        print("\nConfig:\n", flush=True)
-        for key, value in self.__dict__.items():
-            print(f'{key}: {value}', flush=True)
+        with open(file_path, 'w') as f:
+            for key, value in self.__dict__.items():
+                f.write(f'{key}: {value}\n')
 
 
-
-CONFIG = Config()
-
-
-def load_classifier(dataset):
-    print("Loading model...\n", flush=True)
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu") 
-    model = load_resnet18(nclasses = CONFIG.nclasses, pretrained = False, device = device, input_channels=CONFIG.input_channels)
-
-    # load model parameters
-    model.load_state_dict(torch.load(CONFIG.model_path, map_location=torch.device('cpu')))
-    # move model and model parameters to device
-    model.to(device)
-
-    _, _, testloader = build_dataloader(dataset, batch_size=CONFIG.batch_size, train_rate=CONFIG.train_rate, valid_rate=CONFIG.valid_rate, shuffle=True, resample=True)
-    test_acc, _, _, _ = test_model(model, testloader, folder=None)
-
-    print("Test accuracy: ", test_acc, flush=True)
-
-    return model
-    
-
-if __name__ == "__main__":
-    
-    # load data from folder
-    sample_data_folder = './eeg_data/'
-
-    file_path = f'./saved_datasets/eeg_dataset_ns_{CONFIG.number_of_subjects}_ch_{CONFIG.input_channels}_nc_{CONFIG.nclasses}_{CONFIG.classification}_1sec.pkl'
-    print(file_path)
-    # save config parameters
-    CONFIG.save_config()
-
-    # if dataset already exists, load it
-    load = True if os.path.isfile(file_path) else False
-    
-    if load: 
-        print("Loading dataset...", flush=True)
-        dataset = load_dataset(file_path)
-    else:
-        print("Creating dataset...", flush=True)
-        dataset = read_eeg_data(sample_data_folder, file_path, input_channels=CONFIG.input_channels, number_of_subjects=CONFIG.number_of_subjects, type = CONFIG.classification)
-        
-        
-    print("Size of data set: ", len(dataset))
-
+def get_masks(dataset: EEGDataset):
+    """
+    Function to get masks for each channel
+    Input:
+        dataset: EEGDataset object
+    """
     # load classfier
     model = load_classifier(dataset)
-    
 
-    lam = 0.01
-    mask_path = f'./results_masks_{str(CONFIG.classification)}/' 
+    os.mkdir(CONFIG.dir_path) if not os.path.isdir(CONFIG.dir_path) else None
 
-    print("Training masks...", flush=True)
+    logger.info("Training masks...")
 
     batch_size = CONFIG.batch_size
     start_idx = CONFIG.start_idx
@@ -108,22 +71,18 @@ if __name__ == "__main__":
  
     for i, _ in enumerate(dataset_tmp):
         spectr = dataset_tmp.spectrograms[i]
-        #spectr = scipy.signal.resample(spectr, 100, axis=2)
         spectr = torch.tensor(spectr.real)
         spectr = torch.abs(spectr)
         spectr = (spectr - min_spectr) / (max_spectr - min_spectr)
         dataset_tmp.spectrograms[i] = spectr
-
         dataset_tmp.raw[i] = torch.tensor(dataset.get_raw(i))
 
-    # for each element in the dataset, compute its mask
-    # loop over each element in the dataset
+  
     input = dataset_tmp[0][0]
-    print("Shape of first element: ", dataset_tmp[0][0].shape, flush=True)
-
     image_size = tuple((input.shape[1], input.shape[2]))
-    nchannels = input.shape[0]
-    print("nchannels: ", nchannels, flush=True)
+    input_channels = input.shape[0]
+    logger.info(f"nchannels: {input_channels}")
+    logger.info(f"Shape of first element: {dataset_tmp[0][0].shape}")
 
     while end_idx < len(dataset):
         spectrograms, raw_signals, labels, ids, channels = dataset_tmp[start_idx:end_idx]
@@ -133,12 +92,55 @@ if __name__ == "__main__":
         ids = np.asarray(ids)
         channels = np.asarray(channels)
 
-        print(start_idx, end_idx)
-        ess_train(model, spectrograms, raw_signals, labels, ids, channels, lam, mask_path, image_size, nchannels, figures=CONFIG.save_figures)
-        print("Last image processed: ", end_idx, flush=True)
+        logger.info(f"Training masks for instances: {start_idx} to {end_idx}")
+        mask_training(model, spectrograms, raw_signals, labels, ids, channels, CONFIG.lam, CONFIG.dir_path, image_size, input_channels, figures=CONFIG.save_figures)
+        logger.info(f"Last image processed: {end_idx}")
         start_idx = end_idx
         end_idx = batch_size + start_idx
 
     del dataset_tmp
 
     
+
+
+    
+if __name__ == "__main__":
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-cl', '--classification', type=str, default='ms', help='classification type (cq, ms, both)')
+    parser.add_argument('-ic', '--input_channels', type=int, default=len(CHANNEL_NAMES), help='number of input channels')
+    parser.add_argument('-ns', '--number_of_subjects', type=int, default=5, help='number of subjects to consider')
+    parser.add_argument('-mp', '--model_path', type=str, default='./results_classifier2/resnet18_ms_20240924-225218/best_model_params.pt', help='path to the model which must take as input data with just one channel')
+    parser.add_argument('-sf', '--save_figures', type=bool, default=True, help='save figures')
+    parser.add_argument('-tw', '--timewindow', type=float, default=0.5, help='time window for the spectrogram')
+    parser.add_argument('--lam', type=float, default=0.01, help='regularization parameter')
+
+    args = parser.parse_args()
+    CONFIG = Config(**args.__dict__)
+    
+    # check that the given trained model exists
+    if not os.path.isfile(CONFIG.model_path):
+        raise FileNotFoundError(f"Model not found: {CONFIG.model_path}")
+
+    # retrieve number of classes and model type from model config file
+    model_config = CONFIG.model_path.replace('best_model_params.pt', 'config.txt')
+    with open(model_config, 'r') as f:
+        for line in f:
+            if 'nclasses' in line:
+                CONFIG.nclasses = int(line.split(':')[-1].strip())
+            elif 'network_type' in line:
+                CONFIG.network_type = line.split(':')[-1].strip()
+
+    os.mkdir(RESULTS_FOLDER) if not os.path.isdir(RESULTS_FOLDER) else None
+    CONFIG.dir_path = f'{RESULTS_FOLDER}/{CONFIG.network_type}_{CONFIG.classification}_{CONFIG.curr_time}' # directory to save classifier results
+    os.mkdir(CONFIG.dir_path) if not os.path.isdir(CONFIG.dir_path) else None
+
+    # build dataset if it does not exist
+    dataset = read_eeg_data(DATA_FOLDER, DATASET_FOLDER, input_channels=CONFIG.input_channels, number_of_subjects=CONFIG.number_of_subjects, type = CONFIG.classification, time_window=CONFIG.timewindow)
+        
+    logger.info(f"Size of data set: {len(dataset)}")
+
+    # save config parameters
+    CONFIG.save_config(f'{CONFIG.dir_path}/config_{CONFIG.curr_time}.txt')
+
+    get_masks(dataset)

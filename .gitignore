@@ -159,21 +159,12 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-src_code/*.ipynb
-src_code/eeg_data/
-src_code/results_correlation/eeg_mat*.pkl 
-src_code/results_correlation/*.ipynb
-src_code/results_correlation/id_estimation/
-src_code/saved_datasets/
-src_code/results_masks/
+/eeg_data/
 scripts/
 
+*.pkl 
 *.out
 *.err
 
-src_code/results_masks/
-src_code/results_masks_cq/
-src_code/results_masks_ms/
-src_code/results_masks_both/
-
-../masks_correlations/
+src_code/results*
+saved_datasets*

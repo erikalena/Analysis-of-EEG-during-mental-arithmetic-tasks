@@ -1,11 +1,9 @@
-import torch.nn as nn
 import torch
 import os
-import pickle
 import numpy as np
 
 
-class Mask(nn.Module):
+class Mask(torch.nn.Module):
     '''
     Class that inherits from torch.nn.Module, implementing the Fourier modulatory mask as a pre-processing layer
     Attribute M (torch.tensor): tensor that stores the entries of the mask
@@ -15,17 +13,15 @@ class Mask(nn.Module):
         super().__init__()
         assert len(mask_size) == 3
         kernel = torch.ones((1, *mask_size))
-        self.M = nn.Parameter(kernel)
-        nn.init.ones_(self.M)
+        self.M = torch.nn.Parameter(kernel)
+        torch.nn.init.ones_(self.M)
 
     def forward(self, x):
-        #x = torch.fft.fft2(x) # fourier transform
         x = self.M * x       # multiply by mask
-        #x = torch.fft.ifft2(x).real # inverse fourier transform
         return x
    
    
-class MaskedClf(nn.Module):
+class MaskedClf(torch.nn.Module):
     '''
     Class that inherits from torch.nn.Module, implementing a end-to-end 'masked' classifier
 
@@ -39,27 +35,27 @@ class MaskedClf(nn.Module):
         self.clf=clf
 
     def forward(self, x):
-        x=self.mask(x) # apply mask
+        x=self.mask(x)  # apply mask
         x=self.clf(x)   # apply classifier
         return x
 
 
 
 class MaskDataset(torch.utils.data.Dataset):
-
     '''
     Class that inherits from torch.utils.data.Dataset to store masks
 
     Input:
     - path (str): path to the masks
     - nclasses (int): number of classes
+    - sel_class (int): class to select
+    - ch (str): channel to select
 
-    Return: a MaskDataset object with the following attributes:
-    - attribute masks (torch.tensor): tensor that contains masks
-    - attribute labels (torch.tensor): label of each mask
-    - attribute id (torch.tensor): id of each mask made of the subject and the task (which is also the label) e.g. S001R03 + 0
-    - attribute channel (torch.tensor): channel of each mask
-
+    Attributes:
+    - masks (list): list of masks
+    - labels (list): list of labels
+    - id (list): list of ids
+    - channel (list): list of channels
     '''
 
     def __init__(self, ch=None, path = None, nclasses=None, sel_class=None):
@@ -84,8 +80,6 @@ class MaskDataset(torch.utils.data.Dataset):
                     self.id.append(id) 
                     self.channel.append(channel)
 
-
-    
         
     def add_instance(self, elem):
         self.masks.append(elem[0])

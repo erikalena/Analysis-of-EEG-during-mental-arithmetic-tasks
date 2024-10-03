@@ -3,28 +3,39 @@ import sys
 import datetime
 import numpy as np
 import pickle
-import torch
+import argparse
 from dataclasses import dataclass, field
-from utils.correlation import read_correlation_table, compute_correlation
+from utils.correlation import plot_correlation_table, compute_correlation
 from utils.masks import MaskDataset
-from utils.read_data import read_eeg_data
+from utils.read_data import read_eeg_data, CHANNEL_NAMES, EEGDataset
+from utils.utils import logger
+
+
+BAND_RANGES = [0.5, 4, 8, 12, 30, 60]                   # frequency bands
+BANDS = ['delta', 'theta', 'alpha', 'beta', 'gamma']    # corresponding bands names
+DATA_FOLDER = '../eeg_data/'                            # folder where the original data are stored
+DATASET_FOLDER = './saved_datasets/'                    # folder where to save the dataset
+RESULTS_FOLDER = './results_correlation/'               # folder where to save the results
+CLASSIFICATIONS = {'cq': ['good_quality_count', 'bad_quality_count'], 
+                   'ms': ['rest', 'counting'], 
+                   'both': ['rest', 'good_quality_count', 'bad_quality_count']} # classification types
 
 @dataclass
 class Config:
     """
-    A class to store all the configuration parameters
+    A dataclass to store all the configuration parameters
     """
     curr_time: str = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    number_of_subjects: int = 36
-    nclasses: int = 2
-    classification: str = 'cq'
-    nelectrodes: int = 20
-    input_channels: int = 1
-    bandpass: bool = False
-    raw: bool = True
-    channels: list = field(default_factory=lambda: ['FP1','FP2', 'F3','F4','F7','F8','T3','T4','C3','C4','T5','T6','P3','P4','O1','O2','FZ','CZ','PZ','A2'])
+    number_of_subjects: int = 36        # number of subjects for which the correlation is computed
+    nclasses: int = 2                   # number of classes for the classification
+    classification: str = 'cq'          # classification type (cq, ms, both)
+    nelectrodes: int = 20               # number of electrodes to be considered
+    input_channels: int = 1             # number of input channels (always 1, it can be the raw data or the mask but computed for one channel at a time)
+    mask: bool = False                  # whether to use masks or eeg data
+    dataset_folder: str = DATA_FOLDER   # folder where the dataset is stored
+    timewindow: float = 0.5             # time window for the spectrogram
+    channels: list = field(default_factory=lambda: CHANNEL_NAMES)  # channels for which to compute the correlation
     
-
     def save_config(self, file_path):
         """
         Write all the configuration parameters to file
@@ -33,49 +44,47 @@ class Config:
             for key, value in self.__dict__.items():
                 f.write(f'{key}: {value}\n')
 
+def get_dataset():
+    """
+    Return the dataset of eeg data for the specified number 
+    of subjects starting from the first one.
+    """
 
-CONFIG = Config()
+    logger.info(f"Saving results in {RESULTS_FOLDER}")
 
+    sample_data_folder = CONFIG.dataset_folder
+    input_channels = CONFIG.input_channels
 
-def print_usage():
-    print("Usage: python get_correlation.py <number_of_subjects> <channels>", flush=True)
-    print("number_of_subjects: number of subjects to consider (default: 5)", flush=True)
-    print("""channels: channels for which to compute the masks (e.g.: 'C3', 'C4')
-            - if no channel is specified, correlation is computed for a list of predefined pairs of channels
-            - no more than two channels must be entered by command line""", flush=True)
-    sys.exit(0)
+    data_path = f'{DATASET_FOLDER}/eeg_dataset_ns_{str(CONFIG.number_of_subjects)}_ch_{str(input_channels)}_nc_{str(CONFIG.nclasses)}_{str(CONFIG.classification)}_{str(CONFIG.timewindow).replace(".", "")}sec.pkl'
+    dataset = read_eeg_data(sample_data_folder, data_path, input_channels, number_of_subjects=CONFIG.number_of_subjects, type = CONFIG.classification, time_window=CONFIG.timewindow, save_spec=False)
 
+    return dataset
 
-def save_correlation(dataset, channels, nclasses, raw, dir_path, sel_class=None):
+def save_correlation(dataset: EEGDataset, dir_path: str, sel_class: int=None):
     """
     Save correlation results for the specified channels.
     Input:
         dataset: the dataset to use
-        channels: the channels for which to compute the correlation
-        nclasses: the number of classes
-        raw: if True, use raw data, otherwise use masks
         dir_path: the directory where to save the results
     """
     results_path = dir_path + 'correlation.txt'
+    channels = CONFIG.channels
+    nclasses = CONFIG.nclasses
 
     # extract the band we are working on from the directory path
     band = dir_path.split('/')[3]
 
-    if CONFIG.classification == 'both':
-        CONFIG.nclasses = 3
-    else:
-        CONFIG.nclasses = 2
-
+    # save configuration file in the directory path
     CONFIG.save_config(results_path)
 
-    # for each channel pair, compute the correlation
     table_zscore = np.zeros((len(channels), len(channels)))
     table_pvalue = np.zeros((len(channels), len(channels)))
     table_pearson = np.zeros((len(channels), len(channels)))
 
+    # compute correlation for each pair of channels
     for i in range(len(channels)):
         for j in range(i+1, len(channels)):
-            print(f'Computing correlation between {channels[i]} and {channels[j]}')
+            logger.info(f'Computing correlation between {channels[i]} and {channels[j]}\n')
 
             # if not computed already, compute correlation
             if table_zscore[i, j] != 0:
@@ -86,8 +95,8 @@ def save_correlation(dataset, channels, nclasses, raw, dir_path, sel_class=None)
 
             ch1, ch2 = channels[i], channels[j]
 
-            # if raw is true, use raw data, otherwise use masks
-            if raw:
+            # if mask is false, use raw data, otherwise use masks
+            if not CONFIG.mask:
                 dataset1 = dataset.select_channels(ch1)
                 dataset2 = dataset.select_channels(ch2)
             else:
@@ -103,7 +112,7 @@ def save_correlation(dataset, channels, nclasses, raw, dir_path, sel_class=None)
             zscore, pvalue = None, None
 
             if len(dataset1) > 1 and len(dataset2) > 1:
-                correlations = compute_correlation(dataset1, dataset2, file_path = results_path, raw=raw)
+                correlations = compute_correlation(dataset1, dataset2, file_path = results_path, mask = CONFIG.mask)
                 if correlations is not None:
                     zscore, pvalue, pearson = correlations
                 
@@ -120,137 +129,119 @@ def save_correlation(dataset, channels, nclasses, raw, dir_path, sel_class=None)
     with open(table_path, 'wb') as f:
         pickle.dump(info, f)
 
-    # generate plot
-    read_correlation_table(table_path, info, raw, band_range=band.replace('_', ' '), kind='zscore')
-    read_correlation_table(table_path, info, raw, band_range=band.replace('_', ' '), kind='pearson')
+    # generate plot and save them in the directory
+    plot_correlation_table(table_path, info, CONFIG.mask, band_range=band.replace('_', ' '), kind='zscore')
+    plot_correlation_table(table_path, info, CONFIG.mask, band_range=band.replace('_', ' '), kind='pearson')
 
 
 
-
-
-def selected_channels(dataset, args):
-
-    channels = []
-    # get channel names
-    ch_names = dataset.info.ch_names
-    selected_channels = args[1:]
-
-    # check if the channels are valid
-    for ch in selected_channels:
-        if ch not in ch_names:
-            print(f"Error: channel {ch} is not valid.", flush=True)
-            print_usage()
-        else:
-            print(ch)
-            channels.append(ch) # substitute default list with the ones provided by user
-
-    print('Selected channels: ', channels, flush=True)
-
-    return channels
-
-
-def get_dataset(input_channels, dir_path):
-    """
-    Return the dataset of eeg data for the specified number of subjects starting from the first one.
-    """
-    # load data from folder
-    sample_data_folder = './eeg_data/'
-
-    print(f"Saving results in {dir_path}", flush=True)
-
-    data_path = f'{dir_path}eeg_dataset_ns_{str(CONFIG.number_of_subjects)}_ch_{str(input_channels)}_nc_{str(CONFIG.nclasses)}_{str(CONFIG.classification)}_05sec.pkl'
-    dataset = read_eeg_data(sample_data_folder, data_path, input_channels=input_channels, number_of_subjects=CONFIG.number_of_subjects, type = CONFIG.classification, save_spec=False)
-
-    return dataset
-
-def correlation_per_class(dataset, dir_path):
+def correlation_per_class(dataset: EEGDataset, dir_path: str):
     """
     Compute correlation separately for each class of the dataset.
     """
     for i in range(CONFIG.nclasses):
-        print(f"Computing correlation for class {i}", flush=True)
-        print(len(dataset), len(dataset.raw), flush=True)
+        logger.info(f"Computing correlation for class {i} of classification problem {CONFIG.classification}, which corresponds to {CLASSIFICATIONS[CONFIG.classification][i]}")
         dataset.raw = np.array(dataset.raw)
-        print(dataset.raw[0].shape, flush=True)
         dataset_i = dataset.select_class(i)
         dir_path_i = dir_path + f'class_{i}/'
 
-        print(dataset_i.raw[0].shape, flush=True)
         if not os.path.exists(dir_path_i):
             os.makedirs(dir_path_i)
-        save_correlation(dataset_i, CONFIG.channels, CONFIG.nclasses, raw=CONFIG.raw, dir_path=dir_path_i)
+        save_correlation(dataset_i, dir_path=dir_path_i)
 
     
 
 if __name__ == "__main__":
-    
-    band_ranges = [0.5, 4, 8, 12, 30, 60]
-    bands = ['delta', 'theta', 'alpha', 'beta', 'gamma']
-    # check CONFIG to be coherent, if raw is false, compared between masks 
-    # which are learned on spectrograms (the full spectrum) so bandpass must be false
-    if not CONFIG.raw:
-        CONFIG.bandpass = False
 
-    assert CONFIG.input_channels == 1, "Error: input channels must be 1 because correlation is checked between single channels"
-    
-    if len(sys.argv) > 4:
-        print("Error: too many arguments provided.\n\n", flush=True)
-        print_usage()
-    
-    sample_data_folder = './eeg_data/'
+    # read arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-ns', '--number_of_subjects', type=int, default=36, help='number of subjects for which the correlation is computed')
+    parser.add_argument('-ct','--classification', type=str, default='cq', help='classification type (cq, ms, both)')
+    parser.add_argument('-ch', '--channels', type=lambda s: [str(item).upper() for item in s.split(',')], default=CHANNEL_NAMES, help='channels for which to compute the masks')
+    parser.add_argument('-ne', '--nelectrodes', type=int, default=20, help='number of electrodes to be considered')
+    parser.add_argument('-m', '--mask', type=bool, default=False, help='whether to use masks or raw eeg data')
+    parser.add_argument('-df', '--dataset_folder', type=str, default=DATA_FOLDER, help='folder where the dataset is stored')
+    parser.add_argument('-tw', '--timewindow', type=int, default=0.5, help='time window for the spectrogram')
 
-    dir_path = './results_correlation/'
-    if not os.path.exists(dir_path):
-        os.makedirs(dir_path)
+    # verify each channel is valid
+    assert all([ch in CHANNEL_NAMES for ch in parser.parse_args().channels]), "Error: at least one invalid channel name {}".format(parser.parse_args().channels)
+    # verify timewindow is in range [0.5, 1]
+    assert 0.5 <= parser.parse_args().timewindow <= 1, "Error: timewindow must be in range [0.5, 1]"
+    # verify dataset folder exists
+    assert os.path.exists(parser.parse_args().dataset_folder), "Error: dataset folder {} does not exist".format(parser.parse_args().datset_folder)
+
+    # if mask is false classification type must be one of the two [cq, ms] and number of classes must be 2
+    # indeed using three different classes makes sense only if a different classifier has been trained
+    # otherwise raw data are the same as for the ms classification 
+    assert parser.parse_args().mask or str(parser.parse_args().classification) in ['cq', 'ms', 'both'], "Error: invalid classification type"
+
+    args = parser.parse_args()
+    
+    # set the number of classes
+    if str(parser.parse_args().classification) == 'both':
+        args.nclasses = 3
+    else:
+        args.nclasses = 2
+
+    CONFIG = Config(**args.__dict__)
+
+    # create directory to store results
+    if not os.path.exists(RESULTS_FOLDER):
+        os.makedirs(RESULTS_FOLDER)
 
     # get dataset
-    dataset = get_dataset(CONFIG.input_channels, dir_path)
-    CONFIG.datset_size = len(dataset)
+    dataset = get_dataset()
+    CONFIG.dataset_size = len(dataset)
     
-    # compute correlation for each band
-    if CONFIG.raw:
-        for idx in range(len(band_ranges)-1):
-            print(f"Computing correlation for band {bands[idx]}", flush=True)
-            lowcut = band_ranges[idx]
-            highcut = band_ranges[idx+1]
+    if not CONFIG.mask:
+        # 1. compute correlation for each band
+        for idx in range(len(BAND_RANGES)-1):
+            logger.info(f"Computing correlation for band {BANDS[idx].upper()}\n")
+            lowcut = BAND_RANGES[idx]
+            highcut = BAND_RANGES[idx+1]
          
-            # filter dataset in the specified band
+            # filter dataset wrt the band
             filtered_dataset = dataset.filter_data(lowcut, highcut)
-            CONFIG.datset_size = len(filtered_dataset)
+            CONFIG.dataset_size = len(filtered_dataset)
 
-            # change channels if arguments are provided
-            if len(sys.argv) > 2:
-                CONFIG.channels = selected_channels(filtered_dataset, sys.argv) 
-
-            band_dir_path = dir_path + bands[idx] + '_band_'  + str(CONFIG.classification) + '/'
+            band_dir_path = RESULTS_FOLDER + '/' + BANDS[idx] + '_band_'  + str(CONFIG.classification) + '/'
 
             # split dataset in more datasets one for each class 
             correlation_per_class(filtered_dataset, band_dir_path) 
    
-        # compute correlation for the full spectrum
-        band_dir_path = dir_path +  '/full_spectrum_' + str(CONFIG.classification) + '/'
-        
-
-        if not os.path.exists(dir_path):
+        # 2. compute correlation for the full spectrum
+        band_dir_path = RESULTS_FOLDER + '/' +  '/full_spectrum_' + str(CONFIG.classification) + '/'
+        if not os.path.exists(band_dir_path):
             os.makedirs(band_dir_path) 
 
-        # compute correlation for each class for the full spectrum
         correlation_per_class(dataset, band_dir_path)
     
-    
     else:
-        print(f"Computing correlation for the whole dataset", flush=True)
+        logger.info(f"Computing correlation for the whole dataset\n")
         #dataset.raw = np.array(dataset.raw)
 
-        dir_path += 'full_spectrum_masks_both' 
-        #dir_path  += '/class_boths/'
-        sel_class = 2
-        dir_path += f'/class_{sel_class}/' if sel_class is not None else '/class_both/'
-        print(dir_path, flush=True)
-        if not os.path.exists(dir_path):
-            os.makedirs(dir_path)
-        
-        save_correlation(dataset, CONFIG.channels, CONFIG.nclasses, raw=CONFIG.raw, dir_path=dir_path, sel_class=sel_class)
+        res_path = RESULTS_FOLDER + '/full_spectrum_masks_' + str(CONFIG.classification) + '/'
+        if not os.path.exists(res_path):
+            # print error and exit if folder does not exist
+            sys.exit(f"Error: masks folder {res_path} does not exist")
+
+        # save correlation for each class
+        for i in range(CONFIG.nclasses):
+
+            class_path = res_path +  f'/class_{i}/'
+
+            if not os.path.exists(class_path):
+                os.makedirs(class_path)
+            
+            for i in range(CONFIG.nclasses):
+                save_correlation(dataset, dir_path=class_path, sel_class=i)
+
+        # compute correlation for the whole dataset
+        all_path = res_path + '/class_both/'
+        save_correlation(dataset, dir_path=all_path)
+
+
+    
 
     
     
