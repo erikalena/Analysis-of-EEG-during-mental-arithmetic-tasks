@@ -32,8 +32,8 @@ class Config:
     nelectrodes: int = 20               # number of electrodes to be considered
     input_channels: int = 1             # number of input channels (always 1, it can be the raw data or the mask but computed for one channel at a time)
     mask: bool = False                  # whether to use masks or eeg data
-    dataset_folder: str = DATA_FOLDER   # folder where the dataset is stored
-    timewindow: float = 0.5             # time window for the spectrogram
+    data_folder: str = DATA_FOLDER      # folder where the dataset is stored
+    timewindow: float = 1               # time window for the spectrogram
     channels: list = field(default_factory=lambda: CHANNEL_NAMES)  # channels for which to compute the correlation
     
     def save_config(self, file_path):
@@ -44,21 +44,6 @@ class Config:
             for key, value in self.__dict__.items():
                 f.write(f'{key}: {value}\n')
 
-def get_dataset():
-    """
-    Return the dataset of eeg data for the specified number 
-    of subjects starting from the first one.
-    """
-
-    logger.info(f"Saving results in {RESULTS_FOLDER}")
-
-    sample_data_folder = CONFIG.dataset_folder
-    input_channels = CONFIG.input_channels
-
-    data_path = f'{DATASET_FOLDER}/eeg_dataset_ns_{str(CONFIG.number_of_subjects)}_ch_{str(input_channels)}_nc_{str(CONFIG.nclasses)}_{str(CONFIG.classification)}_{str(CONFIG.timewindow).replace(".", "")}sec.pkl'
-    dataset = read_eeg_data(sample_data_folder, data_path, input_channels, number_of_subjects=CONFIG.number_of_subjects, type = CONFIG.classification, time_window=CONFIG.timewindow, save_spec=False)
-
-    return dataset
 
 def save_correlation(dataset: EEGDataset, dir_path: str, sel_class: int=None):
     """
@@ -160,15 +145,15 @@ if __name__ == "__main__":
     parser.add_argument('-ch', '--channels', type=lambda s: [str(item).upper() for item in s.split(',')], default=CHANNEL_NAMES, help='channels for which to compute the masks')
     parser.add_argument('-ne', '--nelectrodes', type=int, default=20, help='number of electrodes to be considered')
     parser.add_argument('-m', '--mask', type=bool, default=False, help='whether to use masks or raw eeg data')
-    parser.add_argument('-df', '--dataset_folder', type=str, default=DATA_FOLDER, help='folder where the dataset is stored')
-    parser.add_argument('-tw', '--timewindow', type=int, default=0.5, help='time window for the spectrogram')
+    parser.add_argument('-df', '--data_folder', type=str, default=DATA_FOLDER, help='folder where the data are stored')
+    parser.add_argument('-tw', '--timewindow', type=int, default=1, help='time window for the spectrogram')
 
     # verify each channel is valid
     assert all([ch in CHANNEL_NAMES for ch in parser.parse_args().channels]), "Error: at least one invalid channel name {}".format(parser.parse_args().channels)
     # verify timewindow is in range [0.5, 1]
     assert 0.5 <= parser.parse_args().timewindow <= 1, "Error: timewindow must be in range [0.5, 1]"
     # verify dataset folder exists
-    assert os.path.exists(parser.parse_args().dataset_folder), "Error: dataset folder {} does not exist".format(parser.parse_args().datset_folder)
+    assert os.path.exists(parser.parse_args().data_folder), "Error: dataset folder {} does not exist".format(parser.parse_args().data_folder)
 
     # if mask is false classification type must be one of the two [cq, ms] and number of classes must be 2
     # indeed using three different classes makes sense only if a different classifier has been trained
@@ -190,7 +175,8 @@ if __name__ == "__main__":
         os.makedirs(RESULTS_FOLDER)
 
     # get dataset
-    dataset = get_dataset()
+    dataset = read_eeg_data(CONFIG.data_folder, DATASET_FOLDER, CONFIG.input_channels, number_of_subjects=CONFIG.number_of_subjects, type = CONFIG.classification, time_window=CONFIG.timewindow, save_spec=False)
+
     CONFIG.dataset_size = len(dataset)
     
     if not CONFIG.mask:

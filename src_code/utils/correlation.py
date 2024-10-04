@@ -38,7 +38,7 @@ def compute_id(dataset, nrep=10) -> tuple:
     data = Data(dataset, maxk=2) 
     del dataset
     
-    return data.compute_id_2NN(decimation=0.9, n_iter=nrep)[:2]
+    return data.compute_id_2NN(data_fraction=0.9, n_iter=nrep)[:2]
 
 def compute_correlation(dataset1, dataset2, file_path: str, mask: bool=False) -> tuple:
     """
