@@ -340,17 +340,13 @@ def build_dataloader(dataset: EEGDataset, batch_size: int, train_rate: float = 0
 
     min_spectr = np.min([torch.min(torch.abs(dataset_tmp[i][0])) for i in range(len(dataset_tmp))])
     max_spectr = np.max([torch.max(torch.abs(dataset_tmp[i][0])) for i in range(len(dataset_tmp))])
-    min_raw = np.min([np.min(dataset_tmp[i][1]) for i in range(len(dataset_tmp))])
-    max_raw = np.max([np.max(dataset_tmp[i][1]) for i in range(len(dataset_tmp))])
+
 
     # normalize spectrograms
     for idx, _ in enumerate(dataset):
         spectrogram = torch.abs(dataset_tmp.spectrograms[idx])
         dataset_tmp.spectrograms[idx] = (spectrogram - min_spectr) / (max_spectr - min_spectr)
-    # normalize raw data
-    for idx, _ in enumerate(dataset):
-        raw = dataset_tmp.raw[idx]
-        dataset_tmp.raw[idx] = (raw - min_raw) / (max_raw - min_raw)
+    
 
     train_dataset, valid_dataset, test_dataset = torch.utils.data.random_split(dataset_tmp, [train_size, valid_size, test_size])
     del dataset_tmp

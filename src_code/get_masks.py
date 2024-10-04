@@ -31,7 +31,7 @@ class Config:
     save_figures: bool = True
     input_channels: int = len(CHANNEL_NAMES)   
     timewindow: float = 1.0
-    lam: float = 0.01
+    lam: float = 0.001
     start_idx: int = 60
     end_idx: int = 0
     device: str = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -113,7 +113,7 @@ if __name__ == "__main__":
     parser.add_argument('-mp', '--model_path', type=str, default='./results_classifier2/resnet18_ms_20240924-225218/best_model_params.pt', help='path to the model which must take as input data with just one channel')
     parser.add_argument('-sf', '--save_figures', type=bool, default=True, help='save figures')
     parser.add_argument('-tw', '--timewindow', type=float, default=0.5, help='time window for the spectrogram')
-    parser.add_argument('--lam', type=float, default=0.01, help='regularization parameter')
+    parser.add_argument('--lam', type=float, default=0.001, help='regularization parameter')
 
     args = parser.parse_args()
     CONFIG = Config(**args.__dict__)

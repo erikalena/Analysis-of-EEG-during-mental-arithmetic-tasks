@@ -99,7 +99,7 @@ The extraction of the frequency masks can be performed using the following comma
 
 ```python
 cd src_code
-python get_class_masks.py -ns 36 -ct cq
+python get_class_mask.py -ns 36 -ct cq
 ```
 
 The results are saved in a predefined folder, containing the configuration file and a specific folder for each class. Each class folder contains the masks for each electrode (channel) saved in a .npy file, a .png file providing a visual representation of the mask is also saved.

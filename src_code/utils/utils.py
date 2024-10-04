@@ -22,11 +22,11 @@ def load_dataset(data_path: str):
     dataset = None
     if os.path.isfile(data_path):
         with open(data_path, 'rb') as f:
-            print(data_path, flush=True)
+            logger.info(data_path)
             dataset = pickle.load(f)
         return dataset
     else:
-        print("Error: file not found", flush=True)
+        logger.error("Error: file not found")
         exit(0)
 
 def save_dataloaders(dataloaders: dict, file_path: str):

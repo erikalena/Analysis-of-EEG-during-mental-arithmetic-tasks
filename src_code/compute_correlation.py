@@ -33,7 +33,7 @@ class Config:
     input_channels: int = 1             # number of input channels (always 1, it can be the raw data or the mask but computed for one channel at a time)
     mask: bool = False                  # whether to use masks or eeg data
     data_folder: str = DATA_FOLDER      # folder where the dataset is stored
-    timewindow: float = 1               # time window for the spectrogram
+    timewindow: float = 0.5               # time window for the spectrogram
     channels: list = field(default_factory=lambda: CHANNEL_NAMES)  # channels for which to compute the correlation
     
     def save_config(self, file_path):
@@ -146,7 +146,7 @@ if __name__ == "__main__":
     parser.add_argument('-ne', '--nelectrodes', type=int, default=20, help='number of electrodes to be considered')
     parser.add_argument('-m', '--mask', type=bool, default=False, help='whether to use masks or raw eeg data')
     parser.add_argument('-df', '--data_folder', type=str, default=DATA_FOLDER, help='folder where the data are stored')
-    parser.add_argument('-tw', '--timewindow', type=int, default=1, help='time window for the spectrogram')
+    parser.add_argument('-tw', '--timewindow', type=int, default=.5, help='time window for the spectrogram')
 
     # verify each channel is valid
     assert all([ch in CHANNEL_NAMES for ch in parser.parse_args().channels]), "Error: at least one invalid channel name {}".format(parser.parse_args().channels)

@@ -70,7 +70,12 @@ def get_masks(dataset: EEGDataset):
 
     os.mkdir(CONFIG.dir_path) if not os.path.isdir(CONFIG.dir_path) else None
     
-    for i in range(CONFIG.nclasses):
+    nclasses = CONFIG.nclasses 
+    # adjust number of classes for classification type in ['ms', 'cq']
+    if CONFIG.classification in ['ms', 'cq']:
+        nclasses = 2
+   
+    for i in range(nclasses):
         logger.info(f'Training mask for class: {i}')
 
         # make a directory for the masks of the class
@@ -137,12 +142,12 @@ def get_masks(dataset: EEGDataset):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-cl', '--classification', type=str, default='ms', help='classification type (cq, ms, both)')
+    parser.add_argument('-ct', '--classification', type=str, default='ms', help='classification type (cq, ms, both)')
     parser.add_argument('-ic', '--input_channels', type=int, default=len(CHANNEL_NAMES), help='number of input channels')
     parser.add_argument('-ns', '--number_of_subjects', type=int, default=5, help='number of subjects to consider')
-    parser.add_argument('-mp', '--model_path', type=str, default='./results_classifier2/resnet18_ms_20240924-225218/best_model_params.pt', help='path to the model')    
+    parser.add_argument('-mp', '--model_path', type=str, default='./results_classifier/resnet18_ms/best_model_params.pt', help='path to the model')    
     parser.add_argument('-sf', '--save_figures', type=bool, default=True, help='save figures')
-    parser.add_argument('--lam', type=float, default=0.01, help='regularization parameter')
+    parser.add_argument('--lam', type=float, default=0.001, help='regularization parameter')
 
     args = parser.parse_args()
     CONFIG = Config(**args.__dict__)
@@ -159,7 +164,7 @@ if __name__ == "__main__":
                 CONFIG.nclasses = int(line.split(':')[-1].strip())
             elif 'network_type' in line:
                 CONFIG.network_type = line.split(':')[-1].strip()
-
+        
     os.mkdir(RESULTS_FOLDER) if not os.path.isdir(RESULTS_FOLDER) else None
     CONFIG.dir_path = f'{RESULTS_FOLDER}/{CONFIG.network_type}_{CONFIG.classification}_{CONFIG.curr_time}' # directory to save classifier results
     os.mkdir(CONFIG.dir_path) if not os.path.isdir(CONFIG.dir_path) else None

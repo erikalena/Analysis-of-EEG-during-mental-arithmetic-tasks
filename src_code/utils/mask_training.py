@@ -17,7 +17,7 @@ import torch
 import torchvision
 from utils.masks import Mask, MaskedClf
 from utils.utils import logger  
-from src_code.utils.plot_functions import plot_loss
+from utils.plot_functions import plot_loss
 
 def mask_training(base_model: torchvision.models, spectrograms: torch.tensor, raw_sigs: torch.tensor, labels: torch.tensor, 
               ids: str, channels: str, input_channels: int, lam: float, results_folder: str, img_size: tuple, figures: bool = False):
@@ -237,7 +237,7 @@ def class_mask_training(base_model: torchvision.models, spectrograms: torch.tens
     - raw_sigs: tensor containing corresponding 1D eeg signals
     - labels: tensor containing the image labels
     - ids: ids of the images to be processed
-    - channelS: channels from which the images (spectrograms) were obtained
+    - channels: channels from which the images (spectrograms) were obtained
     - input_channels: number of channels of the images
     - lam: parameter governing l_1 regularization
     - path: path to the folder used to store masks
@@ -297,8 +297,6 @@ def class_mask_training(base_model: torchvision.models, spectrograms: torch.tens
         if (epoch > 100 and abs(l.item() - np.mean(losses[-20:]))<1e-3) or epoch > 3000:
             mask=model.mask.M.detach().cpu()
             mask=mask.squeeze().numpy()
-            if np.sum(mask) <= 0:
-                logger.info('Mask is all zeros, skipping...')
 
             logger.info(f'Training time: {time.time()-since} - epoch {epoch}')
 

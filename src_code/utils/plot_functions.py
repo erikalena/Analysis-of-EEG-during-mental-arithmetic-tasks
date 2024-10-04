@@ -27,7 +27,7 @@ def plot_training_results(file_path: str):
     text = open(file_path, 'r').read()
 
     # read results and plot them
-    train_loss, val_loss, train_acc, val_acc = [], [], [], []
+    train_loss, train_acc, val_loss, val_acc = [], [], [], []
 
     for line in text.split('\n'):
         # skip non-numerical lines
@@ -38,8 +38,8 @@ def plot_training_results(file_path: str):
         line = line.split(',')
         # convert to float
         train_loss.append(float(line[1]))
-        val_loss.append(float(line[2]))
-        train_acc.append(float(line[3]))
+        train_acc.append(float(line[2]))
+        val_loss.append(float(line[3]))
         val_acc.append(float(line[4]))
 
     sns.set_style('darkgrid')
@@ -115,8 +115,8 @@ def plot_loss(model: torch.nn.Module, losses: list, path: str, channels: list, f
 
     mask=model.mask.M.detach().cpu()
     mask=mask.squeeze().numpy()
-        
-    for j in range(len(channels)):
+   
+    for j in range(len(channels[0])):
         # get mask for each channel
         mask_ch = mask[j] 
         filename = str(channels[0][j])

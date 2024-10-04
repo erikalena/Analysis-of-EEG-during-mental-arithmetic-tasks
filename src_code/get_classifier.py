@@ -169,14 +169,14 @@ if __name__ == "__main__":
     
     
     # add a certain number of samples (all zeros) to the dataset with label 2 (fictitious class)
-    """ for i in range(1000):
+    for i in range(1000):
         dataset.spectrograms.append(np.zeros(dataset.spectrograms[0].shape))
         dataset.labels.append(2)
         dataset.raw = list(dataset.raw)
         dataset.raw.append(np.zeros(dataset.raw[0].shape))
         dataset.channel.append(list(dataset.channel[0]))
         dataset.id.append(list(dataset.id[0]))
-        CONFIG.nclasses = 3 """
+        CONFIG.nclasses = 3
         
     CONFIG.dataset_size = len(dataset)
     logger.info(dataset.spectrograms[0].shape)
